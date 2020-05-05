@@ -938,15 +938,64 @@ class Agent {
         .click({force:true})
     };
 
-    searchSendingHistory() {
-
+    searchSendingHistory(fromCreateDate,toCreateDate,fromScheduleDate,toScheduleDate,brn) {
+        cy
+        .contains("LS GỬI TIN")
+        .click({force:true})
+        //ngay dat lich
+        cy
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromCreateDate")
+        .clear()
+        .type(fromCreateDate)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToCreateDate")
+        .clear()
+        .type(toCreateDate);
+        //ngay gui tin
+        cy
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromScheduleDate")
+        .clear()
+        .type(fromScheduleDate)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToScheduleDate")
+        .clear()
+        .type(toScheduleDate)
+        //chon brandname
+        cy
+        .contains(brn)
+        .click({force:true})
+        cy
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_Button1")
+        .click()
+        cy
+        .contains("Đặt lệnh")
+        .should('be.visible');
     };
 
     searchOrderHistory() {
 
     };
 
+    addContact(contactName,address,phoneNumber,email){
+        cy
+        .contains("LIÊN HỆ")
+        .click({force:true})
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtName")
+        .type(contactName)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtAddress")
+        .type(address)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtPhoneNumber")
+        .type(phoneNumber)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtEmail")
+        .type(email)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnAdd")
+        .click()
+        cy
+        .contains("Thêm mới thành công")
+        .should('be.visible');
+
+    }
+
     changePassword() {
+
     };
 
 }

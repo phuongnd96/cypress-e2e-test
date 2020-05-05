@@ -301,11 +301,23 @@ context("Agent tra cứu lịch sử gửi tin",()=>{
         .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
         .doLogin("accVIVASTEST_UR132_VTT","Tr1@123")
     })
-    it.only("Agent tra cuu lich su gui tin",()=>{
-        
+    it("Agent tra cuu lich su gui tin",()=>{
+        agent
+        .searchSendingHistory("05/05/2020","05/05/2020","05/05/2020","05/05/2020","BRN1");
     })
 })
 
+context("CA NHAN",()=>{
+    beforeEach(()=>{
+        agent
+        .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
+        .doLogin("accVIVASTEST_UR132_VTT","Tr1@123")
+    })
+    it.only("Them moi lien he",()=>{
+        agent
+        .addContact("phuong test","phuongtest","84912158656","abc123@gmail.com");
+    })
+})
 
 
 
