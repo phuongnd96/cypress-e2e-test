@@ -1,6 +1,7 @@
 
 import AGENT from '../PageObjects/Agent';
 import ADMIN from '../PageObjects/Admin';
+import { before } from 'mocha';
 const agent = new AGENT();
 const admin = new ADMIN();
 
@@ -213,15 +214,15 @@ context.skip("Agent quản lý giấy tờ khách hàng lẻ", () => {
         agent.viewESMSCustomerInfo("#AAAAPHUONG");
     })
 })
-context.skip("Agent duyệt nhãn",()=>{
-    beforeEach(()=>{
+context.skip("Agent duyệt nhãn", () => {
+    beforeEach(() => {
         agent
-        .visitAgentPortal("http://ads.vinaphone.com.vn/agent/Home.aspx")
-        .doLogin("DH_CS","Tr1@123");
+            .visitAgentPortal("http://ads.vinaphone.com.vn/agent/Home.aspx")
+            .doLogin("DH_CS", "Tr1@123");
     })
-    specify.only("Agent duyệt nhãn",()=>{
+    specify.only("Agent duyệt nhãn", () => {
         agent
-        .approveOrRejectBrandName("Actived","Cam on","Approve")
+            .approveOrRejectBrandName("Actived", "Cam on", "Approve")
     })
 })
 
@@ -259,14 +260,35 @@ context.skip("Agent quản lý API Khách hàng", () => {
     });
 })
 
-context("Quan ly goi tin",()=>{
+context.skip("Quản lý gói tin", () => {
+    beforeEach(() => {
+        agent
+            .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
+            .doLogin("accVIVASTEST_UR132_VTT", "Tr1@123");
+    })
+    specify("Gói tin đại lý", () => {
+        agent
+            .findAgentOrder("Vinaphone", "ĐIỆN LỰC", "test api 3");
+        cy
+            .get("@sendNumber")
+            .invoke('text').then((text) => {
+                expect(parseInt(text)).to.equal(0) //số tin đã gửi
+            });
+        cy.get("@smsRemain").invoke('text').then((text) => {
+            expect(parseInt(text)).to.equal(100)    //số tin còn lại
+        })
+
+    })
+    specify("Gói tin khách hàng lẻ", () => {
+        agent
+        .findCustomerOrder()
+    })
+})
+
+describe("Agent tra cứu lịch sử gửi tin",()=>{
     beforeEach(()=>{
         agent
         .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
-        .doLogin("accDL_testphuongQC","Tr1@123");
-    })
-    specify.only("Find agent Order",()=>{
-
     })
 })
 

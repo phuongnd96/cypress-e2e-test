@@ -901,12 +901,41 @@ class Agent {
             })
     };
 
-    findAgentOrder() {
+    findAgentOrder(serviceProvider,brnType,orderName) {
+        cy
+        .contains("GÓI TIN ĐẠI LÝ")
+        .click({force:true})
+        cy
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlContractType")
+        .should('be.disabled');
+        cy
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator")
+        .select(serviceProvider)
+        cy.wait(500);
+        cy
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLableType")
+        .select(brnType)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
+        .click();
+        cy
+        .contains(orderName)
+        .parent()
+        .parent()
+        .within(()=>{
+            cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lblSend_number")
+            .as('sendNumber');
+            cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lbSmsRemain")
+            .as('smsRemain');
+        })
 
     };
-
+    //làm nốt case này
     findCustomerOrder() {
-
+        cy
+        .contains("GÓI TIN KH LẺ")
+        .click({force:true})
     };
 
     searchSendingHistory() {
