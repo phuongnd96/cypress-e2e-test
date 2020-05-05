@@ -1,11 +1,21 @@
 
 import AGENT from '../PageObjects/Agent';
 import ADMIN from '../PageObjects/Admin';
-import { before } from 'mocha';
+
 const agent = new AGENT();
 const admin = new ADMIN();
 
-context.skip("Agent quản lý khách hàng", () => {
+context("Demo",()=>{
+    beforeEach(()=>{
+        agent
+            .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
+            .doLogin("accVIVASTEST_UR132_VTT", "Tr1@123");
+    })
+    it("",()=>{
+
+    })
+})
+context("Agent quản lý khách hàng", () => {
     beforeEach(() => {
         agent
             .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
@@ -220,7 +230,7 @@ context.skip("Agent duyệt nhãn", () => {
             .visitAgentPortal("http://ads.vinaphone.com.vn/agent/Home.aspx")
             .doLogin("DH_CS", "Tr1@123");
     })
-    specify.only("Agent duyệt nhãn", () => {
+    specify("Agent duyệt nhãn", () => {
         agent
             .approveOrRejectBrandName("Actived", "Cam on", "Approve")
     })
@@ -285,12 +295,17 @@ context.skip("Quản lý gói tin", () => {
     })
 })
 
-describe("Agent tra cứu lịch sử gửi tin",()=>{
+context("Agent tra cứu lịch sử gửi tin",()=>{
     beforeEach(()=>{
         agent
         .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
+        .doLogin("accVIVASTEST_UR132_VTT","Tr1@123")
+    })
+    it.only("Agent tra cuu lich su gui tin",()=>{
+        
     })
 })
+
 
 
 
