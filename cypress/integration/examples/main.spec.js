@@ -5,16 +5,27 @@ import ADMIN from '../PageObjects/Admin';
 const agent = new AGENT();
 const admin = new ADMIN();
 
-context("Demo",()=>{
+context("Admin",()=>{
     beforeEach(()=>{
-        agent
-            .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
-            .doLogin("accVIVASTEST_UR132_VTT", "Tr1@123");
+        admin
+            .visitAdminPortal("http://10.84.70.164:8089/Login.aspx")
+            .doLogin("test852017", "Admin@123");
     })
-    it("",()=>{
+    it("Them moi nguoi dung he thong",()=>{
+        admin.addSystemUser("VIEWER","tes12abt","testabc");
+    })
+    it("Them moi nha cung cap",()=>{
+        admin.addVendorUserAccount("Công ty test","ven1dor1 test","Tr11@123",true)
+    })
+    it("Them moi API cho nguoi dung",()=>{
+        admin
+        .addAgentAPI("VIVASTEST_UR132_VTT","Nguyễn Duy Phương","hehe","Tr1@123","*")
 
     })
 })
+
+
+
 context("Agent quản lý khách hàng", () => {
     beforeEach(() => {
         agent
@@ -313,11 +324,12 @@ context("CA NHAN",()=>{
         .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
         .doLogin("accVIVASTEST_UR132_VTT","Tr1@123")
     })
-    it.only("Them moi lien he",()=>{
+    it("Them moi lien he",()=>{
         agent
         .addContact("phuong test","phuongtest","84912158656","abc123@gmail.com");
     })
 })
+
 
 
 
