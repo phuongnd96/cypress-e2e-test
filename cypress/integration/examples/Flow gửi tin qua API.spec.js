@@ -97,10 +97,10 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify("Gửi tin qua API tin nội mạng site bank", () => {
+    specify.skip("Gửi tin qua API tin nội mạng site bank", () => {
         agent
             .request_send_sms_nonbank_bank(
-                cfg.url.api.nonbank
+                cfg.url.api.bank
                 , cfg.apiArgs.bank.cskh.brnID
                 , cfg.apiArgs.bank.cskh.contractTypeID
                 , cfg.apiArgs.bank.cskh.contractID
@@ -120,7 +120,28 @@ context("Gửi tin qua API", () => {
                 })
     })
     specify.skip("Gửi tin qua API SMSORDER", () => {
-
+        agent.
+            request_send_sms_SMSORDER(
+                cfg.url.api.smsorder
+                , cfg.apiArgs.smsorder.cskh.brnID
+                , cfg.apiArgs.smsorder.cskh.contractTypeID
+                , cfg.apiArgs.smsorder.cskh.contractID
+                , cfg.apiArgs.smsorder.cskh.templateID
+                , cfg.apiArgs.numberOfParams
+                , cfg.apiArgs.content
+                , cfg.apiArgs.scheduletime
+                , cfg.apiArgs.mobilelist.vina
+                , cfg.apiArgs.istelcosub
+                , cfg.apiArgs.smsorder.cskh.agentID
+                , cfg.apiArgs.smsorder.cskh.apiUsername
+                , cfg.apiArgs.smsorder.cskh.apiPassword
+                , cfg.apiArgs.smsorder.cskh.username
+                , 0
+                , cfg.apiArgs.smsmorder.cskh.saleOrderID
+                , cfg.apiArgs.smsmorder.cskh.packageID).then((res) => {
+                    console.log(res);
+                    agent.assertRespone(res, 0);
+                })
     })
     specify("Đại lý VIễn thông thành phố gửi tin qua API với API user khác IP set trong mục Quản lý API của Admin Portal", () => {
 
@@ -146,9 +167,14 @@ context("Gửi tin qua API", () => {
                 })
     })
 
-    context("Redis", () => {
+    context("Redis API nonbank", () => {
         describe("Đại lý gửi tin qua API với account có trang thái inactive", () => {
             beforeEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .changeAgentStatus("DL_testphuong", true)
+                cy.wait(10000);
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
                     .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
@@ -179,13 +205,152 @@ context("Gửi tin qua API", () => {
                         })
             })
             //---------------------------------------------------------------------------------//          
+        })
+        describe("Đại lý gửi tin với nhãn vừa bị reject", () => {
+            beforeEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .rejectBrandNameVinaphone(cfg.portalArgs.VTT.cskh.brn);
+            })
+            it("Đại lý gửi tin với nhãn vừa bị reject", () => {
+                agent
+                    .request_send_sms_nonbank_bank(
+                        cfg.url.api.nonbank
+                        , cfg.apiArgs.nonbank.cskh.brnID
+                        , cfg.apiArgs.nonbank.cskh.contractTypeID
+                        , cfg.apiArgs.nonbank.cskh.contractID
+                        , cfg.apiArgs.nonbank.cskh.templateID
+                        , cfg.apiArgs.numberOfParams
+                        , cfg.apiArgs.content
+                        , cfg.apiArgs.scheduletime
+                        , cfg.apiArgs.mobilelist.vina
+                        , cfg.apiArgs.istelcosub
+                        , cfg.apiArgs.nonbank.cskh.agentID
+                        , cfg.apiArgs.nonbank.cskh.apiUsername
+                        , cfg.apiArgs.nonbank.cskh.apiPassword
+                        , cfg.apiArgs.nonbank.cskh.username
+                        , 0).then((res) => {
+                            console.log(res);
+                            agent.assertRespone(res, 14);
+                        })
+            })
             afterEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
                     .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
-                    .changeAgentStatus("DL_testphuong", true);
+                    .approveBrandName(cfg.portalArgs.VTT.cskh.brn);
             })
         })
+        describe("Đại lý gửi tin với template vừa bị reject", () => {
+            beforeEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .rejectTemplate(cfg.portalArgs.VTT.cskh.templateID);
+            })
+            it("Đại lý gửi tin với template vừa bị reject", () => {
+                agent
+                    .request_send_sms_nonbank_bank(
+                        cfg.url.api.nonbank
+                        , cfg.apiArgs.nonbank.cskh.brnID
+                        , cfg.apiArgs.nonbank.cskh.contractTypeID
+                        , cfg.apiArgs.nonbank.cskh.contractID
+                        , cfg.apiArgs.nonbank.cskh.templateID
+                        , cfg.apiArgs.numberOfParams
+                        , cfg.apiArgs.content
+                        , cfg.apiArgs.scheduletime
+                        , cfg.apiArgs.mobilelist.vina
+                        , cfg.apiArgs.istelcosub
+                        , cfg.apiArgs.nonbank.cskh.agentID
+                        , cfg.apiArgs.nonbank.cskh.apiUsername
+                        , cfg.apiArgs.nonbank.cskh.apiPassword
+                        , cfg.apiArgs.nonbank.cskh.username
+                        , 0).then((res) => {
+                            console.log(res);
+                            agent.assertRespone(res, 7);
+                        })
+            })
+            afterEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .approveTemplate(cfg.portalArgs.VTT.cskh.templateID);
+            })
+        })
+        describe("Gửi tin nội mạng với từ khóa vừa được chặn", () => {
+            beforeEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .create_vinaphone_keyword("phuongtestkeyword")
+            })
+            it("Gửi tin với từ khóa vừa được chặn", () => {
+                agent
+                    .request_send_sms_nonbank_bank(
+                        cfg.url.api.nonbank
+                        , cfg.apiArgs.nonbank.cskh.brnID
+                        , cfg.apiArgs.nonbank.cskh.contractTypeID
+                        , cfg.apiArgs.nonbank.cskh.contractID
+                        , cfg.apiArgs.nonbank.cskh.templateID
+                        , cfg.apiArgs.numberOfParams
+                        , "phuongtestkeywordabc"
+                        , cfg.apiArgs.scheduletime
+                        , cfg.apiArgs.mobilelist.vina
+                        , cfg.apiArgs.istelcosub
+                        , cfg.apiArgs.nonbank.cskh.agentID
+                        , cfg.apiArgs.nonbank.cskh.apiUsername
+                        , cfg.apiArgs.nonbank.cskh.apiPassword
+                        , cfg.apiArgs.nonbank.cskh.username
+                        , 30).then((res) => {
+                            console.log(res);
+                            agent.assertRespone(res, 7);
+                        })
+            })
+            afterEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .delete_vinaphone_keyword("phuongtestkeyword")
+            })
+        })
+        describe("Gửi tin với đại lý đổi từ 4MT sang không giới hạn", () => {
+            beforeEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .change_agent_status_toUnLimited(cfg.portalArgs.VTT.cskh.adserName);
+            })
+            it("Gửi tin với đại lý đổi từ 4MT sang không giới hạn", () => {
+                agent
+                    .request_send_sms_nonbank_bank(
+                        cfg.url.api.nonbank
+                        , cfg.apiArgs.nonbank.cskh.brnID
+                        , cfg.apiArgs.nonbank.cskh.contractTypeID
+                        , cfg.apiArgs.nonbank.cskh.contractID
+                        , cfg.apiArgs.nonbank.cskh.templateID
+                        , cfg.apiArgs.numberOfParams
+                        , "Test Cypress adkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaksldakadkaslkdaldkalskdlasdlsakdlakdlkalsdklaskdlaksldaa"
+                        , cfg.apiArgs.scheduletime
+                        , cfg.apiArgs.mobilelist.vina
+                        , cfg.apiArgs.istelcosub
+                        , cfg.apiArgs.nonbank.cskh.agentID
+                        , cfg.apiArgs.nonbank.cskh.apiUsername
+                        , cfg.apiArgs.nonbank.cskh.apiPassword
+                        , cfg.apiArgs.nonbank.cskh.username
+                        , 0).then((res) => {
+                            console.log(res);
+                            agent.assertRespone(res, 7);
+                        })
+            })
+            afterEach(() => {
+                admin
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw)
+                    .change_agent_status_toLimited(cfg.portalArgs.VTT.cskh.adserName);
+            })
+        })
+
     })
 })
 

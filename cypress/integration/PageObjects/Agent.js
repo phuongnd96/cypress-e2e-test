@@ -1,4 +1,4 @@
-import { get_adser, get_template, get_contract, create_template_CSKH, create_template_QC, get_label, send_sms_list } from '../PageObjects/ApiRequests';
+import * as __ from '../PageObjects/ApiRequests';
 
 class Agent {
     visitAgentPortal(url) {
@@ -654,30 +654,30 @@ class Agent {
     };
 
     request_get_adser(url, agentID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_adser(agentID, apiUsername, apiPassword));
+        return cy.request("POST", url, __.get_adser(agentID, apiUsername, apiPassword));
     };
-
+    
     request_get_template(url, agentID, labelID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_template(agentID, labelID, apiUsername, apiPassword))
+        return cy.request("POST", url, __.get_template(agentID, labelID, apiUsername, apiPassword))
     };
 
     request_get_contract(url, agentID, adserID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_contract(agentID, adserID, apiUsername, apiPassword))
+        return cy.request("POST", url, __.get_contract(agentID, adserID, apiUsername, apiPassword))
 
     };
 
     request_create_template_CSKH(url, agentID, labelID, content, samplemessage, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, create_template_CSKH(agentID, labelID, content, samplemessage, apiUsername, apiPassword, username))
+        return cy.request("POST", url, __.create_template_CSKH(agentID, labelID, content, samplemessage, apiUsername, apiPassword, username))
 
     };
 
     request_create_template_QC(url, agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, create_template_QC(agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username))
+        return cy.request("POST", url, __.create_template_QC(agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username))
 
     };
 
     request_get_label(url, agentID, adserID, contractID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_label(agentID, adserID, contractID, apiUsername, apiPassword))
+        return cy.request("POST", url, __.get_label(agentID, adserID, contractID, apiUsername, apiPassword))
 
     };
 
@@ -697,7 +697,7 @@ class Agent {
         , apiPassword
         , username
         , dataCoding) {
-        return cy.request("POST", url, send_sms_list(
+        return cy.request("POST", url, __.send_sms_list(
             brnID
             , contracTypeID
             , contractID
@@ -715,6 +715,42 @@ class Agent {
 
     };
     
+    request_send_sms_SMSORDER(
+        url
+        , brnID
+        , contracTypeID
+        , contractID
+        , templateID
+        , numberOfParams
+        , content
+        , scheduletime
+        , mobilelist
+        , istelcosub
+        , agentID
+        , apiUsername
+        , apiPassword
+        , username
+        , dataCoding
+        , saleOrderID
+        , packageID
+    ) {
+        return cy.request("POST",url,__.send_sms_list_SMSORDER(brnID
+            , contracTypeID
+            , contractID
+            , templateID
+            , numberOfParams
+            , content
+            , scheduletime
+            , mobilelist
+            , istelcosub
+            , agentID
+            , apiUsername
+            , apiPassword
+            , username
+            , dataCoding
+            , saleOrderID
+            , packageID))
+    }
     assertRespone(res, errCode) {
         if (errCode == 0) {
             expect(res.status).to.equal(200);

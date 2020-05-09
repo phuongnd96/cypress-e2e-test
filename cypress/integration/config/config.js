@@ -6,7 +6,7 @@ let url = {
     "api": {
         "nonbank": "http://10.84.70.148:8085/smsmktur135/api",
         "bank": "",
-        "smsOrder": ""
+        "smsorder": ""
     }
 };
 //-------------------------------------//
@@ -22,46 +22,56 @@ let account = {
 };
 //--------------------------------------//
 let portalArgs = {
-    VTT:{
-        cskh:{
+    VTT: {
+        cskh: {
+            "agentName": "DL_testphuong",
             "adserName": "Nguyễn Duy Phương",
             "contractName": "HĐ TEST 135",
             "mạng": "Vinaphone",
             "brn": "BRN cypress",
-            "template": "Test Cypress {P1}"
+            "template": "Test Cypress {P1}",
+            "templateID": "386351"   //giống với template ID trong apiArgs
         },
-        qc:{
+        qc: {
+            "agentName": "",
             "adserName": "Duy Phuong",
             "contractName": "hop dong test",
             "mạng": "",
             "brn": "HELLO123",
-            "template": ""
+            "template": "",
+            "templateID": ""
         }
     },
-    TUNHAN:{
-        cskh:{
+    TUNHAN: {
+        cskh: {
+            "agentName": "",
             "adserName": "",
             "contractName": "",
             "mạng": "",
             "brn": "",
-            "template": ""
+            "template": "",
+            "templateID": ""
         },
-        qc:{
+        qc: {
+            "agentName": "",
             "adserName": "",
             "contractName": "",
             "mạng": "",
             "brn": "",
-            "template": ""
+            "template": "",
+            "templateID": ""
         }
     },
-    SMSORDER:{
-     cksh:{
-        "adserName": "",
-        "contractName": "",
-        "mạng": "",
-        "brn": "",
-        "template": ""
-     }   
+    SMSORDER: {
+        cksh: {
+            "agentName": "",
+            "adserName": "",
+            "contractName": "",
+            "mạng": "",
+            "brn": "",
+            "template": "",
+            "templateID": ""
+        }
     }
 }
 let adserName = "Nguyễn Duy Phương";
@@ -118,14 +128,16 @@ let apiArgs = {
     },
     smsmorder: {
         cskh: {
-            "brnID": "",
-            "contractTypeID": "",
-            "contractID": "",
-            "templateID": "",
-            "agentID": "",
-            "apiUsername": "",
-            "apiPassword": "",
-            "username": "",
+            "brnID": "98542",
+            "contractTypeID": "1",
+            "contractID": "8264",
+            "templateID": "379556",
+            "agentID": "386",
+            "apiUsername": "smsorder",
+            "apiPassword": "123456",
+            "username": "DL_SMSOrder",
+            "saleOrderID": "1234",
+            "packageID": "1"
         },
         qc: {
             "brnID": "",
@@ -135,7 +147,9 @@ let apiArgs = {
             "agentID": "",
             "apiUsername": "",
             "apiPassword": "",
-            "username": ""
+            "username": "",
+            "saleOrderID": "",
+            "packageID": ""
         }
     },
     mobilelist: {
@@ -176,4 +190,4 @@ exports.mạng = mạng;
 exports.brn = brn;
 exports.template = template;
 exports.apiArgs = apiArgs;
-exports.portalArgs=portalArgs;
+exports.portalArgs = portalArgs;

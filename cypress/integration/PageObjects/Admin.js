@@ -113,9 +113,9 @@ class Admin {
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
             .invoke('text').then((text) => {
-                return text;
+                expect(text).to.contains("Thêm từ khóa thành công");
             })
-
+        return this;
     };
 
     edit_vinaphone_keyword(vinaphoneKeyword) {
@@ -136,8 +136,9 @@ class Admin {
             .click({ force: true })
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
             .invoke('text').then((text) => {
-                return text;
+                expect(text).to.contains("Cập nhật thành công")
             })
+        return this;
     };
 
     delete_vinaphone_keyword(vinaphoneKeyword) {
@@ -152,9 +153,9 @@ class Admin {
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
             .invoke('text').then((text) => {
-                return text;
+                expect(text).to.contains("Xóa thành công 1 từ khóa.")
             })
-
+        return this
     };
 
     create_foreign_keyword(foreignKeyword) {
@@ -167,9 +168,9 @@ class Admin {
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbError")
             .invoke('text').then((text) => {
-                return text;
+                expect(text).to.contains("Thêm thành công từ khóa.");
             })
-
+        return this
     };
 
     delete_foreign_keyword(foreignKeyword) {
@@ -184,13 +185,14 @@ class Admin {
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbError")
             .invoke('text').then((text) => {
-                return text;
+                expect(text).to.contains("Xóa thành công 1 từ khóa.")
             })
+        return this
     };
 
     cancel_order() {
     };
-    
+
     approveOrRejectLBA(campaignname, agentName, beginCreatedDate, endCreatedDate, status, beginScheduleDate, endScheduleDate, isApproved) {
         //de xu ly truong hop co nhieu ban ghi thi can them code search o day
         cy
@@ -252,7 +254,7 @@ class Admin {
             })
         return this
     };
-    
+
 
     resolveLBA(campaignname, beginCreatedDate, endCreatedDate, status, beginScheduleDate, endScheduleDate, isApproved) {
         //campaigname là 1 mảng
@@ -356,8 +358,9 @@ class Admin {
                     })
 
             })
+            return this;
     }
-    
+
     change_agent_status_toLimited(agentName) {
         cy
             //nhập tên đại lý
@@ -411,8 +414,8 @@ class Admin {
             })
 
     };
-//-------------------------------------------------------------------------------------------------------------------------------------//
-//-------------------------------------------------------In Progress-------------------------------------------------------------------//
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+    //-------------------------------------------------------In Progress-------------------------------------------------------------------//
     addAgent(agentName, agentType, sendType, region, paymentsMethod, address, agentPaper, mobilelist, email, contractNumber, deposits, isLimitedVinaphone, isTemplateApprovance, status) {
         //loại đại lý
         cy
@@ -642,7 +645,7 @@ class Admin {
     deleteAgentAPI() {
 
     };
-    
+
     searchEMSCustomerInfo() {
 
     };
