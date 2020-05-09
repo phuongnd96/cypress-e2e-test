@@ -520,7 +520,6 @@ class Admin {
 
     };
 
-
     deleteAgentUserAccount() {
 
     };
@@ -579,12 +578,14 @@ class Admin {
 
 
     };
+
     editProviderUser() {
 
     };
     deleteProviderUser() {
 
     };
+
     addAgentAPI(agentName, adserName, userName, password, IPlist, status) {
         cy
             .contains("QL API")
@@ -633,12 +634,15 @@ class Admin {
             })
 
     };
+
     editAgentAPI() {
 
     };
+
     deleteAgentAPI() {
 
     };
+    
     searchEMSCustomerInfo() {
 
     };

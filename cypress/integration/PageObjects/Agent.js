@@ -245,7 +245,7 @@ class Agent {
         return this;
 
     };
-
+    //product vẫn còn trường số hiển thị của nhãn
     addBrandName_product(brn, displayNumber, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
@@ -350,7 +350,7 @@ class Agent {
             return templateId;
         })
     };
-
+    //product chỉ đang tạo template 1 loại cũ
     addTemplate_product(template, brn) {
         cy.contains("SỬA HỢP ĐỒNG")
             .click({ force: true });
@@ -1169,6 +1169,5 @@ class Agent {
     changePassword() {
 
     };
-
 }
 export default Agent;

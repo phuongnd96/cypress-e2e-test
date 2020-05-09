@@ -3,7 +3,10 @@ import ADMIN from '../PageObjects/Admin';
 const agent = new AGENT();
 const admin = new ADMIN();
 
-describe("Test suite", () => {
+describe(`UR 134 
+3.1, Cho phép agent reject template đã được phê duyệt
+3.4, Sửa tên trường “Ngày hiệu lực giấy tờ” thành “Ngày hết hiệu lực giấy tờ”.
+`, () => {
 
     context("3.1, Cho phép Agent reject template đã được phê duyệt", () => {
         beforeEach(() => {

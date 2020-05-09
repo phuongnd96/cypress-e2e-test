@@ -22,25 +22,52 @@ let account = {
 };
 //--------------------------------------//
 let portalArgs = {
-    cskh:{
-        "adserName": "",
-        "contractName": "",
-        "mạng": "",
-        "brn": "",
-        "template": ""
+    VTT:{
+        cskh:{
+            "adserName": "Nguyễn Duy Phương",
+            "contractName": "HĐ TEST 135",
+            "mạng": "Vinaphone",
+            "brn": "BRN cypress",
+            "template": "Test Cypress {P1}"
+        },
+        qc:{
+            "adserName": "Duy Phuong",
+            "contractName": "hop dong test",
+            "mạng": "",
+            "brn": "HELLO123",
+            "template": ""
+        }
     },
-    qc:{
+    TUNHAN:{
+        cskh:{
+            "adserName": "",
+            "contractName": "",
+            "mạng": "",
+            "brn": "",
+            "template": ""
+        },
+        qc:{
+            "adserName": "",
+            "contractName": "",
+            "mạng": "",
+            "brn": "",
+            "template": ""
+        }
+    },
+    SMSORDER:{
+     cksh:{
         "adserName": "",
         "contractName": "",
         "mạng": "",
         "brn": "",
         "template": ""
+     }   
     }
 }
 let adserName = "Nguyễn Duy Phương";
 let contractName = "HĐ TEST 135";
 let mạng = "Vinaphone";
-let brn = "Test.";
+let brn = "BRN cypress";
 let template = "Test Cypress {P1}";
 
 let apiArgs = {
