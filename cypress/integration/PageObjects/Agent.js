@@ -11,7 +11,7 @@ class Agent {
         cy
             .visit(url);
         return this;
-    }
+    };
 
     loginESMSPortal(username, password) {
         cy
@@ -23,8 +23,12 @@ class Agent {
             .type(password)
             .get("#ctl00_ContentPlaceHolder2_submit")
             .click()
+            .wait(1000)
+            .get(".after-login").invoke('text').then((text) => {
+                expect(text).to.equal("84857760576");
+            })
         return this;
-    }
+    };
 
     createESMSBrn(brn, GPKDfileName, GPKDfilePath, giayUyQuyenFileName, giayUyQuyenFilePath, CMNDfileName, CMDNfilePath, confirmGPKDfileName, confirmGPKDfilePath, mobileList, customerName, content, contentAlias) {
         cy
@@ -99,7 +103,8 @@ class Agent {
         return this
 
 
-    }
+    };
+
     sendESMS(brn, moblieListFilePath, mobileListFileName, customerName, templateContent, contentAlias, scheduleTime) {
         return cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel_chosen > .chosen-drop > .chosen-search > input")
@@ -146,7 +151,7 @@ class Agent {
                 //confirm gửi tin
                 cy
                     .get(`[href="javascript:execEnoughOk()"] > .button-blue`)
-                    .click();
+                    .click({force:true});
                 //lấy báo cáo gửi tin
                 cy
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel")
@@ -155,11 +160,11 @@ class Agent {
                     .click()
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_repeatSummary_ctl01_hplDetail")
                     .invoke("text").then((text) => {
-                        return text;
+                        expect(text).to.equal(brn)
                     })
             })
 
-    }
+    };
 
     doLogin(userame, password) {
         cy
@@ -240,6 +245,7 @@ class Agent {
         return this;
 
     };
+
     addBrandName_product(brn, displayNumber, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
@@ -311,11 +317,7 @@ class Agent {
 
     };
 
-
-
-
-
-    addTemplate(template, sampleMessage) {
+   addTemplate(template, sampleMessage) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditTemplate")
@@ -348,6 +350,7 @@ class Agent {
             return templateId;
         })
     };
+
     addTemplate_product(template, brn) {
         cy.contains("SỬA HỢP ĐỒNG")
             .click({ force: true });
@@ -395,7 +398,7 @@ class Agent {
         // return cy
         // .get("@templateId").invoke('text').then(text=>text);
     };
-
+    
     createLBA(lbaname, scheduleTime, adsername, countNumberMobile, contractName, brn, templateContent, gender, activeTime, isHave3G, blackListFileName, blackListFilePath, whiteListFileName, whiteListFilePath) {
         cy
             .contains("TẠO MỚI CD")
@@ -472,7 +475,7 @@ class Agent {
             .click()
             //vẽ
             .get(":nth-child(27) > :nth-child(2)").as("map") //đây là bản đồ
-            cy.get("@map")
+        cy.get("@map")
             .click(50, 60)
             .wait(2000)
             .click(123, 80).then(() => {
@@ -710,21 +713,20 @@ class Agent {
             , username
             , dataCoding));
 
-    }
-
-    assertRespone(res,errCode){
-        if (errCode==0){
+    };
+    
+    assertRespone(res, errCode) {
+        if (errCode == 0) {
             expect(res.status).to.equal(200);
             expect(res.body["RPLY"]["ERROR"]).to.equal('0');
             expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success");
         }
-        else{
+        else {
             expect(res.body["RPLY"]["ERROR"]).to.equal(`${errCode}`);
         }
-    }
-
-    
-
+    };
+    //-----------------------------------------------------------------------------------------------------//
+    //----------------------------------In Progress--------------------------------------------------------//
     addCustomer(adserName, adserPaper, address, adserMobile, adserEmail, status, adserType, isLimitedMT, limitMT) {
         cy
             .contains("QL KHÁCH HÀNG")
@@ -891,8 +893,6 @@ class Agent {
                 return text
             })
     };
-
-
     viewESMSCustomerInfo(brn) {
         cy
             .contains("QL GIẤY TỜ KH")
@@ -956,15 +956,12 @@ class Agent {
                 }
             })
     };
-
     approveTemplate() {
 
     };
-
     rejectTemplate() {
 
     };
-
     searchAgentAPI(adserName, numberOfAPIAccount) {
         cy
             .contains("QL API KH")
@@ -977,7 +974,6 @@ class Agent {
             .get("table.tbl>tbody>tr")
             .should('have.length', parseInt(numberOfAPIAccount + 2));
     }
-
     addAgentAPI(adserName, typeOfAPI, userName, password, IPList, status) {
         cy
             .contains("QL API KH")
@@ -1009,7 +1005,6 @@ class Agent {
             })
 
     };
-
     editAgentAPI(adserName, typeOfAPI, agentAPINew, agentAPIPasswordNew, IPListNew) {
         cy
             .contains("QL API KH")
@@ -1044,15 +1039,14 @@ class Agent {
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btUpdate1")
             .click()
-        return cy
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
             .invoke('text').then((text) => {
-                return text;
+                expect(text).to.contains("Cập nhật thành công")
             })
 
 
     };
-
     deleteAgentAPI(adserName, typeOfAPI) {
         cy
             .contains("QL API KH")
@@ -1083,7 +1077,6 @@ class Agent {
                 return text;
             })
     };
-
     findAgentOrder(serviceProvider, brnType, orderName) {
         cy
             .contains("GÓI TIN ĐẠI LÝ")
@@ -1120,7 +1113,6 @@ class Agent {
             .contains("GÓI TIN KH LẺ")
             .click({ force: true })
     };
-
     searchSendingHistory(fromCreateDate, toCreateDate, fromScheduleDate, toScheduleDate, brn) {
         cy
             .contains("LS GỬI TIN")
@@ -1152,11 +1144,9 @@ class Agent {
             .contains("Đặt lệnh")
             .should('be.visible');
     };
-
     searchOrderHistory() {
 
     };
-
     addContact(contactName, address, phoneNumber, email) {
         cy
             .contains("LIÊN HỆ")
@@ -1176,7 +1166,6 @@ class Agent {
             .should('be.visible');
 
     }
-
     changePassword() {
 
     };

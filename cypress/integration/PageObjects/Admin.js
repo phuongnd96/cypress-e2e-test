@@ -43,6 +43,7 @@ class Admin {
         return this;
 
     };
+
     approveTemplate(templateID) {
         cy
             .contains("DUYỆT TEMPLATE")
@@ -83,6 +84,7 @@ class Admin {
             })
         return this
     };
+
     rejectTemplate(templateID) {
         cy
             .contains("DUYỆT TEMPLATE")
@@ -100,6 +102,7 @@ class Admin {
             .click();
         return this;
     };
+
     create_vinaphone_keyword(vinaphoneKeyword) {
         cy
             .contains("QL TỪ KHÓA NỘI MẠNG")
@@ -114,6 +117,7 @@ class Admin {
             })
 
     };
+
     edit_vinaphone_keyword(vinaphoneKeyword) {
         cy
             .contains("QL TỪ KHÓA NỘI MẠNG")
@@ -135,6 +139,7 @@ class Admin {
                 return text;
             })
     };
+
     delete_vinaphone_keyword(vinaphoneKeyword) {
         cy
             .contains("QL TỪ KHÓA NỘI MẠNG")
@@ -151,6 +156,7 @@ class Admin {
             })
 
     };
+
     create_foreign_keyword(foreignKeyword) {
         cy
             .contains("QL TỪ KHÓA NGOẠI MẠNG")
@@ -165,6 +171,7 @@ class Admin {
             })
 
     };
+
     delete_foreign_keyword(foreignKeyword) {
         cy
             .contains("QL TỪ KHÓA NGOẠI MẠNG")
@@ -180,9 +187,10 @@ class Admin {
                 return text;
             })
     };
+
     cancel_order() {
     };
-    //------------------------------------------------------------------------------------//
+    
     approveOrRejectLBA(campaignname, agentName, beginCreatedDate, endCreatedDate, status, beginScheduleDate, endScheduleDate, isApproved) {
         //de xu ly truong hop co nhieu ban ghi thi can them code search o day
         cy
@@ -244,7 +252,7 @@ class Admin {
             })
         return this
     };
-    //----------------------------------------------------------------------------------------------//
+    
 
     resolveLBA(campaignname, beginCreatedDate, endCreatedDate, status, beginScheduleDate, endScheduleDate, isApproved) {
         //campaigname là 1 mảng
@@ -349,10 +357,7 @@ class Admin {
 
             })
     }
-
-
-
-
+    
     change_agent_status_toLimited(agentName) {
         cy
             //nhập tên đại lý
@@ -379,6 +384,7 @@ class Admin {
             })
         return this;
     };
+
     change_agent_status_toUnLimited(agentName) {
         cy
             //nhập tên đại lý
@@ -405,8 +411,8 @@ class Admin {
             })
 
     };
-
-    //--------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------In Progress-------------------------------------------------------------------//
     addAgent(agentName, agentType, sendType, region, paymentsMethod, address, agentPaper, mobilelist, email, contractNumber, deposits, isLimitedVinaphone, isTemplateApprovance, status) {
         //loại đại lý
         cy
@@ -475,6 +481,7 @@ class Admin {
         return this
 
     };
+
     addAgentUserAccount(agentName, agentUserAccountName) {
         cy
             .contains("NGƯỜI DÙNG ĐL")
@@ -491,6 +498,7 @@ class Admin {
             .click();
         return this;
     };
+
     editAgentUserAccount(agentName) {
         cy
             .contains("NGƯỜI DÙNG ĐL")
@@ -516,6 +524,7 @@ class Admin {
     deleteAgentUserAccount() {
 
     };
+
     addSystemUser(role, userName, password) {
         cy
             .contains("NGƯỜI DÙNG HT")
@@ -531,12 +540,15 @@ class Admin {
         cy
             .contains("Thêm mới người dùng thành công.").should('be.visible');
     };
+
     editSystemUser() {
 
     };
+
     deleteSystemUser() {
 
     };
+
     addVendorUserAccount(vendor, userName, password, status) {
         cy
             .contains("NHÀ CUNG CẤP")
@@ -633,30 +645,39 @@ class Admin {
     addPriviledgedBrandName() {
 
     };
+
     deletePriviledgedBrandName() {
 
     };
+
     addPrviledgedKeyword() {
 
     };
+
     deletePriviledgedKeyword() {
 
     };
+
     addEMSDepositLimit() {
 
     };
+
     deleteEMSDepositLimit() {
 
     };
+
     findTPS() {
 
     };
+
     addTPS() {
 
     };
+
     editTPS() {
 
     };
+
     deleteTPS() {
 
     };

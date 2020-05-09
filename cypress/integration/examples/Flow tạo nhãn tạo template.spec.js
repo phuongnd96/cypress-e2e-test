@@ -1,6 +1,6 @@
 import AGENT from '../PageObjects/Agent';
 import ADMIN from '../PageObjects/Admin';
-import {url,account,rnd,brn} from './config';
+import {url,account,rnd,brn} from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
 

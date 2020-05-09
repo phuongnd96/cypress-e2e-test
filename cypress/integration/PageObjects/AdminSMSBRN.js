@@ -21,15 +21,30 @@ class AdminSMSBRN {
         //assert login success
         cy.contains(`Xin chào, ${username.toLowerCase()}`).should('be.visible');
     }
-    viewReport() {
+    viewReport(mobileNumber,profileID,sentTime) {
         cy
             .get("#report").as('viewReportBtn')
         cy
             .get("@viewReportBtn").click()
-
-
+            .get("input#mobileNumber")
+            .type(mobileNumber)
+            .get("select#profileID")
+            .select(profileID)
+            .get("select#operatorId")
+            .select("MOBIFONE")
+            .get("#datepicker[name='startDate' ]")
+            .type(sentTime) //ngày gửi tin
+            .get("#datepicker1[name='endDate']")
+            .type(sentTime); //ngày gửi tin
+        cy
+            .contains("Xem báo cáo")
+            .click();
+        cy
+            .get('#detail_report > .normal > tbody > tr > :nth-child(1)')
+            .invoke('text')
+            .then((text) => {
+                expect(text).to.contain(sentTime)   
+            })
     }
-
-
 }
 export default AdminSMSBRN;

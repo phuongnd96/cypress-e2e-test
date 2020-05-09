@@ -53,7 +53,7 @@ describe("Flow agent gửi tin", () => {
     })
 
 })
-
+//-------------------------------------------------------------------------------------//
 describe("Đại lý tư nhân gửi tin CSKH", () => {
     beforeEach(() => {
         agent
@@ -74,18 +74,7 @@ describe("Đại lý tư nhân gửi tin CSKH", () => {
             .send_sms_temp_old(" ", adserName, contractName, mạng, brn, template, filename, filepath, encoding);
     })
 })
-describe("Sửa template ở màn hình gửi tin", () => {
-    beforeEach(() => {
-        agent
-            .visitAgentPortal(url.portal.agent)
-            .doLogin(account.agent.username, account.agent.pw);
-    })
-    specify("Sửa template ở màn hình gửi tin", () => {
-        agent
-            .send_sms_temp_old(" ", adserName, contractName, "Viettel", brn, template, "mnpstaging.xlsx", "mnpstaging.xlsx", 0);
-    })
-})
-
+//----------------------------------------------------------------------------------------//
 describe("Check trạng thái gửi tin từ SMSMKT -> SMS Brandname", () => {
     beforeEach(() => {
         adminBrandName
@@ -94,19 +83,36 @@ describe("Check trạng thái gửi tin từ SMSMKT -> SMS Brandname", () => {
     })
     specify("Check trạng thái gửi tin từ SMSMKT -> SMSBrandname trường hợp thành công", () => {
         adminBrandName
-            .viewReport()
+            .viewReport("84932248120", "VNP", "12/05/2020");
     })
     specify("Check trạng thái gửi tin từ SMSMKT -> SMSBrandname trường hợp không thành công", () => {
 
     })
 
 })
-
-context("Admin hủy lệnh gửi", () => {
-
+//---------------------------------------------------------------------------------------------//
+context.skip("Admin hủy lệnh gửi", () => {
+//mannual
 })
-context("TC gửi 1551 sau đó gửi tin QC", () => {
-
+//----------------------------------------------------------------------------------------------//
+context.skip("TC gửi 1551 sau đó gửi tin QC", () => {
+    beforeEach(() => {
+        agent
+            .visitAgentPortal(url.portal.agent)
+            .doLogin("", account.agent.pw);
+    })
+    specify("Sửa template ở màn hình gửi tin", () => {
+        let adserName = "";
+        let contractName = "";
+        let mạng = "Vinaphone"
+        let brn = ""
+        let template = ""
+        let filename = "vina.xlsx"
+        let filepath = "vina.xlsx"
+        let encoding = 0
+        agent
+            .send_sms_temp_old(" ", adserName, contractName, "Viettel", brn, template, "mnpstaging.xlsx", "mnpstaging.xlsx", 0);
+    })
 })
 
 

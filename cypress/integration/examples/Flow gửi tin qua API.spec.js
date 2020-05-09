@@ -41,7 +41,7 @@ context("Gửi tin qua API", () => {
                 , apiArgs.nonbank.cskh.templateID
                 , apiArgs.numberOfParams
                 , apiArgs.content
-                , scheduleTime
+                , "15-05-2020 15:00"
                 , apiArgs.mobilelist.vina
                 , apiArgs.istelcosub
                 , apiArgs.nonbank.cskh.agentID
@@ -85,7 +85,7 @@ context("Gửi tin qua API", () => {
                 , apiArgs.nonbank.qc.templateID
                 , apiArgs.numberOfParams
                 , apiArgs.content
-                , "09-05-2020 9:12"
+                , "15-05-2020 15:00"
                 , apiArgs.mobilelist.vina
                 , apiArgs.istelcosub
                 , apiArgs.nonbank.qc.agentID
@@ -97,7 +97,7 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify.skip("Gửi tin qua API tin nội mạng site bank", () => {
+    specify("Gửi tin qua API tin nội mạng site bank", () => {
         agent
             .request_send_sms_nonbank_bank(
                 url.api.nonbank
@@ -119,55 +119,73 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify("Gửi tin qua API SMSORDER", () => {
+    specify.skip("Gửi tin qua API SMSORDER", () => {
 
     })
-    specify("Đại lý VIễn thông thành phố gửi tin qua API với IP khác IP set trong mục Quản lý API của Admin Portal", () => {
+    specify("Đại lý VIễn thông thành phố gửi tin qua API với API user khác IP set trong mục Quản lý API của Admin Portal", () => {
 
+        agent
+            .request_send_sms_nonbank_bank(
+                url.api.nonbank
+                , apiArgs.nonbank.cskh.brnID
+                , apiArgs.nonbank.cskh.contractTypeID
+                , apiArgs.nonbank.cskh.contractID
+                , apiArgs.nonbank.cskh.templateID
+                , apiArgs.numberOfParams
+                , apiArgs.content
+                , apiArgs.scheduletime
+                , apiArgs.mobilelist.vina
+                , apiArgs.istelcosub
+                , apiArgs.nonbank.cskh.agentID
+                , 123
+                , apiArgs.nonbank.cskh.apiPassword
+                , apiArgs.nonbank.cskh.username
+                , 0).then((res) => {
+                    console.log(res);
+                    agent.assertRespone(res, 1);
+                })
+    })
 
+    context("Redis", () => {
+        describe("Đại lý gửi tin qua API với account có trang thái inactive", () => {
+            beforeEach(() => {
+                admin
+                    .visitAdminPortal(url.portal.admin)
+                    .doLogin(account.admin.username, account.admin.pw)
+                    .changeAgentStatus("DL_testphuong", false);
+            })
+            //----------------------------------------------------------------------------//
+            specify("Đại lý VTT gửi tin qua API với account có trạng thái inactive", () => {
+                agent
+                    .request_send_sms_nonbank_bank(
+                        url.api.nonbank
+                        , apiArgs.nonbank.cskh.brnID
+                        , apiArgs.nonbank.cskh.contractTypeID
+                        , apiArgs.nonbank.cskh.contractID
+                        , apiArgs.nonbank.cskh.templateID
+                        , apiArgs.numberOfParams
+                        , apiArgs.content
+                        , apiArgs.scheduletime
+                        , apiArgs.mobilelist.vina
+                        , apiArgs.istelcosub
+                        , apiArgs.nonbank.cskh.agentID
+                        , apiArgs.nonbank.cskh.apiUsername
+                        , apiArgs.nonbank.cskh.apiPassword
+                        , apiArgs.nonbank.cskh.username
+                        , 0).then((res) => {
+                            console.log(res);
+                            agent.assertRespone(res, 15);
+                        })
+            })
+            //---------------------------------------------------------------------------------//          
+            afterEach(() => {
+                admin
+                    .visitAdminPortal(url.portal.admin)
+                    .doLogin(account.admin.username, account.admin.pw)
+                    .changeAgentStatus("DL_testphuong", true);
+            })
+        })
     })
 })
-
-context.only("Redis", () => {
-    describe("Đại lý gửi tin qua API với account có trang thái inactive", () => {
-        beforeEach(() => {
-            admin
-                .visitAdminPortal(url.portal.admin)
-                .doLogin(account.admin.username, account.admin.pw)
-                .changeAgentStatus("VIVASTEST_UR132_VTT", false);
-        })
-        //----------------------------------------------------------------------------//
-        specify("Đại lý VTT gửi tin qua API với account có trạng thái inactive", () => {
-            agent
-                .request_send_sms_nonbank_bank(
-                    url.api.nonbank
-                    , apiArgs.nonbank.cskh.brnID
-                    , apiArgs.nonbank.cskh.contractTypeID
-                    , apiArgs.nonbank.cskh.contractID
-                    , apiArgs.nonbank.cskh.templateID
-                    , apiArgs.numberOfParams
-                    , apiArgs.content
-                    , apiArgs.scheduletime
-                    , apiArgs.mobilelist.vina
-                    , apiArgs.istelcosub
-                    , apiArgs.nonbank.cskh.agentID
-                    , apiArgs.nonbank.cskh.apiUsername
-                    , apiArgs.nonbank.cskh.apiPassword
-                    , apiArgs.nonbank.cskh.username
-                    , 0).then((res) => {
-                        console.log(res);
-                        agent.assertRespone(res, 15);
-                    })
-        })
-        //---------------------------------------------------------------------------------//          
-        afterEach(()=>{
-            admin
-                .visitAdminPortal(url.portal.admin)
-                .doLogin(account.admin.username, account.admin.pw)
-                .changeAgentStatus("VIVASTEST_UR132_VTT", true);
-        })
-    })
-})
-    
 
 

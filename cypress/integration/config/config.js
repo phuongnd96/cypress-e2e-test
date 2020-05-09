@@ -1,7 +1,7 @@
 let url = {
     "portal": {
         "agent": "http://10.84.70.164/AgentUI134/Login.aspx",
-        "admin": "http://10.84.70.164:8089/Login.aspx"
+        "admin": "http://10.84.70.164:8098/Login.aspx"
     },
     "api": {
         "nonbank": "http://10.84.70.148:8085/smsmktur135/api",
@@ -21,22 +21,39 @@ let account = {
     }
 };
 //--------------------------------------//
+let portalArgs = {
+    cskh:{
+        "adserName": "",
+        "contractName": "",
+        "mạng": "",
+        "brn": "",
+        "template": ""
+    },
+    qc:{
+        "adserName": "",
+        "contractName": "",
+        "mạng": "",
+        "brn": "",
+        "template": ""
+    }
+}
 let adserName = "Nguyễn Duy Phương";
 let contractName = "HĐ TEST 135";
 let mạng = "Vinaphone";
 let brn = "Test.";
 let template = "Test Cypress {P1}";
+
 let apiArgs = {
     nonbank: {
         cskh: {
-            "brnID": "100248",
+            "brnID": "100272",
             "contractTypeID": "1",
-            "contractID": "8522",
-            "templateID": "386349",
-            "agentID": "437",
-            "apiUsername": "PHUONGQA_SENDSMS",
+            "contractID": "8481",
+            "templateID": "386351",
+            "agentID": "433",
+            "apiUsername": "phuongapi",
             "apiPassword": "Tr1@123",
-            "username": "accVIVASTEST_UR132_VTT",
+            "username": "accDL_testphuong",
         },
         qc: {
             "brnID": "100174",
@@ -104,7 +121,9 @@ let apiArgs = {
     "numberOfParams": "1",
     "content": "abc",
     "scheduletime": "",
-    "istelcosub": "0"
+    "istelcosub": "0",
+    "productIP": "",
+    "stagingIP": "*,10.84.10.230"
 }
 //-------------------------------------//
 let now = new Date();
@@ -130,3 +149,4 @@ exports.mạng = mạng;
 exports.brn = brn;
 exports.template = template;
 exports.apiArgs = apiArgs;
+exports.portalArgs=portalArgs;
