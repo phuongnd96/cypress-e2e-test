@@ -106,7 +106,7 @@ class Agent {
     };
 
     sendESMS(brn, moblieListFilePath, mobileListFileName, customerName, templateContent, contentAlias, scheduleTime) {
-        return cy
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel_chosen > .chosen-drop > .chosen-search > input")
             .type(brn, { force: true })
             .type("{downarrow}{enter}")
@@ -136,6 +136,7 @@ class Agent {
                     //click nút thiết lập thời gian và gửi tin (chọn brn và template xong)
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_imgBtnSend")
                     .click();
+                cy.wait(5000);
                 //chọn thời gian gửi 
                 cy
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtScheduleTime")
@@ -151,7 +152,7 @@ class Agent {
                 //confirm gửi tin
                 cy
                     .get(`[href="javascript:execEnoughOk()"] > .button-blue`)
-                    .click({force:true});
+                    .click({ force: true });
                 //lấy báo cáo gửi tin
                 cy
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel")
@@ -163,7 +164,7 @@ class Agent {
                         expect(text).to.equal(brn)
                     })
             })
-
+        return this;
     };
 
     doLogin(userame, password) {
@@ -246,7 +247,8 @@ class Agent {
 
     };
     //product vẫn còn trường số hiển thị của nhãn
-    addBrandName_product(brn, displayNumber, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
+    //6 bản ghi 
+    addBrandName_product1(brn, displayNumber, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditLabel")
@@ -316,8 +318,82 @@ class Agent {
         return this;
 
     };
+    //16 bản ghi
+    addBrandName_product(brn, displayNumber, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
+        cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditLabel")
+            .click();
+        //thêm mới nhãn
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_btnFooterAddLabel > img")
+            .as("addLabelBtn")
+        cy.get("@addLabelBtn")
+            .click();
+        //điền thông tin nhãn
+        //Tên nhãn
+        cy.
+            get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterLabel")
+            .as("brnTxtBox")
+            cy.get("@brnTxtBox")
+            .type(brn)
+            //Số hiển thị chưa bỏ trên product
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterDisplayNumber")
+            .type(displayNumber)
+            //Chọn Loại Vina
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelType")
+            .select(VinaType)
+            //Chọn Loại Mobifone
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeMobifone")
+            .select(MobifoneType)
+            //Chọn Loại Viettel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeViettel")
+            .select(ViettelType)
+            //Chọn loại Gtel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeGTEL")
+            .select(GtelType)
+            //Chọn loại Vietnammobile
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeVNM")
+            .select(VietnammobileType)
+            //Chọn loại Itel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeITel")
+            .select(ItelType);
+        cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterCustomer")
+            .type(customerName)
+            //Điền mã số thuế
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterTaxCode")
+            .type(Math.floor(Math.random() * 100000));
+        //Upload file hồ sơ
+        let fileName = filename;
+        cy.fixture(filepath).then((fileContent) => {
+            cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_fileUploadFooterHoSo")
+                .attachFile({
+                    fileContent,
+                    fileName: fileName
+                })
+        });
+        //Chọn ngày hết hạn
+        cy
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterExpiredDate')
+            .type(expiredDate)
+            //ghi chú
 
-   addTemplate(template, sampleMessage) {
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterNote')
+            .type("Auto created by cypress")
+            //Chọn OK
+
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_btnFooterOK > img')
+            .click();
+        //Verify
+        cy
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo')
+            .then(($element) => {
+                expect($element).to.have.text("Thêm mới nhãn thành công.");
+            })
+        return this;
+
+    };
+    addTemplate(template, sampleMessage) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditTemplate")
@@ -351,6 +427,7 @@ class Agent {
         })
     };
     //product chỉ đang tạo template 1 loại cũ
+    //thêm template cho nhãn bất kì
     addTemplate_product(template, brn) {
         cy.contains("SỬA HỢP ĐỒNG")
             .click({ force: true });
@@ -398,7 +475,7 @@ class Agent {
         // return cy
         // .get("@templateId").invoke('text').then(text=>text);
     };
-    
+
     createLBA(lbaname, scheduleTime, adsername, countNumberMobile, contractName, brn, templateContent, gender, activeTime, isHave3G, blackListFileName, blackListFilePath, whiteListFileName, whiteListFilePath) {
         cy
             .contains("TẠO MỚI CD")
@@ -656,7 +733,7 @@ class Agent {
     request_get_adser(url, agentID, apiUsername, apiPassword) {
         return cy.request("POST", url, __.get_adser(agentID, apiUsername, apiPassword));
     };
-    
+
     request_get_template(url, agentID, labelID, apiUsername, apiPassword) {
         return cy.request("POST", url, __.get_template(agentID, labelID, apiUsername, apiPassword))
     };
@@ -714,7 +791,7 @@ class Agent {
             , dataCoding));
 
     };
-    
+
     request_send_sms_SMSORDER(
         url
         , brnID
@@ -734,7 +811,7 @@ class Agent {
         , saleOrderID
         , packageID
     ) {
-        return cy.request("POST",url,__.send_sms_list_SMSORDER(brnID
+        return cy.request("POST", url, __.send_sms_list_SMSORDER(brnID
             , contracTypeID
             , contractID
             , templateID

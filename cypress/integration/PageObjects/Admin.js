@@ -18,7 +18,7 @@ class Admin {
 
     };
 
-    approveBrandName(brn) {
+    approveBrandName(brn, agentName, currentStatus) {
         cy
             .contains("DUYỆT NHÃN").click({ force: true })
         cy
@@ -27,6 +27,13 @@ class Admin {
         cy
             .get("@brnTextbox")
             .type(brn)
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
+            .select(agentName);
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlStatus")
+            .select(currentStatus)
+        cy.wait(5000);
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch").as("searchBtn")
         cy
@@ -37,19 +44,26 @@ class Admin {
         cy
             .get("@chooseThisBrn")
             .click()
+        cy.wait(5000);
+        cy
             .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnApprove')
-            .click()
+            .click();
+        cy.wait(5000);
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
         return this;
-
     };
 
-    approveTemplate(templateID) {
+    approveTemplate(templateID, agentName, currentStatus) {
         cy
             .contains("DUYỆT TEMPLATE")
             .click({ force: true })
             //nhập template
-            .get("ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtIDTemplate")
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
+            .select(agentName)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlStatus")
+            .select(currentStatus)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtIDTemplate")
             .type(templateID)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlStatus")
             .select("Rejected")
@@ -58,10 +72,15 @@ class Admin {
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_chkbox")
             .check()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnApprove")
-            .click();
+            .click()
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
+            .invoke('text').then((text) => {
+                expect(text).to.include("Approve thành công");
+            })
         return this
     };
-    rejectBrandNameVinaphone(brn) {
+    rejectBrandNameVinaphone(brn, agentName) {
+        cy.wait(5000);
         cy
             .contains("DUYỆT NHÃN")
             .click({ force: true })
@@ -71,35 +90,63 @@ class Admin {
             //Trạng thái nhãn
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlStatus")
             .select("Actived")
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
+            .select(agentName)
             //Tìm nhãn
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_txtLabelName")
             .invoke('text').then((text) => {
                 if (text === brn) {
+                    //  const stub=cy.stub();
+                    //  cy.on('window:alert',stub)
                     cy
+                        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_chkbox")
+                        .as("checkBox")
+                    cy
+                        .get("@checkBox")
+                        .check()
                         .get("[type='button'][value='Reject']")
-                        .click();
+                        .click().then(() => {
+                            const inputForm = Cypress.$("#myPopup>div>table>tbody>tr>td[colspan='4']>textarea");
+                            cy.wrap(inputForm).type('test');
+                            const okButton = Cypress.$("#myPopup>div>table>tbody>tr>td>input[value='OK']")
+                            cy.wrap(okButton).click().then(() => {
+                                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
+                                    .invoke('text').then((text) => {
+                                        expect(text).to.includes("Reject thành công")
+                                    })
+                            })
+
+                        })
                 }
             })
         return this
     };
 
-    rejectTemplate(templateID) {
+    rejectTemplate(templateID, agentName, currentStatus) {
         cy
             .contains("DUYỆT TEMPLATE")
             .click({ force: true })
             //nhập template
-            .get("ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtIDTemplate")
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
+            .select(agentName)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtIDTemplate")
             .type(templateID)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlStatus")
-            .select("Actived")
+            .select(currentStatus)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
+        cy.wait(5000);
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_chkbox")
             .check()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnReject")
-            .click();
+            .click()
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
+            .invoke('text').then((text) => {
+                expect(text).to.includes("Reject thành công");
+            })
         return this;
     };
 
@@ -109,6 +156,7 @@ class Admin {
             .click({ force: true })
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtAddKeyword")
             .type(vinaphoneKeyword)
+            .wait(5000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnAddKeyword")
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
@@ -126,12 +174,14 @@ class Admin {
             .type(vinaphoneKeyword)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
+            .wait(1000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditKeyword")
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_txtKeyword")
             .type(" auto edited")
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_chkbox")
             .check()
+            .wait(5000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnOK > img")
             .click({ force: true })
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
@@ -149,11 +199,21 @@ class Admin {
             .type(vinaphoneKeyword)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnDeleteKeyword")
-            .click()
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
+            .wait(10000)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lblKeyword")
+            .as("keywordFound")
+        cy
+            .get("@keywordFound")
             .invoke('text').then((text) => {
-                expect(text).to.contains("Xóa thành công 1 từ khóa.")
+                if (text === vinaphoneKeyword) {
+                    cy
+                        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnDeleteKeyword")
+                        .click()
+                        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
+                        .invoke('text').then((text) => {
+                            expect(text).to.contains("Xóa từ khóa thành công")
+                        })
+                }
             })
         return this
     };
@@ -283,6 +343,7 @@ class Admin {
         cy
             .get('@searchBtn')
             .click()
+        cy.wait(1000);
         campaignname.forEach((name) => {
             //Logic check
             cy.contains(name).should('be.visible');
@@ -301,12 +362,14 @@ class Admin {
         //--------------------------//
         if (isApproved == true) {
             cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnApprove").as('approveBtn')
+            cy.wait(5000)
             cy.get("@approveBtn")
                 .click().then(() => {
                     expect(stub.getCall(0)).to.be.calledWith(`Phê duyệt thành công ${campaignname.length} chiến dịch.`);
                 })
         } else {
             cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnReject").as('rejectBtn')
+            cy.wait(5000)
             cy.get("@rejectBtn")
                 .click().then(() => {
                     //#myModal1 khong chi locate duoc khi dung jquery
@@ -358,7 +421,7 @@ class Admin {
                     })
 
             })
-            return this;
+        return this;
     }
 
     change_agent_status_toLimited(agentName) {
@@ -378,6 +441,7 @@ class Admin {
             //Đổi từ không giới hạn sang 4mt
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_rbCharacterLimit_0")
             .check()
+            .wait(10000)
             //confirm
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btUpdate1")
             .click()
@@ -405,6 +469,7 @@ class Admin {
             //Đổi từ không giới hạn sang 4mt
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_rbCharacterLimit_0")
             .check()
+            .wait(10000)
             //confirm
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btUpdate1")
             .click()

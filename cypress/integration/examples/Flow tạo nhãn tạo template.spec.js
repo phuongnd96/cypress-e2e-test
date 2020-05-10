@@ -1,6 +1,5 @@
 import AGENT from '../PageObjects/Agent';
 import ADMIN from '../PageObjects/Admin';
-//import {url,account,rnd,brn} from '../config/config';
 import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
@@ -29,7 +28,7 @@ describe("Flow agent tạo nhãn và template", () => {
                     , "PhuongQA"
                     , "file.jpg"
                     , "file.jpg"
-                    , "19/05/2021"
+                    , "14/12/2020"
                 );
         })
         it("Thêm template thành công ", () => {
@@ -54,9 +53,10 @@ describe("Flow agent tạo nhãn và template", () => {
             admin
                 .approveBrandName(
                     "phuongtest"
-                ); //Tìm theo kí tự đầu
+                    ,cfg.portalArgs.VTT.cskh.agentName
+                    ,"Pending"
+                    ); //Tìm theo kí tự đầu
         })
     });
-    //----------------------------------------------------------------------//
 })
 

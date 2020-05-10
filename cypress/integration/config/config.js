@@ -1,56 +1,60 @@
 let url = {
     "portal": {
-        "agent": "http://10.84.70.164/AgentUI134/Login.aspx",
-        "admin": "http://10.84.70.164:8098/Login.aspx"
+        "agent":    "http://ads.vinaphone.com.vn/agent/Login.aspx",
+        "admin":    "http://ads.vinaphone.com.vn:8888/Login.aspx"
     },
     "api": {
-        "nonbank": "http://10.84.70.148:8085/smsmktur135/api",
-        "bank": "",
-        "smsorder": ""
+        "nonbank":  "http://192.168.38.134:8888/smsmarketing/api",
+        "bank":     "http://192.168.38.163:8888/smsbank/api",
+        "smsorder": "http://192.168.38.134:8888/smstmdt/api"
     }
 };
 //-------------------------------------//
 let account = {
     "agent": {
-        "username": "accVIVASTEST_UR132_VTT",
+        "username": "DH_CS",
+        "pw": "Tr1@123"
+    },
+    "agentqc": {
+        "username": "DH_QC",
         "pw": "Tr1@123"
     },
     "admin": {
         "username": "test852017",
-        "pw": "Admin@123"
+        "pw": "a123456A@"
     }
 };
 //--------------------------------------//
 let portalArgs = {
     VTT: {
         cskh: {
-            "agentName": "DL_testphuong",
-            "adserName": "Nguyễn Duy Phương",
-            "contractName": "HĐ TEST 135",
-            "mạng": "Vinaphone",
-            "brn": "BRN cypress",
-            "template": "Test Cypress {P1}",
-            "templateID": "386351"   //giống với template ID trong apiArgs
+            "agentName":    "VNPTTEST-DH-cskh",
+            "adserName":    "Do Duy Hoan",
+            "contractName": "26082014/VNPT-DH-test",
+            "mạng":         "Vinaphone",
+            "brn":          "TEST2020",
+            "template":     "{P1}test2020",
+            "templateID":   "559103"   //giống với template ID trong apiArgs
         },
         qc: {
-            "agentName": "",
-            "adserName": "Duy Phuong",
-            "contractName": "hop dong test",
-            "mạng": "",
-            "brn": "HELLO123",
-            "template": "",
-            "templateID": ""
+            "agentName":    "VNPTTEST-DH-qc",
+            "adserName":    "TEST9999",
+            "contractName": "TEST9999",
+            "mạng":         "Vinaphone",
+            "brn":          "TEST9999",
+            "template":     "{P1}test9999",
+            "templateID":   "559104"
         }
     },
     TUNHAN: {
         cskh: {
-            "agentName": "",
-            "adserName": "",
-            "contractName": "",
-            "mạng": "",
-            "brn": "",
-            "template": "",
-            "templateID": ""
+            "agentName": "DL_VVtest1111",
+            "adserName": "KH_test_dltn",
+            "contractName": "HĐLV7",
+            "mạng": "Vinaphone",
+            "brn": "abc123",
+            "template": "{P1}abc",
+            "templateID": "554387"
         },
         qc: {
             "agentName": "",
@@ -64,55 +68,50 @@ let portalArgs = {
     },
     SMSORDER: {
         cksh: {
-            "agentName": "",
-            "adserName": "",
-            "contractName": "",
-            "mạng": "",
-            "brn": "",
-            "template": "",
-            "templateID": ""
+            "agentName": "DL_SMSOrder_Test",
+            "adserName": "KHorder",
+            "contractName": "HĐorder",
+            "mạng": "Vinaphone",
+            "brn": "TMDTod",
+            "template": "tempod1",
+            "templateID": "379556"
         }
     }
 }
-let adserName = "Nguyễn Duy Phương";
-let contractName = "HĐ TEST 135";
-let mạng = "Vinaphone";
-let brn = "BRN cypress";
-let template = "Test Cypress {P1}";
 
 let apiArgs = {
     nonbank: {
         cskh: {
-            "brnID": "100272",
-            "contractTypeID": "1",
-            "contractID": "8481",
-            "templateID": "386351",
-            "agentID": "433",
-            "apiUsername": "phuongapi",
-            "apiPassword": "Tr1@123",
-            "username": "accDL_testphuong",
+            "brnID":            "131887",
+            "contractTypeID":   "1",
+            "contractID":       "401",
+            "templateID":       "559103",
+            "agentID":          "164",
+            "apiUsername":      "hoandd",
+            "apiPassword":      "hoandd",
+            "username":         "DH_CS",
         },
         qc: {
-            "brnID": "100174",
-            "contractTypeID": "2",
-            "contractID": "8479",
-            "templateID": "386350",
-            "agentID": "434",
-            "apiUsername": "phuongQC",
-            "apiPassword": "Tr1@123",
-            "username": "accDL_testphuongQC"
+            "brnID":            "16092",
+            "contractTypeID":   "2",
+            "contractID":       "1185",
+            "templateID":       "559104",
+            "agentID":          "165",
+            "apiUsername":      "test",
+            "apiPassword":      "test",
+            "username":         "DH_QC"
         }
     },
     bank: {
         cskh: {
-            "brnID": "",
-            "contractTypeID": "",
-            "contractID": "",
-            "templateID": "",
-            "agentID": "",
-            "apiUsername": "",
-            "apiPassword": "",
-            "username": "",
+            "brnID":            "131358",
+            "contractTypeID":   "1",
+            "contractID":       "401",
+            "templateID":       "559105",
+            "agentID":          "164",
+            "apiUsername":      "hoandd",
+            "apiPassword":      "hoandd",
+            "username":         "DH_CS",
         },
         qc: {
 
@@ -126,7 +125,7 @@ let apiArgs = {
             "username": ""
         }
     },
-    smsmorder: {
+    smsorder: {
         cskh: {
             "brnID": "98542",
             "contractTypeID": "1",
@@ -155,8 +154,8 @@ let apiArgs = {
     mobilelist: {
         "vina": "84912158656",
         "viettel": "84396342533",
-        "mobi": "",
-        "mnp": "",
+        "mobi": "84932248120",
+        "mnp": "84979382546",
         "mnp_stag": ""
     },
     "numberOfParams": "1",
@@ -184,10 +183,10 @@ exports.url = url;
 exports.account = account;
 exports.rnd = rnd;
 exports.scheduleTime = scheduleTime;
-exports.adserName = adserName;
-exports.contractName = contractName;
-exports.mạng = mạng;
-exports.brn = brn;
-exports.template = template;
 exports.apiArgs = apiArgs;
 exports.portalArgs = portalArgs;
+// exports.adserName = adserName;
+// exports.contractName = contractName;
+// exports.mạng = mạng;
+// exports.brn = brn;
+// exports.template = template;

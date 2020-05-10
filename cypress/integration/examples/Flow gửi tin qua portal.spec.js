@@ -1,12 +1,11 @@
 import AGENT from '../PageObjects/Agent';
-import ADMIN from '../PageObjects/Admin';
 import ADMINSMSBRN from '../PageObjects/AdminSMSBRN';
 import * as cfg from '../config/config';
 //import { url, account, rnd, scheduleTime, adserName, contractName, mạng, template } from '../config/config'
 
 const adminBrandName = new ADMINSMSBRN();
 const agent = new AGENT();
-const admin = new ADMIN();
+let count=2;
 
 describe("Flow agent gửi tin", () => {
     beforeEach(() => {
@@ -23,8 +22,8 @@ describe("Flow agent gửi tin", () => {
                 , cfg.portalArgs.VTT.cskh.mạng
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "vina.xlsx"
-                , "vina.xlsx"
+                , `vina${count}.xlsx`
+                , `vina${count}.xlsx`
                 , 0);
     })
     specify("Gửi tin nội mạng đặt lịch", () => {
@@ -36,21 +35,21 @@ describe("Flow agent gửi tin", () => {
                 , cfg.portalArgs.VTT.cskh.mạng
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "vina1.xlsx"
-                , "vina1.xlsx"
+                , `vina${count+1}.xlsx`
+                , `vina${count+1}.xlsx`
                 , 0);
     })
-    specify("Gửi tin mạng Mobifone CSKH", () => {
+    specify("Gửi tin mạng Mobifone CSKH qua BRN", () => {
         agent
             .send_sms_temp_old(
                 " "
                 , cfg.portalArgs.VTT.cskh.adserName
-                , cfg.portalArgs.VTT.cskh.contractName
+                , "hdmxhVN"
                 , "Mobifone"
-                , cfg.portalArgs.VTT.cskh.brn
-                , cfg.portalArgs.VTT.cskh.template
-                , "mobi.xlsx"
-                , "mobi.xlsx"
+                , "VNPT.Tech"
+                , "{P1}"
+                , `mobi${count}.xlsx`
+                , `mobi${count}.xlsx`
                 , 0);
     })
     specify("Gửi tin mạng Viettel", () => {
@@ -62,8 +61,8 @@ describe("Flow agent gửi tin", () => {
                 , "Viettel"
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "viettel.xlsx"
-                , "viettel.xlsx"
+                , `viettel${count}.xlsx`
+                , `viettel${count}.xlsx`
                 , 0);
     })
     specify("Gửi tin mạng Itel", () => {
@@ -75,8 +74,8 @@ describe("Flow agent gửi tin", () => {
                 , "ITel"
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "itel.xlsx"
-                , "itel.xlsx"
+                , `itel${count}.xlsx`
+                , `itel${count}.xlsx`
                 , 0);
     })
     specify("Gửi tin có dấu", () => {
@@ -88,8 +87,8 @@ describe("Flow agent gửi tin", () => {
                 , "ITel"
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "itel.xlsx"
-                , "itel.xlsx"
+                , `itel${count}.xlsx`
+                , `itel${count}.xlsx`
                 , 8);
     })
     specify("Gửi tin theo hướng ưu tiên", () => {
@@ -101,8 +100,8 @@ describe("Flow agent gửi tin", () => {
                 , "Vinaphone"
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "vinauutien.xlsx"
-                , "vinauutien.xlsx"
+                , `vinauutien${count}.xlsx`
+                , `vinauutien${count}.xlsx`
                 , 0);
     })
     specify("Gửi tin mnp port-in mạng Vinaphone", () => {
@@ -114,8 +113,8 @@ describe("Flow agent gửi tin", () => {
                 , "Vinaphone"
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "mnpstaging.xlsx"
-                , "mnpstaging.xlsx"
+                , `mnp${count}.xlsx`
+                , `mnp${count}.xlsx`
                 , 0);
     })
     specify("Gửi tin mnp port-out mạng Viettel", () => {
@@ -127,8 +126,8 @@ describe("Flow agent gửi tin", () => {
                 , "Viettel"
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , "mnpstaging.xlsx"
-                , "mnpstaging.xlsx"
+                , `mnp${count+1}.xlsx`
+                , `mnp${count+1}.xlsx`
                 , 0);
 
     })
@@ -138,19 +137,19 @@ describe("Flow agent gửi tin", () => {
 describe("Đại lý tư nhân gửi tin CSKH", () => {
     beforeEach(() => {
         agent
-            .visitAgentPortal(url.portal.agent)
-            .doLogin("accDL_testphuong", "Tr1@123")
+            .visitAgentPortal(cfg.url.portal.agent)
+            .doLogin("DL_VV","Tr1@1234")
     })
     it("Agent tư nhân gửi tin CSKH", () => {
         //overwrite
-        let adserName = "Nguyễn Duy Phương";
-        let contractName = "Hợp đồng test UR 132 1702";
-        let mạng = "Vinaphone"
-        let brn = "testabc"
-        let template = "{P1}"
-        let filename = "vina.xlsx"
-        let filepath = "vina.xlsx"
-        let encoding = 0
+        let adserName =     cfg.portalArgs.TUNHAN.cskh.adserName;
+        let contractName =  cfg.portalArgs.TUNHAN.cskh.contractName;
+        let mạng =          cfg.portalArgs.TUNHAN.cskh.mạng;
+        let brn =           cfg.portalArgs.TUNHAN.cskh.brn;
+        let template =      cfg.portalArgs.TUNHAN.cskh.template;
+        let filename =      `vina${count}.xls`
+        let filepath =      `vina${count}.xlsx`
+        let encoding =      0
         agent
             .send_sms_temp_old(
                 " "
@@ -182,47 +181,14 @@ describe("Check trạng thái gửi tin từ SMSMKT -> SMS Brandname", () => {
                 , "VNP"
                 , "12/05/2020");
     })
-    specify("Check trạng thái gửi tin từ SMSMKT -> SMSBrandname trường hợp không thành công", () => {
+    specify.skip("Check trạng thái gửi tin từ SMSMKT -> SMSBrandname trường hợp không thành công", () => {
 
     })
 
 })
 //---------------------------------------------------------------------------------------------//
-context.skip("Admin hủy lệnh gửi", () => {
-    //mannual
-})
-//----------------------------------------------------------------------------------------------//
-context.skip("TC gửi 1551 sau đó gửi tin QC", () => {
-    beforeEach(() => {
-        agent
-            .visitAgentPortal(cfg.url.portal.agent)
-            .doLogin(
-                ""
-                , cfg.account.agent.pw
-                );
-    })
-    specify("Sửa template ở màn hình gửi tin", () => {
-        let adserName = "";
-        let contractName = "";
-        let mạng = "Viettel"
-        let brn = ""
-        let template = ""
-        let filename = "vina.xlsx"
-        let filepath = "vina.xlsx"
-        let encoding = 0
-        agent
-            .send_sms_temp_old(
-                " "
-                , adserName
-                , contractName
-                , mạng
-                , brn
-                , template
-                , filename
-                , filepath
-                , encoding);
-    })
-})
+
+
 
 
 

@@ -32,3 +32,10 @@ import 'cypress-file-upload';
 //         expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success");
 // })
 
+
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+})
