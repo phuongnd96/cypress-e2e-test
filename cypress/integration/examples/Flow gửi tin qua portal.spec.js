@@ -5,7 +5,7 @@ import * as cfg from '../config/config';
 
 const adminBrandName = new ADMINSMSBRN();
 const agent = new AGENT();
-let count=2;
+let count = 1;
 
 describe("Flow agent gửi tin", () => {
     beforeEach(() => {
@@ -35,8 +35,8 @@ describe("Flow agent gửi tin", () => {
                 , cfg.portalArgs.VTT.cskh.mạng
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , `vina${count+1}.xlsx`
-                , `vina${count+1}.xlsx`
+                , `vina${count + 1}.xlsx`
+                , `vina${count + 1}.xlsx`
                 , 0);
     })
     specify("Gửi tin mạng Mobifone CSKH qua BRN", () => {
@@ -59,8 +59,10 @@ describe("Flow agent gửi tin", () => {
                 , cfg.portalArgs.VTT.cskh.adserName
                 , cfg.portalArgs.VTT.cskh.contractName
                 , "Viettel"
-                , cfg.portalArgs.VTT.cskh.brn
-                , cfg.portalArgs.VTT.cskh.template
+                //, cfg.portalArgs.VTT.cskh.brn
+                , "VNPT.Tech"
+                //, cfg.portalArgs.VTT.cskh.template
+                , "{P1}"
                 , `viettel${count}.xlsx`
                 , `viettel${count}.xlsx`
                 , 0);
@@ -126,8 +128,8 @@ describe("Flow agent gửi tin", () => {
                 , "Viettel"
                 , cfg.portalArgs.VTT.cskh.brn
                 , cfg.portalArgs.VTT.cskh.template
-                , `mnp${count+1}.xlsx`
-                , `mnp${count+1}.xlsx`
+                , `mnp${count + 1}.xlsx`
+                , `mnp${count + 1}.xlsx`
                 , 0);
 
     })
@@ -138,18 +140,18 @@ describe("Đại lý tư nhân gửi tin CSKH", () => {
     beforeEach(() => {
         agent
             .visitAgentPortal(cfg.url.portal.agent)
-            .doLogin("DL_VV","Tr1@1234")
+            .doLogin("DL_VV", "Tr1@1234")
     })
     it("Agent tư nhân gửi tin CSKH", () => {
         //overwrite
-        let adserName =     cfg.portalArgs.TUNHAN.cskh.adserName;
-        let contractName =  cfg.portalArgs.TUNHAN.cskh.contractName;
-        let mạng =          cfg.portalArgs.TUNHAN.cskh.mạng;
-        let brn =           cfg.portalArgs.TUNHAN.cskh.brn;
-        let template =      cfg.portalArgs.TUNHAN.cskh.template;
-        let filename =      `vina${count}.xls`
-        let filepath =      `vina${count}.xlsx`
-        let encoding =      0
+        let adserName = cfg.portalArgs.TUNHAN.cskh.adserName;
+        let contractName = cfg.portalArgs.TUNHAN.cskh.contractName;
+        let mạng = cfg.portalArgs.TUNHAN.cskh.mạng;
+        let brn = cfg.portalArgs.TUNHAN.cskh.brn;
+        let template = cfg.portalArgs.TUNHAN.cskh.template;
+        let filename = `vina${count}.xls`
+        let filepath = `vina${count}.xlsx`
+        let encoding = 0
         agent
             .send_sms_temp_old(
                 " "
@@ -169,7 +171,7 @@ describe("Check trạng thái gửi tin từ SMSMKT -> SMS Brandname", () => {
         adminBrandName
             .visitAdminPortal(
                 "http://sms.vivas.vn/SMSBNPortal/view/user/login.jsp"
-                )
+            )
             .doLogin(
                 "Vivas.vhkt"
                 , "abc123")
