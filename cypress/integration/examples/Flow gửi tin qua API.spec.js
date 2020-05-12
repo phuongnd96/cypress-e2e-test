@@ -210,7 +210,7 @@ context("Gửi tin qua API", () => {
             })
             //---------------------------------------------------------------------------------//          
         })
-        describe("Đại lý gửi tin với nhãn vừa bị reject", () => {
+        describe.skip("Đại lý gửi tin với nhãn vừa bị reject", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
@@ -244,7 +244,7 @@ context("Gửi tin qua API", () => {
                         })
             })
         })
-        describe("Đại lý gửi tin với template vừa bị reject", () => {
+        describe.skip("Đại lý gửi tin với template vừa bị reject", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
@@ -280,7 +280,7 @@ context("Gửi tin qua API", () => {
                     .approveTemplate(cfg.portalArgs.VTT.cskh.templateID, cfg.portalArgs.VTT.cskh.agentName, "Rejected");
             })
         })
-        describe("Gửi tin nội mạng với từ khóa vừa được chặn", () => {
+        describe.skip("Gửi tin nội mạng với từ khóa vừa được chặn", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)

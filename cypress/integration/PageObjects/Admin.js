@@ -199,7 +199,7 @@ class Admin {
             .type(vinaphoneKeyword)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
-            .wait(10000)
+            .wait(5000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lblKeyword")
             .as("keywordFound")
         cy

@@ -185,7 +185,9 @@ class Agent {
             .click();
         //thêm mới nhãn
         cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_btnFooterAddLabel > img")
+            .get(".tbl>tbody>tr:last-child>td:last-child>a")
+            .as("addLabelBtn")
+        cy.get("@addLabelBtn")
             .click();
         //điền thông tin nhãn
         //Tên nhãn
@@ -253,9 +255,10 @@ class Agent {
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditLabel")
             .click();
-        //thêm mới nhãn
+        //thêm mới nhãn    
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_btnFooterAddLabel > img")
+            .scrollIntoView()
             .click();
         //điền thông tin nhãn
         //Tên nhãn
@@ -326,7 +329,8 @@ class Agent {
             .click();
         //thêm mới nhãn
         cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_btnFooterAddLabel > img")
+        cy
+            .get(".tbl>tbody>tr:last-child>td:last-child>a")
             .as("addLabelBtn")
         cy.get("@addLabelBtn")
             .click();
@@ -335,7 +339,7 @@ class Agent {
         cy.
             get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterLabel")
             .as("brnTxtBox")
-            cy.get("@brnTxtBox")
+        cy.get("@brnTxtBox")
             .type(brn)
             //Số hiển thị chưa bỏ trên product
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterDisplayNumber")
@@ -669,7 +673,7 @@ class Agent {
 
     };
 
-    send_sms_temp_old(scheduleTime, adserName, contractName, mạng, brn, template, filename, filepath, encoding) {
+    send_sms_temp_old(scheduleTime, adserName, contractName, mạng, brn, template, filename, filepath, encoding, fromCreateDate, toCreateDate, fromScheduleDate, toScheduleDate) {
         if (encoding == 8) {
             cy
                 .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_rblCharacterType_1")
@@ -726,7 +730,29 @@ class Agent {
                     .reload()
                     .get("#idNotiLink1")
                     .click({ force: true });
-
+                cy.get("#idContentNoti > a")
+                    .click({ force: true })
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromCreateDate")
+                    .as("fromCreateDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToCreateDate")
+                    .as("toCreateDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromScheduleDate")
+                    .as("fromScheduleDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToScheduleDate")
+                    .as("toScheduleDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel_ddlLabel_TextBox")
+                    .as("brnTextBox")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_Button1")
+                    .as("searchBtn")
+                    .then(() => {
+                        if (scheduleTime = !" ")
+                            cy.get("@fromCreateDate").clear().type(fromCreateDate)
+                        cy.get("@toCreateDate").clear().type(toCreateDate)
+                        cy.get("@fromScheduleDate").clear().type(fromScheduleDate)
+                        cy.get("@toScheduleDate").clear().type(toScheduleDate)
+                    })
+                cy.get("@brnTextBox").type(brn)
+                cy.get("@searchBtn").click();
             })
     };
 

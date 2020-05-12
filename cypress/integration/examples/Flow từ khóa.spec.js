@@ -1,8 +1,7 @@
 import Admin from '../PageObjects/Admin'
 import Agent from "../PageObjects/Agent"
-
-//import { url, account, rnd, scheduleTime, adserName, contractName, mạng, template } from '../cfg/cfg'
 import * as cfg from '../config/config';
+//---------------------------------------------------------------------------//
 const agent = new Agent();
 const admin = new Admin();
 
@@ -20,6 +19,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
         })
         it("Admin xóa từ khóa chặn nội mạng", () => {
             admin.delete_vinaphone_keyword("phuongtestkeyword")
+            admin.delete_vinaphone_keyword("phuongtestkeyword auto edited")
         })
         it("Admin tạo từ khóa chặn ngoại mạng", () => {
             admin.create_foreign_keyword("phuongtestkeywordngoaimang")
@@ -31,8 +31,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
     context("Agent", () => {
         beforeEach(() => {
             agent.
-                visitAgentPortal(cfg.url.portal
-                    .agent)
+                visitAgentPortal(cfg.url.portal.agent)
                 .doLogin(cfg.account.agent.username, cfg.account.agent.pw);
         })
         it("Gửi tin với từ khóa chặn nội mạng", () => {
@@ -46,7 +45,11 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , cfg.portalArgs.VTT.cskh.template
                     , "vinakeyword.xlsx"
                     , "vinakeyword.xlsx"
-                    , 0);
+                    , 0
+                    , cfg.sentTime.fromCreateDate
+                    , cfg.sentTime.toCreateDate
+                    , cfg.sentTime.fromScheduleDate
+                    , cfg.sentTime.toScheduleDate);
         })
         it("Gửi tin với từ khóa chặn ngoại mạng", () => {
             agent
@@ -59,7 +62,11 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , cfg.portalArgs.VTT.cskh.template
                     , "viettelkeyword.xlsx"
                     , "viettelkeyword.xlsx"
-                    , 0);
+                    , 0
+                    , cfg.sentTime.fromCreateDate
+                    , cfg.sentTime.toCreateDate
+                    , cfg.sentTime.fromScheduleDate
+                    , cfg.sentTime.toScheduleDate);
         })
     })
 })

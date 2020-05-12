@@ -1,5 +1,6 @@
 import AGENT from '../PageObjects/Agent';
 import ADMIN from '../PageObjects/Admin';
+import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
 
@@ -8,11 +9,11 @@ describe(`UR 134
 3.4, Sửa tên trường “Ngày hiệu lực giấy tờ” thành “Ngày hết hiệu lực giấy tờ”.
 `, () => {
 
-    context("3.1, Cho phép Agent reject template đã được phê duyệt", () => {
+    context.skip("3.1, Cho phép Agent reject template đã được phê duyệt", () => {
         beforeEach(() => {
             agent
-                .visitAgentPortal("http://10.84.70.164/AgentUI134/Home.aspx")
-                .doLogin("accVIVASTEST_UR132_VTT", "Tr1@123");
+                .visitAgentPortal(cfg.url.portal.agent)
+                .doLogin(cfg.account.agent.username, cfg.account.agent.pw);
         })
         specify("Kiem tra giao dien + checkable checkbox", () => {
             cy
@@ -60,7 +61,6 @@ describe(`UR 134
                 })
 
         })
-
         specify("Chọn reject template rồi ấn hủy", () => {
             //dealing with windowm confirm, better
             cy.on('window:confirm', str => {
@@ -92,13 +92,13 @@ describe(`UR 134
         })
     })
 
-    context(`3.4, Sửa tên trường “Ngày hiệu lực giấy tờ” thành “Ngày hết hiệu lực giấy tờ”.`, () => {
+    context.skip(`3.4, Sửa tên trường “Ngày hiệu lực giấy tờ” thành “Ngày hết hiệu lực giấy tờ”.`, () => {
 
         context("Admin portal", () => {
             beforeEach(() => {
                 admin
-                    .visitAdminPortal("http://10.84.70.164:8098/Home.aspx")
-                    .doLogin("test852017", "Admin@123");
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw);
             })
             specify(`Màn hình kiểm duyệt nhãn của admin`, () => {
                 cy
@@ -112,8 +112,8 @@ describe(`UR 134
         context("Agent portal", () => {
             beforeEach(() => {
                 agent
-                    .visitAgentPortal("http://10.84.70.164/AgentUI134/Home.aspx")
-                    .doLogin("accVIVASTEST_UR132_VTT", "Tr1@123")
+                    .visitAgentPortal(cfg.url.portal.agent)
+                    .doLogin(cfg.account.agent.username, cfg.account.agent.pw)
             })
             it("Màn hình sửa hợp đồng", () => {
                 cy
@@ -130,7 +130,8 @@ describe(`UR 134
                 cy
                     .contains("KHAI BÁO HĐ")
                     .click({ force: true })
-                    .get("#__tab_ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_tpLabel")
+                    .get("#__tab_ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_tpLabel").as("@Khai_báo_nhãn")
+                    .get("@Khai_báo_nhãn")
                     .click()
                 cy
                     .contains("Ngày hết hiệu lực giấy tờ")
@@ -143,39 +144,113 @@ describe(`UR 134
         context("Agent tao chien dich", () => {
             beforeEach(() => {
                 agent
-                    .visitAgentPortal("http://10.84.70.164/AgentUI12/Home.aspx")
-                    .doLogin("accDL_testphuongQC", "Tr1@123")
+                    .visitAgentPortal(cfg.url.portal.agent)
+                    .doLogin(cfg.account.agentqc.username, cfg.account.agentqc.pw)
             })
             it("Agent tao chien dich LBA", () => {
                 agent
-                    .createLBA("LBAPHUONG_6", "10/05/2020 15:34", "Duy Phuong", 1, "hop dong test", "HELLO123", "test LBA 0605", "Nam", "1 tháng", "Không", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx");
+                    .createLBA(
+                        "LBAPHUONG_7"
+                        , "12/05/2020 15:34"
+                        , cfg.portalArgs.VTT.qc.adserName
+                        , 1
+                        , cfg.portalArgs.VTT.qc.contractName
+                        , cfg.portalArgs.VTT.qc.brn
+                        , "test LBA 1105"
+                        , "Nam"
+                        , "1 tháng"
+                        , "Không"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx");
             })
             it("Agent tao chien dich LBA", () => {
                 agent
-                    .createLBA("LBAPHUONG_7", "10/05/2020 15:34", "Duy Phuong", 1, "hop dong test", "HELLO123", "test LBA 0605", "Nam", "1 tháng", "Không", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx");
+                    .createLBA(
+                        "LBAPHUONG_8"
+                        , "12/05/2020 15:34"
+                        , cfg.portalArgs.VTT.qc.adserName
+                        , 1
+                        , cfg.portalArgs.VTT.qc.contractName
+                        , cfg.portalArgs.VTT.qc.brn
+                        , "test LBA 1105"
+                        , "Nam"
+                        , "1 tháng"
+                        , "Không"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        );
             })
             it("Agent tao chien dich LBA", () => {
                 agent
-                    .createLBA("LBAPHUONG_8", "10/05/2020 15:34", "Duy Phuong", 1, "hop dong test", "HELLO123", "test LBA 0605", "Nam", "1 tháng", "Không", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx");
+                    .createLBA(
+                        "LBAPHUONG_9"
+                        , "12/05/2020 15:34"
+                        , cfg.portalArgs.VTT.qc.adserName
+                        , 1
+                        , cfg.portalArgs.VTT.qc.contractName
+                        , cfg.portalArgs.VTT.qc.brn
+                        , "test LBA 1105"
+                        , "Nam"
+                        , "1 tháng"
+                        , "Không"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        );
             })
             it("Agent tao chien dich LBA", () => {
                 agent
-                    .createLBA("LBAPHUONG_9", "10/05/2020 15:34", "Duy Phuong", 1, "hop dong test", "HELLO123", "test LBA 0605", "Nam", "1 tháng", "Không", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx", "blacklist.xlsx");
+                    .createLBA(
+                        "LBAPHUONG_10"
+                        , "12/05/2020 15:34"
+                        , cfg.portalArgs.VTT.qc.adserName
+                        , 1
+                        , cfg.portalArgs.VTT.qc.contractName
+                        , cfg.portalArgs.VTT.qc.brn
+                        , "test LBA 1105"
+                        , "Nam"
+                        , "1 tháng"
+                        , "Không"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        , "blacklist.xlsx"
+                        );
             })
         })
         context("Admin resolve chien dich", () => {
             beforeEach(() => {
                 admin
-                    .visitAdminPortal("http://10.84.70.164:8098/Home.aspx")
-                    .doLogin("test852017", "Admin@123")
+                    .visitAdminPortal(cfg.url.portal.admin)
+                    .doLogin(cfg.account.admin.username, cfg.account.admin.pw);
             })
             it("Admin reject", () => {
                 admin
-                    .resolveLBA(["LBAPHUONG_6", "LBAPHUONG_7"], "06/05/2020", "11/05/2020", "Tất cả", "06/05/2020", "11/05/2020", false)
+                    .resolveLBA(
+                        ["LBAPHUONG_7", "LBAPHUONG_8"]
+                        , "06/05/2020"
+                        , "13/05/2020"
+                        , "Tất cả"
+                        , "06/05/2020"
+                        , "13/05/2020"
+                        , false
+                        )
             })
             it("Admin approve", () => {
                 admin
-                    .resolveLBA(["LBAPHUONG_8", "LBAPHUONG_9"], "06/05/2020", "11/05/2020", "Tất cả", "06/05/2020", "11/05/2020", true)
+                    .resolveLBA(
+                        ["LBAPHUONG_9", "LBAPHUONG_10"]
+                        , "06/05/2020"
+                        , "13/05/2020"
+                        , "Tất cả"
+                        , "06/05/2020"
+                        , "13/05/2020"
+                        , true)
             })
         });
     })
