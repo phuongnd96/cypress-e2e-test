@@ -398,7 +398,7 @@ class Admin {
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
             //đợi query từ database
-            .wait(2000)
+            .wait(3000)
             //chọn chi tiết
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditCommand").as("Chi tiết")
             .get("@Chi tiết")
@@ -409,9 +409,11 @@ class Admin {
                     .as("statusBtn")
                 if (status == true) { //Kích hoạt agent
                     cy.get("@statusBtn").check();
-                } else {
+                }
+                else {
                     cy.get("@statusBtn").uncheck();
                 }
+                cy.wait(5000);
                 cy
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btUpdate1")
                     .click()
