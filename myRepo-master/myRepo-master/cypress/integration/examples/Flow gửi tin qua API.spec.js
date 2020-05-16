@@ -210,7 +210,7 @@ context("Gửi tin qua API", () => {
             })
             //---------------------------------------------------------------------------------//          
         })
-        describe.skip("Đại lý gửi tin với nhãn vừa bị reject", () => {
+        describe("Đại lý gửi tin với nhãn vừa bị reject", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
@@ -244,7 +244,7 @@ context("Gửi tin qua API", () => {
                         })
             })
         })
-        describe.skip("Đại lý gửi tin với template vừa bị reject", () => {
+        describe("Đại lý gửi tin với template vừa bị reject", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
@@ -280,7 +280,7 @@ context("Gửi tin qua API", () => {
                     .approveTemplate(cfg.portalArgs.VTT.cskh.templateID, cfg.portalArgs.VTT.cskh.agentName, "Rejected");
             })
         })
-        describe.skip("Gửi tin nội mạng với từ khóa vừa được chặn", () => {
+        describe("Gửi tin nội mạng với từ khóa vừa được chặn", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
@@ -318,7 +318,7 @@ context("Gửi tin qua API", () => {
                     .delete_vinaphone_keyword("phuongtestkeyword")
             })
         })
-        describe.skip("Gửi tin với đại lý đổi từ không giới hạn sang 4MT", () => {
+        describe("Gửi tin với đại lý đổi từ không giới hạn sang 4MT", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)

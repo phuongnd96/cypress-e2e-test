@@ -4,6 +4,8 @@ import * as cfg from '../config/config';
 //---------------------------------------------------------------------------//
 const agent = new Agent();
 const admin = new Admin();
+//prefix để đọc file lỗi
+let prefix = [];
 
 context("Flow từ khóa nội mạng ngoại mạng", () => {
     context("Admin", () => {
@@ -49,7 +51,18 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , cfg.sentTime.fromCreateDate
                     , cfg.sentTime.toCreateDate
                     , cfg.sentTime.fromScheduleDate
-                    , cfg.sentTime.toScheduleDate);
+                    , cfg.sentTime.toScheduleDate
+                    , "Đặt lệnh không thành công").then((text)=>{
+                        prefix.pop();
+                        prefix.push(text);
+                    })
+                    .then((prefix)=>{
+                        cy.log(prefix);
+                        agent.downloadErrorfile();
+                    })
+        })
+        it("Kiểm tra file lỗi",()=>{
+            agent.readErrorfile(prefix[0],"Không thuộc mạng");
         })
         it("Gửi tin với từ khóa chặn ngoại mạng", () => {
             agent
@@ -66,7 +79,19 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , cfg.sentTime.fromCreateDate
                     , cfg.sentTime.toCreateDate
                     , cfg.sentTime.fromScheduleDate
-                    , cfg.sentTime.toScheduleDate);
+                    , cfg.sentTime.toScheduleDate
+                    , "Đặt lệnh không thành công").then((text)=>{
+                        prefix.pop();
+                        prefix.push(text);
+                    })
+                    .then((prefix)=>{
+                        cy.log(prefix);
+                        agent.downloadErrorfile();
+                    })
+        })
+        it("Kiểm tra file lỗi",()=>{
+            agent.readErrorfile(prefix[0],"Không thuộc mạng");
+        })
         })
     })
 })
