@@ -12,8 +12,8 @@ let after = {
     customer: {}
 };
 //prefix để đọc file lỗi
-let  prefix=[];
-context("Flow đại lý trả trước",()=>{
+let prefix = [];
+context("Flow đại lý trả trước", () => {
     describe("Flow agent gửi tin trả trước", () => {
         beforeEach(() => {
             agent
@@ -29,25 +29,25 @@ context("Flow đại lý trả trước",()=>{
             })
         });
         specify("Gửi tin nội mạng gửi ngay", () => {
-            // agent
-            //     .send_sms_temp_old(
-            //         " "
-            //         , "khtesttn"
-            //         , "hdtnmxhVN"
-            //         , "Vinaphone"
-            //         , "TestTNMXH"
-            //         , "{P1}"
-            //         , `vina${cfg.count}.xlsx`
-            //         , `vina${cfg.count}.xlsx`
-            //         , 0
-            //         , cfg.sentTime.fromCreateDate
-            //         , cfg.sentTime.toCreateDate
-            //         , cfg.sentTime.fromScheduleDate
-            //         , cfg.sentTime.toScheduleDate
-            //         , "Đặt lệnh thành công").then((sentMsg) => {
-            //             cy.log(`Gửi thành công ${sentMsg} tin`);
-            //         })
-         
+            agent
+                .send_sms_temp_old(
+                    " "
+                    , "khtesttn"
+                    , "hdtnmxhVN"
+                    , "Vinaphone"
+                    , "TestTNMXH"
+                    , "{P1}"
+                    , `vina${cfg.count}.xlsx`
+                    , `vina${cfg.count}.xlsx`
+                    , 0
+                    , cfg.sentTime.fromCreateDate
+                    , cfg.sentTime.toCreateDate
+                    , cfg.sentTime.fromScheduleDate
+                    , cfg.sentTime.toScheduleDate
+                    , "Đặt lệnh thành công").then((sentMsg) => {
+                        cy.log(`Gửi thành công ${sentMsg} tin`);
+                    })
+
             agent
                 .send_sms_temp_old(
                     " "
@@ -63,18 +63,19 @@ context("Flow đại lý trả trước",()=>{
                     , cfg.sentTime.toCreateDate
                     , cfg.sentTime.fromScheduleDate
                     , cfg.sentTime.toScheduleDate
-                    , "Đặt lệnh không thành công").then((text)=>{
+                    , "Đặt lệnh không thành công").then((text) => {
                         prefix.pop();
                         prefix.push(text);
-                    }).then((prefix)=>{
+                    }).then((prefix) => {
                         cy.log(prefix);
                         agent.downloadErrorfile();
                     });
         })
-        specify("Kiểm tra file lỗi",()=>{
-            agent.readErrorfile(prefix[0],"Không thuộc mạng");
+        specify("Kiểm tra file lỗi", () => {
+            agent.readErrorfileAsync(prefix[0], "Không thuộc mạng");
+
         })
-        
+
         specify("Kiểm tra gói tin đại lý và khách hàng thường sau khi gửi", () => {
             agent.checkPackageAgent("Vinaphone", "MXH QUỐC TẾ").then((res) => {
                 after.agent = res;
@@ -90,7 +91,7 @@ context("Flow đại lý trả trước",()=>{
             expect(before.customer.remain).to.equal(after.customer.remain + 1);
         })
     })
-    describe("Gửi tin hết quota adser", () => {
+    describe.skip("Gửi tin hết quota adser", () => {
         it("Gửi tin hết quota adser", () => {
             agent.request_send_sms_nonbank_bank(
                 "http://192.168.38.134:8888/smsmarketing/api"
@@ -114,7 +115,7 @@ context("Flow đại lý trả trước",()=>{
             })
         })
     })
-    describe("Gửi tin hết gói tin đại lý", () => {
+    describe.skip("Gửi tin hết gói tin đại lý", () => {
         it("Gửi tin hết quota agent", () => {
             agent.request_send_sms_nonbank_bank(
                 "http://192.168.38.134:8888/smsmarketing/api"

@@ -804,7 +804,6 @@ class Agent {
                             })
                         }
                     })
-                //phải config lại thư mục donwload file về thư mục root của project (thư mục chứa file cypress.json
             })
     };
     readErrorfile(prefix, error) {
@@ -813,13 +812,17 @@ class Agent {
         }).then((res) => {
             expect(res.trimLeft().trimRight()).to.equal(error);
         })
+    };
+     readErrorfileAsync(prefix, error) {
+     return (async function readErrFile(){
+         let res = await cy.task('readFile', `C:\\Users\\LapTop\\Downloads\\${prefix}_thue_bao_loi.xlsx`);
+         expect ((res.Strings['3'].h).trimLeft().trimRight()).to.equal(error);     
+     })();
     }
     downloadErrorfile() {
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
             .click();
-        //  return cy.task('readErrorFile',`${text.toString().concat("_thue_bao_loi")}`);
     };
-    //working on read error file
     checkPackageAgent(mạng, brnGroup) {
         cy.contains("GÓI TIN ĐẠI LÝ").click({ force: true })
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator").select(mạng)

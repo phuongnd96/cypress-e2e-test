@@ -5,10 +5,10 @@ let rnd = Math.floor(Math.random() * 10000000);
 let count=1;
 // thời giạn đặt lịch và gửi tin trên portal 
 let sentTime={
-    fromCreateDate:"15/05/2020",
-    toCreateDate:"15/05/2020",
-    fromScheduleDate:"15/05/2020",
-    toScheduleDate:"15/05/2020"
+    fromCreateDate:"17/05/2020",
+    toCreateDate:"17/05/2020",
+    fromScheduleDate:"17/05/2020",
+    toScheduleDate:"17/05/2020"
 }
 function makeTimeDayLessThan9(hour) {
     return `0${now.getDate() + 1}-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}:${Math.floor(Math.random() * 50 + 10)}`;
