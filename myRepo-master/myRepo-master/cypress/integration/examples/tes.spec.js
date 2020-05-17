@@ -1,16 +1,23 @@
+import * as _ from '../config/data';
 import AGENT from '../PageObjects/Agent';
 import ADMIN from '../PageObjects/Admin';
-import * as cfg from '../config/config';
+let db = _.info;
 const agent = new AGENT();
 const admin = new ADMIN();
 
+describe("test", () => {
+    it("abc", () => {
+        agent.visitAgentPortal(db.url_portal.agentPortal)
+            .doLogin(db.agent_VTT_CSKH_TRASAU.userName, db.agent_VTT_CSKH_TRASAU.password);
+    })
+});
 describe("Flow agent tạo nhãn và template", () => {
     describe("Agent thêm template và nhãn thành công", () => {
         beforeEach(() => {
-            agent.visitAgentPortal(cfg.url.portal.agent)
+            agent.visitAgentPortal(db.url_portal.agentPortal)
                 .doLogin(
-                    cfg.account.agent.username
-                    , cfg.account.agent.pw
+                    db.agent_VTT_CSKH_TRASAU.userName
+                    , db.agent_VTT_CSKH_TRASAU.password
                 );
         })
         it("Thêm nhãn thành công", () => {
@@ -53,11 +60,10 @@ describe("Flow agent tạo nhãn và template", () => {
             admin
                 .approveBrandName(
                     "phuongtest"
-                    ,cfg.portalArgs.VTT.cskh.agentName
-                    ,"Pending"
-                    ); 
-                    //Tìm theo kí tự đầu
+                    , cfg.portalArgs.VTT.cskh.agentName
+                    , "Pending"
+                );
+            //Tìm theo kí tự đầu
         })
     });
 })
-

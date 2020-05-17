@@ -685,7 +685,21 @@ class Agent {
 
     };
 
-    send_sms_temp_old(scheduleTime, adserName, contractName, mạng, brn, template, filename, filepath, encoding, fromCreateDate, toCreateDate, fromScheduleDate, toScheduleDate, predictedStatus) {
+    send_sms_temp_old(
+        scheduleTime
+        , adserName
+        , contractName
+        , mạng
+        , brn
+        , template
+        , filename
+        , filepath
+        , encoding
+        , fromCreateDate
+        , toCreateDate
+        , fromScheduleDate
+        , toScheduleDate
+        , predictedStatus) {
         if (encoding == 8) {
             cy
                 .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_rblCharacterType_1")
@@ -780,9 +794,9 @@ class Agent {
                         if (predictedStatus == "Đặt lệnh không thành công") {
                             cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
                                 .as("file_loi");
-                                return cy.get(":nth-child(2) > :nth-child(2) > a").invoke('text').then((text)=>{
-                                    return parseInt(text);
-                                })
+                            return cy.get(":nth-child(2) > :nth-child(2) > a").invoke('text').then((text) => {
+                                return parseInt(text);
+                            })
                         } else if (predictedStatus == "Đặt lệnh thành công") {
                             cy.wait(3000);
                             return cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(12)").invoke('text').then((text) => {
@@ -793,7 +807,7 @@ class Agent {
                 //phải config lại thư mục donwload file về thư mục root của project (thư mục chứa file cypress.json
             })
     };
-    readErrorfile(prefix,error){
+    readErrorfile(prefix, error) {
         cy.task('readFile', `C:\\Users\\LapTop\\Downloads\\${prefix}_thue_bao_loi.xlsx`).then((res) => {
             return res.Strings["3"].h;
         }).then((res) => {
@@ -802,7 +816,7 @@ class Agent {
     }
     downloadErrorfile() {
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
-        .click();
+            .click();
         //  return cy.task('readErrorFile',`${text.toString().concat("_thue_bao_loi")}`);
     };
     //working on read error file

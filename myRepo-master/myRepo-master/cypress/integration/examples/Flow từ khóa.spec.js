@@ -62,7 +62,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     })
         })
         it("Kiểm tra file lỗi",()=>{
-            agent.readErrorfile(prefix[0],"Không thuộc mạng");
+            agent.readErrorfile(prefix[0],"Vi phạm chính sách từ khóa");
         })
         it("Gửi tin với từ khóa chặn ngoại mạng", () => {
             agent
@@ -90,8 +90,8 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     })
         })
         it("Kiểm tra file lỗi",()=>{
-            agent.readErrorfile(prefix[0],"Không thuộc mạng");
+            agent.readErrorfile(prefix[0],"Vi phạm chính sách từ khóa");
         })
         })
     })
-})
+

@@ -1,70 +1,12 @@
-let env = "PRODUCT";
 import * as helpfunc from './helpfunc';
-function url_portal1(agentPortal, adminPortal, esmsPortal) {
-    this.agentPortal = agentPortal;
-    this.adminPortal = adminPortal;
-    this.esmsPortal = esmsPortal;
-}
-function url_api1(nonbank, bank, smsorder) {
-    this.bank = bank;
-    this.nonbank = nonbank;
-    this.smsorder = smsorder;
-}
-function AGENT(
-    userName
-    , password
-    , agentName
-    , agentID
-    , adserName
-    , contractName
-    , contractID
-    , brandName
-    , brnID
-    , template
-    , templateID
-    , brandNameBank
-    , brnBankID
-    , templateBank
-    , templateBankID
-    , apiUsernameSendSms
-    , apiPasswordSendSms
-    , apiUsernameGetlabel
-    , apiPasswordGetLabel
-    , apiUsernameGetContract
-    , apiPasswordGetContract
-    , apiUsernameGetTemplate
-    , apiPasswordGetTemplate
-) {
-    this.userName = userName;
-    this.password = password;
-    this.agentName = agentName;
-    this.agentID = agentID;
-    this.adserName = adserName;
-    this.contractName = contractName;
-    this.contractID = contractID;
-    this.brandName = brandName;
-    this.brnID = brnID;
-    this.template = template;
-    this.templateBankID = templateID;
-    this.brandNameBank = brandNameBank;
-    this.brnBankID = brnBankID;
-    this.templateBank = templateBank;
-    this.templateBankID = templateBankID;
-    this.apiUsernameSendSms = apiUsernameSendSms;
-    this.apiPasswordSendSms = apiPasswordSendSms;
-    this.apiUsernameGetlabel = apiUsernameGetlabel;
-    this.apiPasswordGetLabel = apiPasswordGetLabel;
-    this.apiUsernameGetContract = apiUsernameGetContract;
-    this.apiPasswordGetContract = apiPasswordGetContract;
-    this.apiUsernameGetTemplate = apiUsernameGetTemplate;
-    this.apiPasswordGetTemplate = apiPasswordGetTemplate;
-}
-
+import * as cs from './constructor';
+let env = "PRODUCT";
+const AGENT = cs.AGENT;
+const url_p = cs.url_portal1;
+const url_a = cs.url_api1;
 if (env === "STAGING") {
-
 }
 else if (env === "PRODUCT") {
-
     const agent_SMSORDER_CSKH = new AGENT(
         "DL_SMSOrder"
         , "Tr1@123"
@@ -249,26 +191,33 @@ else if (env === "PRODUCT") {
         , undefined
         , undefined
     );
-    const url_portal = new url_portal1(
+    const url_portal = new url_p(
         "http://ads.vinaphone.com.vn/agent/Login.aspx"
         , "http://ads.vinaphone.com.vn:8888/Login.aspx"
         , "http://esms.com.vn/default.aspx"
     )
-    const url_api = new url_api1(
+    const url_api = new url_a(
         "http://192.168.38.134:8888/smsmarketing/api"
         , "http://192.168.38.163:8888/smsbank/api"
         , "http://192.168.38.134:8888/smstmdt/api"
     )
-    exports.portal = url_portal;
-    exports.api = url_api;
-    exports.agent_SMSORDER_CSKH = agent_SMSORDER_CSKH;
-    exports.agent_TUNHAN_CSKH_TRASAU = agent_TUNHAN_CSKH_TRASAU;
-    exports.agent_TUNHAN_CSKH_TRATRUOC = agent_TUNHAN_CSKH_TRATRUOC;
-    exports.agent_TUNHAN_QC = agent_TUNHAN_QC;
-    exports.agent_VTT_CSKH_TRASAU = agent_VTT_CSKH_TRASAU;
-    exports.agent_VTT_CSKH_TRATRUOC = agent_VTT_CSKH_TRATRUOC;
-    exports.agent_VTT_QC_TRASAU = agent_VTT_QC_TRASAU;
-    exports.agent_VTT_QC_TRATRUOC = agent_VTT_QC_TRATRUOC;
-    exports.helpfunc = helpfunc;
+    const info={
+        url_portal:url_portal,
+        url_api:url_api,
+        agent_SMSORDER_CSKH:agent_SMSORDER_CSKH,
+        agent_TUNHAN_CSKH_TRASAU:agent_TUNHAN_CSKH_TRASAU,
+        agent_TUNHAN_CSKH_TRATRUOC:agent_TUNHAN_CSKH_TRATRUOC,
+        agent_TUNHAN_QC:agent_TUNHAN_QC,
+        agent_VTT_CSKH_TRASAU:agent_VTT_CSKH_TRASAU,
+        agent_VTT_CSKH_TRATRUOC:agent_VTT_CSKH_TRATRUOC,
+        agent_VTT_QC_TRASAU:agent_VTT_QC_TRASAU,
+        agent_VTT_QC_TRATRUOC:agent_VTT_QC_TRATRUOC,
+        helpfunc:helpfunc
+    }
+    exports.info=info;
 }
+
+
+
+
 

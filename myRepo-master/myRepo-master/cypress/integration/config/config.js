@@ -1,23 +1,131 @@
 let ENV = "PRODUCT";
 let now = new Date();
-//cần sửa lại hàm schedule time
-let scheduleTime = `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()} ${now.getHours() + 3}:${Math.floor(Math.random() * 50 + 10)}`;
 let rnd = Math.floor(Math.random() * 10000000);
+//count là số round test (vd: 0, 1, 2, 3....);
 let count=1;
-if (now.getDate() < 10 && now.getMonth() + 1 < 10) {
-    scheduleTime = `0${now.getDate()}-0${now.getMonth() + 1}-${now.getFullYear()} ${now.getHours() + 3}:${Math.floor(Math.random() * 50 + 10)}`;
-} else if (now.getDate() > 10) {
-    scheduleTime = `${now.getDate()}-0${now.getMonth() + 1}-${now.getFullYear()} ${now.getHours() + 3}:${Math.floor(Math.random() * 50 + 10)}`;
-} else if (now.getMonth() + 1 > 10) {
-    scheduleTime = `0${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()} ${now.getHours() + 3}:${Math.floor(Math.random() * 50 + 10)}`;
-}
-let  invalidTime=`${now.getDate()}-${now.getMonth()+1}-${now.getFullYear()} 23:${Math.floor(Math.random()*50+10)}`;
-// thời giạn đặt lịch và gửi tin flow portal
+// thời giạn đặt lịch và gửi tin trên portal 
 let sentTime={
-     fromCreateDate:"15/05/2020",
-     toCreateDate:"15/05/2020",
-     fromScheduleDate:"15/05/2020",
-     toScheduleDate:"15/05/2020"
+    fromCreateDate:"15/05/2020",
+    toCreateDate:"15/05/2020",
+    fromScheduleDate:"15/05/2020",
+    toScheduleDate:"15/05/2020"
+}
+function makeTimeDayLessThan9(hour) {
+    return `0${now.getDate() + 1}-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}:${Math.floor(Math.random() * 50 + 10)}`;
+}
+function makeTimeDayMoreThan9(hour) {
+    return `${now.getDate() + 1}-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}:${Math.floor(Math.random() * 50 + 10)}`;
+}
+function makeTimeSpecial(hour) {
+    return `01-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}:${Math.floor(Math.random() * 50 + 10)}`;
+}
+function scheduleTime() {
+    switch (now.getMonth()) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+            if (now.getDate() < 9) {
+                return makeTimeDayLessThan9("08:00");
+            }
+            else if (now.getDate() < 30) {
+                return makeTimeDayMoreThan9("08:00");
+            }
+            else if (now.getDate() == 31) {
+                return makeTimeSpecial("08:00");
+            }
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            if (now.getDate() < 9) {
+                return makeTimeDayLessThan9("08:00");
+            }
+            else if (now.getDate() < 29) {
+                return makeTimeDayMoreThan9("08:00");
+            }
+            else if (now.getDate() == 30) {
+                return makeTimeSpecial("08:00");
+            }
+            //code here
+            break;
+        case 2:
+
+            if (now.getFullYear() % 100 && now.getFullYear() % 400) {
+                if (now.getDate() < 9) {
+                    return makeTimeDayLessThan9("08:00");
+                }
+                else if (now.getDate() < 28) {
+                    return makeTimeDayMoreThan9("08:00");
+                }
+                makeTimeSpecial("08:00");
+            }
+            else {
+                if (now.getDate() < 9) {
+                    return makeTimeDayLessThan9("08:00");
+                }
+                else if (now.getDate() < 27) {
+                    return makeTimeDayMoreThan9("08:00");
+                }
+                return makeTimeSpecial("08:00");
+            }
+            break;
+    }
+}
+function invalidTime(){
+    switch (now.getMonth()) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+            if (now.getDate() < 9) {
+                return makeTimeDayLessThan9("07:00");
+            }
+            else if (now.getDate() < 30) {
+                return makeTimeDayMoreThan9("07:00");
+            }
+            else if (now.getDate() == 31) {
+                return makeTimeSpecial("07:00");
+            }
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            if (now.getDate() < 9) {
+                return makeTimeDayLessThan9("07:00");
+            }
+            else if (now.getDate() < 29) {
+                return makeTimeDayMoreThan9("07:00");
+            }
+            else if (now.getDate() == 30) {
+                return makeTimeSpecial("07:00");
+            }
+            //code here
+            break;
+        case 2:
+
+            if (now.getFullYear() % 100 && now.getFullYear() % 400) {
+                if (now.getDate() < 9) {
+                    return makeTimeDayLessThan9("07:00");
+                }
+                else if (now.getDate() < 28) {
+                    return makeTimeDayMoreThan9("07:00");
+                }
+                makeTimeSpecial("07:00");
+            }
+            else {
+                if (now.getDate() < 9) {
+                    return makeTimeDayLessThan9("07:00");
+                }
+                else if (now.getDate() < 27) {
+                    return makeTimeDayMoreThan9("07:00");
+                }
+                return makeTimeSpecial("07:00");
+            }
+            break;
+    }
 }
 
 if (ENV == "STAGING") {
@@ -385,13 +493,13 @@ else if (ENV = "PRODUCT") {
     exports.url = url;
     exports.account = account;
     exports.rnd = rnd;
-    exports.scheduleTime = scheduleTime;
+    exports.scheduleTime = scheduleTime();
     exports.apiArgs = apiArgs;
     exports.portalArgs = portalArgs;
     exports.count=count;
     exports.sentTime=sentTime;
     exports.ENV=ENV;
-    exports.invalidTime=invalidTime;
+    exports.invalidTime=invalidTime();
 }
 
 
