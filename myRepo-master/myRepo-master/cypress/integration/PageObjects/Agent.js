@@ -1,5 +1,4 @@
 import * as __ from '../PageObjects/ApiRequests';
-const fs = require('fs');
 class Agent {
     visitAgentPortal(url) {
         cy

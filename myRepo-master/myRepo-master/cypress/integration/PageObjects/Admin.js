@@ -578,8 +578,6 @@ class Admin {
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAG")
             .select(agentName);
         //cần interact với table ở đây. Nếu tên agentuseraccount trùng thì sẽ edit
-
-
     };
 
     changeAgentUserAccountPassword() {
