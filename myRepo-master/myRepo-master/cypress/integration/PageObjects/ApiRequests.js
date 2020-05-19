@@ -41,35 +41,36 @@ let get_contract = (agentID, adserID, apiUsername, apiPassword) => {
     return req;
 }
 
-let create_template_CSKH = (agentID, labelID, content, samplemessage, apiUsername, apiPassword, username) => {
+let create_template_CSKH = (agentID, contractID, labelID, content, samplemessage, apiUsername, apiPassword, username) => {
     let req = {
         "RQST": {
             "name": "create_template",
             "REQID": `${rnd}`,
-            "AGENTID": `${agentID}`,
             "LABELID": `${labelID}`,
-            "CONTENT": `${content}`,
-            "SAMPLEMESSAGE": `${samplemessage}`,
+            "AGENTID": `${agentID}`,
+            "CONTRACTID": `${contractID}`,
             "APIUSER": `${apiUsername}`,
             "APIPASS": `${apiPassword}`,
+            "CONTENT": `${content}`,
+            "SAMPLEMESSAGE": `${samplemessage}`,
             "USERNAME": `${username}`
         }
     };
     return req;
 }
 
-let create_template_QC = (agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username) => {
+let create_template_QC = (agentID, contractID, labelID, templateContent, totalParams, apiUsername, apiPassword, username) => {
     let req = {
         "RQST": {
             "name": "create_template",
             "REQID": `${rnd}`,
+            "LABEL": `${labelID}`,
             "AGENTID": `${agentID}`,
             "CONTRACTID": `${contractID}`,
-            "LABEL": `${brn}`,
-            "CONTENT": `${templateContent}`,
-            "TOTALPARAMS": `${totalParams}`,
             "APIUSER": `${apiUsername}`,
             "APIPASS": `${apiPassword}`,
+            "CONTENT": `${templateContent}`,
+            "TOTALPARAMS": `${totalParams}`,
             "USERNAME": `${username}`
         }
     };

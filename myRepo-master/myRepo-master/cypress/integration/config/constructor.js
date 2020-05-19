@@ -32,6 +32,8 @@ function AGENT(
     , apiPasswordGetContract
     , apiUsernameGetTemplate
     , apiPasswordGetTemplate
+    ,apiUsernameCreateTemplate
+    ,apiPasswordCreateTemplate
 ) {
     this.userName = userName;
     this.password = password;
@@ -56,6 +58,8 @@ function AGENT(
     this.apiPasswordGetContract = apiPasswordGetContract;
     this.apiUsernameGetTemplate = apiUsernameGetTemplate;
     this.apiPasswordGetTemplate = apiPasswordGetTemplate;
+    this.apiUsernameCreateTemplate=apiUsernameCreateTemplate;
+    this.apiPasswordCreateTemplate=apiPasswordCreateTemplate;
 }
 exports.url_portal1=url_portal1;
 exports.url_api1=url_api1;

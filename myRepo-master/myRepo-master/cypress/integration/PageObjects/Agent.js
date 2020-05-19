@@ -812,11 +812,11 @@ class Agent {
             expect(res.trimLeft().trimRight()).to.equal(error);
         })
     };
-     readErrorfileAsync(prefix, error) {
-     return (async function readErrFile(){
-         let res = await cy.task('readFile', `C:\\Users\\LapTop\\Downloads\\${prefix}_thue_bao_loi.xlsx`);
-         expect ((res.Strings['3'].h).trimLeft().trimRight()).to.equal(error);     
-     })();
+    readErrorfileAsync(prefix, error) {
+        return (async function readErrFile() {
+            let res = await cy.task('readFile', `C:\\Users\\LapTop\\Downloads\\${prefix}_thue_bao_loi.xlsx`);
+            expect((res.Strings['3'].h).trimLeft().trimRight()).to.equal(error);
+        })();
     }
     downloadErrorfile() {
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
@@ -897,8 +897,8 @@ class Agent {
 
     };
 
-    request_create_template_CSKH(url, agentID, labelID, content, samplemessage, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, __.create_template_CSKH(agentID, labelID, content, samplemessage, apiUsername, apiPassword, username))
+    request_create_template_CSKH(url, agentID, contractID, labelID, content, samplemessage, apiUsername, apiPassword, username) {
+        return cy.request("POST", url, __.create_template_CSKH(agentID, contractID, labelID, content, samplemessage, apiUsername, apiPassword, username))
 
     };
 
@@ -984,11 +984,13 @@ class Agent {
     }
     assertRespone(res, errCode) {
         if (errCode == 0) {
+            console.log(res)
             expect(res.status).to.equal(200);
             expect(res.body["RPLY"]["ERROR"]).to.equal('0');
             res.body["RPLY"]["ERROR_DESC"] == "Success" ? expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("Success") : expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success")
         }
         else {
+            console.log(res)
             expect(res.body["RPLY"]["ERROR"]).to.equal(`${errCode}`);
         }
         return res;

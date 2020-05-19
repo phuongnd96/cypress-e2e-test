@@ -1,10 +1,53 @@
 import * as helpfunc from './helpfunc';
 import * as cs from './constructor';
-let env = "PRODUCT";
+// let env = "PRODUCT";
+let env = "STAGING";
 const AGENT = cs.AGENT;
 const url_p = cs.url_portal1;
 const url_a = cs.url_api1;
 if (env === "STAGING") {
+    const agent_VTT_CSKH_TRASAU = new AGENT(
+        "accVIVASTEST_UR132_VTT"
+        , "Tr1@123"
+        , "VIVASTEST_UR132_VTT"
+        , "437"
+        , "Nguyễn Duy Phương"
+        , "HĐ TEST 135"
+        , "8522"
+        , "BRN cypress"
+        , "100248"
+        , "Cypress{D}"
+        , "386149"
+        , "APIBANK"
+        , "100235"
+        , "8	{D}test123"
+        , "386388"
+        , "PHUONGQA_SENDSMS"
+        , "Tr1@123"
+        , undefined
+        , undefined
+        , undefined
+        , undefined
+        , undefined
+        , undefined
+        , "PHUONGQA"
+        , "Tr1@123"
+    );
+    const agent_VTT_QC_TRASAU = new AGENT(
+
+    );
+    const url_api = new url_a(
+        "http://10.84.70.148:8085/smsmktur135/api"
+        , undefined
+        , undefined
+    )
+    const db = {
+        agent_VTT_CSKH_TRASAU: agent_VTT_CSKH_TRASAU,
+        agent_VTT_QC_TRASAU: agent_VTT_QC_TRASAU,
+        url_api:url_api
+    }
+    exports.db = db;
+
 }
 else if (env === "PRODUCT") {
     const agent_SMSORDER_CSKH = new AGENT(
@@ -115,6 +158,8 @@ else if (env === "PRODUCT") {
         , "Tr1@123"
         , "product_gettemplate_phuong"
         , "Tr1@123"
+        , undefined
+        , undefined
     );
     const agent_VTT_CSKH_TRATRUOC = new AGENT(
         "DL_VV"
@@ -201,20 +246,20 @@ else if (env === "PRODUCT") {
         , "http://192.168.38.163:8888/smsbank/api"
         , "http://192.168.38.134:8888/smstmdt/api"
     )
-    const info={
-        url_portal:url_portal,
-        url_api:url_api,
-        agent_SMSORDER_CSKH:agent_SMSORDER_CSKH,
-        agent_TUNHAN_CSKH_TRASAU:agent_TUNHAN_CSKH_TRASAU,
-        agent_TUNHAN_CSKH_TRATRUOC:agent_TUNHAN_CSKH_TRATRUOC,
-        agent_TUNHAN_QC:agent_TUNHAN_QC,
-        agent_VTT_CSKH_TRASAU:agent_VTT_CSKH_TRASAU,
-        agent_VTT_CSKH_TRATRUOC:agent_VTT_CSKH_TRATRUOC,
-        agent_VTT_QC_TRASAU:agent_VTT_QC_TRASAU,
-        agent_VTT_QC_TRATRUOC:agent_VTT_QC_TRATRUOC,
-        helpfunc:helpfunc
+    const db = {
+        url_portal: url_portal,
+        url_api: url_api,
+        agent_SMSORDER_CSKH: agent_SMSORDER_CSKH,
+        agent_TUNHAN_CSKH_TRASAU: agent_TUNHAN_CSKH_TRASAU,
+        agent_TUNHAN_CSKH_TRATRUOC: agent_TUNHAN_CSKH_TRATRUOC,
+        agent_TUNHAN_QC: agent_TUNHAN_QC,
+        agent_VTT_CSKH_TRASAU: agent_VTT_CSKH_TRASAU,
+        agent_VTT_CSKH_TRATRUOC: agent_VTT_CSKH_TRATRUOC,
+        agent_VTT_QC_TRASAU: agent_VTT_QC_TRASAU,
+        agent_VTT_QC_TRATRUOC: agent_VTT_QC_TRATRUOC,
+        helpfunc: helpfunc
     }
-    exports.info=info;
+    exports.db = db;
 }
 
 
