@@ -7,7 +7,7 @@ const agent = new AGENT();
 let prefix=[];
 
 
-describe("Flow agent gửi tin", () => {
+describe.only("Flow agent gửi tin", () => {
     beforeEach(() => {
         agent
             .visitAgentPortal(cfg.url.portal.agent)
@@ -31,7 +31,7 @@ describe("Flow agent gửi tin", () => {
                 , cfg.sentTime.toScheduleDate
                 , "Đặt lệnh thành công");
     })
-    specify("Gửi tin nội mạng đặt lịch", () => {
+    specify.only("Gửi tin nội mạng đặt lịch", () => {
         agent
             .send_sms_temp_old(
                 cfg.scheduleTime

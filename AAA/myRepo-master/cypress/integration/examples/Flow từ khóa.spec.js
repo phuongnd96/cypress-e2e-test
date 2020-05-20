@@ -30,7 +30,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
             admin.delete_foreign_keyword("phuongtestkeywordngoaimang")
         })
     })
-    context("Agent", () => {
+    context.only("Agent", () => {
         beforeEach(() => {
             agent.
                 visitAgentPortal(cfg.url.portal.agent)
@@ -64,7 +64,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
         it("Kiểm tra file lỗi",()=>{
             agent.readErrorfileAsync(prefix[0],"Vi phạm chính sách từ khóa");
         })
-        it("Gửi tin với từ khóa chặn ngoại mạng", () => {
+        it.only("Gửi tin với từ khóa chặn ngoại mạng", () => {
             agent
                 .send_sms_temp_old(
                     " "
@@ -89,7 +89,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                         agent.downloadErrorfile();
                     })
         })
-        it("Kiểm tra file lỗi",()=>{
+        it.only("Kiểm tra file lỗi",()=>{
             agent.readErrorfileAsync(prefix[0],"Vi phạm chính sách từ khóa");
         })
         })

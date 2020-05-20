@@ -4,7 +4,7 @@ import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
 
-let localCount="42";
+let localCount="41112";
 context("Agent tạo chiến dịch", () => {
     beforeEach(() => {
         agent
@@ -35,7 +35,7 @@ context("Agent tạo chiến dịch", () => {
     })
 })
 
-context("Admin resolve chiến dịch", () => {
+context.only("Admin resolve chiến dịch", () => {
     beforeEach(() => {
         admin
             .visitAdminPortal(

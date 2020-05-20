@@ -39,7 +39,7 @@ context("Gửi tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.templateID
                 , cfg.apiArgs.numberOfParams
                 , cfg.apiArgs.content
-                , "15-05-2020 15:00"
+                , cfg.scheduleTime
                 , cfg.apiArgs.mobilelist.vina
                 , cfg.apiArgs.istelcosub
                 , cfg.apiArgs.nonbank.cskh.agentID
@@ -83,7 +83,7 @@ context("Gửi tin qua API", () => {
                 , cfg.apiArgs.nonbank.qc.templateID
                 , cfg.apiArgs.numberOfParams
                 , cfg.apiArgs.content
-                , "15-05-2020 15:00"
+                , cfg.scheduleTime
                 , cfg.apiArgs.mobilelist.vina
                 , cfg.apiArgs.istelcosub
                 , cfg.apiArgs.nonbank.qc.agentID
@@ -165,7 +165,7 @@ context("Gửi tin qua API", () => {
                 })
     })
 
-    context("Redis API nonbank", () => {
+    context.skip("Redis API nonbank", () => {
         describe("Đại lý gửi tin qua API với account có trang thái inactive", () => {
             beforeEach(() => {
                 admin
@@ -280,7 +280,7 @@ context("Gửi tin qua API", () => {
                     .approveTemplate(cfg.portalArgs.VTT.cskh.templateID, cfg.portalArgs.VTT.cskh.agentName, "Rejected");
             })
         })
-        describe("Gửi tin nội mạng với từ khóa vừa được chặn", () => {
+        describe.skip("Gửi tin nội mạng với từ khóa vừa được chặn", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)
