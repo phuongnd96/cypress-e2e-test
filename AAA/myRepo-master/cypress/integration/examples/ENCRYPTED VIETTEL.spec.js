@@ -1,0 +1,156 @@
+import AGENT from '../PageObjects/Agent';
+const agent = new AGENT();
+import * as db from '../config/config';
+//lên product chỉ cần thay template và nhãn
+context("ENCRYPTED VIETTEL", () => {
+    describe("ENCRYPTED VIETTEL", () => {
+        specify("Gửi tin CSKH Viettel Bank không truyền encrypted =1",()=>{
+            agent.request_send_sms_list_ENCRYPTED(
+                db.url.api.nonbank
+                ,"132278"
+                ,"1"
+                ,"401"
+                ,"564160"
+                ,"1"
+                ,"test"
+                ,""
+                ,"84936342533"
+                ,"0"
+                ,"164"
+                ,"hoandd"
+                ,"hoandd"
+                ,"DH_CS"
+                ,"0"
+            ).then((res)=>{
+                agent.assertRespone(res,34)
+            })
+        })
+        specify("Gửi tin CSKH nhà mạng Viettel nhóm tin Bank encrypted =0",()=>{
+            agent.request_send_sms_list_ENCRYPTED(
+                db.url.api.nonbank
+                ,"132278"
+                ,"1"
+                ,"401"
+                ,"564160"
+                ,"1"
+                ,"test"
+                ,""
+                ,"84936342533"
+                ,"0"
+                ,"164"
+                ,"hoandd"
+                ,"hoandd"
+                ,"DH_CS"
+                ,"0"
+                ,"0"
+            ).then((res)=>{
+                agent.assertRespone(res,34)
+            })
+        })
+        specify("Gửi tin CSKH nhà mạng Viettel nhóm tin Bank encrypted=1",()=>{
+            agent.request_send_sms_list_ENCRYPTED(
+                db.url.api.nonbank
+                ,"132278"
+                ,"1"
+                ,"401"
+                ,"564160"
+                ,"1"
+                ,"test"
+                ,""
+                ,"84936342533"
+                ,"0"
+                ,"164"
+                ,"hoandd"
+                ,"hoandd"
+                ,"DH_CS"
+                ,"1"
+            ).then((res)=>{
+                agent.assertRespone(res,0)
+            })
+        })
+        specify(`Gửi tin CSKH nhà mạng khác Viettel nhóm tin bất kì nhưng truyền trường encrypted =1`,()=>{
+            agent.request_send_sms_list_ENCRYPTED(
+                db.url.api.nonbank
+                ,"132278"
+                ,"1"
+                ,"401"
+                ,"564160"
+                ,"1"
+                ,"test"
+                ,""
+                ,"84912158656"
+                ,"0"
+                ,"164"
+                ,"hoandd"
+                ,"hoandd"
+                ,"DH_CS"
+                ,"1"
+            ).then((res)=>{
+                agent.assertRespone(res,35)
+            })
+        })
+        specify(`Gửi tin CSKH nhà mạng khác Viettel nhóm tin bất kỳ nhưng truyền trường encrypted=0`,()=>{
+            agent.request_send_sms_list_ENCRYPTED(
+                db.url.api.nonbank
+                ,"132278"
+                ,"1"
+                ,"401"
+                ,"564160"
+                ,"1"
+                ,"test"
+                ,""
+                ,"84912158656"
+                ,"0"
+                ,"164"
+                ,"hoandd"
+                ,"hoandd"
+                ,"DH_CS"
+                ,"0"
+            ).then((res)=>{
+                agent.assertRespone(res,0)
+            })
+        })
+        specify("Gửi tin CSKH nhà mạng khác Viettel nhóm tin bất kỳ nhưng truyền trường encrypted khác 0 hoặc 1",()=>{
+            agent.request_send_sms_list_ENCRYPTED(
+                db.url.api.nonbank
+                ,"132278"
+                ,"1"
+                ,"401"
+                ,"564160"
+                ,"1"
+                ,"test"
+                ,""
+                ,"84912158656"
+                ,"0"
+                ,"164"
+                ,"hoandd"
+                ,"hoandd"
+                ,"DH_CS"
+                ,"2"
+            ).then((res)=>{
+                agent.assertRespone(res,36)
+            })
+        })
+        specify("Gửi tin CSKH nhà mạng Viettel nhóm tin Bank nhưng truyền trường encrypted khác 0 hoặc 1",()=>{
+            agent.request_send_sms_list_ENCRYPTED(
+                db.url.api.nonbank
+                ,"132278"
+                ,"1"
+                ,"401"
+                ,"564160"
+                ,"1"
+                ,"test"
+                ,""
+                ,"84936342533"
+                ,"0"
+                ,"164"
+                ,"hoandd"
+                ,"hoandd"
+                ,"DH_CS"
+                ,"2"
+            ).then((res)=>{
+                agent.assertRespone(res,36)
+            })
+        })
+    })
+})

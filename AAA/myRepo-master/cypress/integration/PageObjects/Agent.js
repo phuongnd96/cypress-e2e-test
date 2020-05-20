@@ -897,13 +897,13 @@ class Agent {
 
     };
 
-    request_create_template_CSKH(url, agentID, contractID, labelID, content, samplemessage, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, __.create_template_CSKH(agentID, contractID, labelID, content, samplemessage, apiUsername, apiPassword, username))
+    request_create_template_CSKH(url,agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username) {
+        return cy.request("POST", url, __.create_template_CSKH(agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username))
 
     };
 
-    request_create_template_QC(url, agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, __.create_template_QC(agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username))
+    request_create_template_QC(url, agentID, contractID, label, content, totalParams, apiUsername, apiPassword, username) {
+        return cy.request("POST", url, __.create_template_QC(agentID, contractID, label, content, totalParams, apiUsername, apiPassword, username))
 
     };
 
@@ -945,6 +945,42 @@ class Agent {
             , dataCoding));
 
     };
+    request_send_sms_list_ENCRYPTED(
+        url,
+        brnID
+        , contracTypeID
+        , contractID
+        , templateID
+        , numberOfParams
+        , content
+        , scheduletime
+        , mobilelist
+        , istelcosub
+        , agentID
+        , apiUsername
+        , apiPassword
+        , username
+        , dataCoding
+        ,encrypted
+    ){
+        return cy.request("POST",url,__.send_sms_list_ENCRYPTED(
+            brnID
+            , contracTypeID
+            , contractID
+            , templateID
+            , numberOfParams
+            , content
+            , scheduletime
+            , mobilelist
+            , istelcosub
+            , agentID
+            , apiUsername
+            , apiPassword
+            , username
+            , dataCoding
+            ,encrypted
+        ))
+    }
 
     request_send_sms_SMSORDER(
         url

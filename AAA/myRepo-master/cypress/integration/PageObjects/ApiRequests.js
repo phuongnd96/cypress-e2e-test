@@ -41,36 +41,36 @@ let get_contract = (agentID, adserID, apiUsername, apiPassword) => {
     return req;
 }
 
-let create_template_CSKH = (agentID, contractID, labelID, content, samplemessage, apiUsername, apiPassword, username) => {
+let create_template_CSKH = (agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username) => {
     let req = {
         "RQST": {
             "name": "create_template",
             "REQID": `${rnd}`,
-            "LABELID": `${labelID}`,
             "AGENTID": `${agentID}`,
             "CONTRACTID": `${contractID}`,
-            "APIUSER": `${apiUsername}`,
-            "APIPASS": `${apiPassword}`,
+            "LABEL": `${label}`,
             "CONTENT": `${content}`,
             "SAMPLEMESSAGE": `${samplemessage}`,
+            "APIUSER": `${apiUsername}`,
+            "APIPASS": `${apiPassword}`,
             "USERNAME": `${username}`
         }
     };
     return req;
 }
 
-let create_template_QC = (agentID, contractID, labelID, templateContent, totalParams, apiUsername, apiPassword, username) => {
+let create_template_QC = (agentID, contractID, label, content, totalParams, apiUsername, apiPassword, username) => {
     let req = {
         "RQST": {
             "name": "create_template",
             "REQID": `${rnd}`,
-            "LABEL": `${labelID}`,
             "AGENTID": `${agentID}`,
             "CONTRACTID": `${contractID}`,
+            "LABEL": `${label}`,
+            "CONTENT": `${content}`,
+            "TOTALPARAMS": `${totalParams}`,
             "APIUSER": `${apiUsername}`,
             "APIPASS": `${apiPassword}`,
-            "CONTENT": `${templateContent}`,
-            "TOTALPARAMS": `${totalParams}`,
             "USERNAME": `${username}`
         }
     };
@@ -151,6 +151,36 @@ let send_sms_list_SMSORDER = (brnID, contracTypeID, contractID, templateID, numb
     return req;
 }
 
+let send_sms_list_ENCRYPTED = (
+    brnID, contracTypeID, contractID, templateID, numberOfParams, content, scheduletime, mobilelist, istelcosub, agentID, apiUsername, apiPassword, username, dataCoding,encrypted) => {
+    let req = {
+        "RQST": {
+            "name": "send_sms_list",
+            "REQID": `${rnd}`,
+            "LABELID": `${brnID}`,
+            "CONTRACTTYPEID": `${contracTypeID}`,
+            "CONTRACTID": `${contractID}`,
+            "TEMPLATEID": `${templateID}`,
+            "PARAMS": [
+                {
+                    "NUM": `${numberOfParams}`,
+                    "CONTENT": `${content}`
+                }
+            ],
+            "SCHEDULETIME": `${scheduletime}`,
+            "MOBILELIST": `${mobilelist}`,
+            "ISTELCOSUB": `${istelcosub}`,
+            "AGENTID": `${agentID}`,
+            "APIUSER": `${apiUsername}`,
+            "APIPASS": `${apiPassword}`,
+            "USERNAME": `${username}`,
+            "DATACODING": `${dataCoding}`,
+            "ENCRYPTED":`${encrypted}`
+        }
+    }
+    return req;
+}
+
 
 module.exports = {
     get_adser
@@ -161,4 +191,5 @@ module.exports = {
     , get_label
     , send_sms_list
     , send_sms_list_SMSORDER
+    ,send_sms_list_ENCRYPTED
 }
