@@ -48,28 +48,28 @@ context("Flow đại lý trả trước", () => {
                         cy.log(`Gửi thành công ${sentMsg} tin`);
                     })
 
-            agent
-                .send_sms_temp_old(
-                    " "
-                    , "khtesttn"
-                    , "hdtnmxhVN"
-                    , "Vinaphone"
-                    , "TestTNMXH"
-                    , "{P1}"
-                    , `mobi${cfg.count}.xlsx`
-                    , `mobi${cfg.count}.xlsx`
-                    , 0
-                    , cfg.sentTime.fromCreateDate
-                    , cfg.sentTime.toCreateDate
-                    , cfg.sentTime.fromScheduleDate
-                    , cfg.sentTime.toScheduleDate
-                    , "Đặt lệnh không thành công").then((text) => {
-                        prefix.pop();
-                        prefix.push(text);
-                    }).then((prefix) => {
-                        cy.log(prefix);
-                        agent.downloadErrorfile();
-                    });
+            // agent
+            //     .send_sms_temp_old(
+            //         " "
+            //         , "khtesttn"
+            //         , "hdtnmxhVN"
+            //         , "Vinaphone"
+            //         , "TestTNMXH"
+            //         , "{P1}"
+            //         , `mobi${cfg.count}.xlsx`
+            //         , `mobi${cfg.count}.xlsx`
+            //         , 0
+            //         , cfg.sentTime.fromCreateDate
+            //         , cfg.sentTime.toCreateDate
+            //         , cfg.sentTime.fromScheduleDate
+            //         , cfg.sentTime.toScheduleDate
+            //         , "Đặt lệnh không thành công").then((text) => {
+            //             prefix.pop();
+            //             prefix.push(text);
+            //         }).then((prefix) => {
+            //             cy.log(prefix);
+            //             agent.downloadErrorfile();
+            //         });
         })
         specify("Kiểm tra file lỗi", () => {
             agent.readErrorfileAsync(prefix[0], "Không thuộc mạng");

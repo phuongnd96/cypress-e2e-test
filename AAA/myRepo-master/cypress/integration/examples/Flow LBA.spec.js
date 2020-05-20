@@ -18,7 +18,7 @@ context("Agent tạo chiến dịch", () => {
         agent
             .createLBA(
                 `qatestlba11${localCount}`
-                , "20/05/2020 15:34"
+                , "21/05/2020 15:34"
                 , cfg.portalArgs.VTT.qc.adserName
                 , 1
                 , cfg.portalArgs.VTT.qc.contractName
@@ -52,7 +52,7 @@ context("Admin resolve chiến dịch", () => {
                 
                 [`qatestlba11${localCount}`]
                 , "06/05/2020"
-                , "15/05/2020"
+                , "30/05/2020"
                 , "Tất cả"
                 , "06/05/2020"
                 , "30/05/2020"

@@ -5,7 +5,7 @@ const agent = new AGENT();
 const admin = new ADMIN();
 
 describe("Flow agent tạo nhãn và template", () => {
-    describe("Agent thêm template và nhãn thành công", () => {
+    context("Agent thêm template và nhãn thành công", () => {
         beforeEach(() => {
             agent.visitAgentPortal(cfg.url.portal.agent)
                 .doLogin(
@@ -16,7 +16,7 @@ describe("Flow agent tạo nhãn và template", () => {
         it("Thêm nhãn thành công", () => {
             let rndBrn = "phuongtest".concat(Math.floor(Math.random() * 1000));
             agent
-                .addBrandName_product(
+                .addBrandName_product1(
                     rndBrn
                     , cfg.rnd
                     , "YTE,GD"

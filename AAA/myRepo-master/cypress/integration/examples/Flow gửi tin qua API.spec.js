@@ -318,7 +318,7 @@ context("Gửi tin qua API", () => {
                     .delete_vinaphone_keyword("phuongtestkeyword")
             })
         })
-        describe("Gửi tin với đại lý đổi từ không giới hạn sang 4MT", () => {
+        describe.skip("Gửi tin với đại lý đổi từ không giới hạn sang 4MT", () => {
             beforeEach(() => {
                 admin
                     .visitAdminPortal(cfg.url.portal.admin)

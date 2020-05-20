@@ -2,7 +2,7 @@ import ADMIN from '../PageObjects/Admin';
 import AGENT from '../PageObjects/Agent';
 import * as cfg from '../config/config';
 const agent = new AGENT();
-const admin = new ADMIN();
+// const admin = new ADMIN();
 context("API SMSMKT", () => {
     describe("API nonbank", () => {
         it(`get_adser_0
@@ -270,8 +270,27 @@ context("API SMSMKT", () => {
                         agent.assertRespone(res, 23);
                     })
         })
-        it.skip("send_sms_list_24", () => {
-
+        it("send_sms_list_24", () => {
+            agent
+            .request_send_sms_nonbank_bank(
+                cfg.url.api.nonbank
+                , cfg.apiArgs.nonbank.cskh.brnID
+                , cfg.apiArgs.nonbank.cskh.contractTypeID
+                , cfg.apiArgs.nonbank.cskh.contractID
+                , cfg.apiArgs.nonbank.cskh.templateID
+                , cfg.apiArgs.numberOfParams
+                , cfg.apiArgs.content
+                ,"18-05-2020 15:00"
+                , `${cfg.apiArgs.mobilelist.vina}`
+                , cfg.apiArgs.istelcosub
+                , cfg.apiArgs.nonbank.cskh.agentID
+                , cfg.apiArgs.nonbank.cskh.apiUsername
+                , cfg.apiArgs.nonbank.cskh.apiPassword
+                , cfg.apiArgs.nonbank.cskh.username
+                , 0).then((res) => {
+                    console.log(res);
+                    agent.assertRespone(res, 24);
+                })
         })
         it("send_sms_list_25", () => {
             agent
@@ -375,13 +394,7 @@ context("API SMSMKT", () => {
                 })
             })
         })
-        it.skip("send_sms_list_27", () => {
-            //hàm này chưa có trên product
-        })
-        it.skip("send_sms_list_28", () => {
-            //hàm này chưa có trên product
-        })
-        it.skip("send_sms_list_29", () => {
+        it("send_sms_list_29", () => {
             agent
                 .request_send_sms_nonbank_bank(
                     cfg.url.api.nonbank
@@ -403,7 +416,7 @@ context("API SMSMKT", () => {
                         agent.assertRespone(res, 29);
                     })
         })
-        it.skip("send_sms_list_30", () => {
+        it("send_sms_list_30", () => {
             agent
                 .request_send_sms_nonbank_bank(
                     cfg.url.api.nonbank
@@ -412,7 +425,7 @@ context("API SMSMKT", () => {
                     , cfg.apiArgs.nonbank.cskh.contractID
                     , cfg.apiArgs.nonbank.cskh.templateID
                     , cfg.apiArgs.numberOfParams
-                    , "ban dam"
+                    , "12betng"
                     , ""
                     , cfg.apiArgs.mobilelist.vina
                     , cfg.apiArgs.istelcosub
@@ -447,18 +460,7 @@ context("API SMSMKT", () => {
                         agent.assertRespone(res, 31);
                     })
         })
-        it.skip("send_sms_list_33", () => {
-
-        })
-        it.skip("send_sms_list_34", () => {
-
-        })
-        it.skip("send_sms_list_35", () => {
-
-        })
-        it.skip("send_sms_list_36", () => {
-
-        })
+        // -----------------------// 
         it("send_sms_list_success", () => {
             agent
                 .request_send_sms_nonbank_bank(

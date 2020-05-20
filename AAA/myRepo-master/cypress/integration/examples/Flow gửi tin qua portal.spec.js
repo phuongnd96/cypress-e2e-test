@@ -4,6 +4,8 @@ import * as cfg from '../config/config';
 //--------------------------------------------------------------------//
 const adminBrandName = new ADMINSMSBRN();
 const agent = new AGENT();
+let prefix=[];
+
 
 describe("Flow agent gửi tin", () => {
     beforeEach(() => {
@@ -32,7 +34,7 @@ describe("Flow agent gửi tin", () => {
     specify("Gửi tin nội mạng đặt lịch", () => {
         agent
             .send_sms_temp_old(
-                "12/05/2020 08:00"
+                cfg.scheduleTime
                 , cfg.portalArgs.VTT.cskh.adserName
                 , cfg.portalArgs.VTT.cskh.contractName
                 , cfg.portalArgs.VTT.cskh.mạng
@@ -177,7 +179,7 @@ describe("Flow agent gửi tin", () => {
                 ,"Đặt lệnh thành công");
     })
     specify("Gửi tin mnp port-in mạng Vinaphone", () => {
-        if (cfg.ENV == "PRoDUCT") {
+        if (cfg.ENV == "PRODUCT") {
             agent
                 .send_sms_temp_old(
                     " "
@@ -220,8 +222,8 @@ describe("Flow agent gửi tin", () => {
                     , cfg.portalArgs.VTT.cskh.adserName
                     , cfg.portalArgs.VTT.cskh.contractName
                     , "Viettel"
-                    , cfg.portalArgs.VTT.cskh.brn
-                    , cfg.portalArgs.VTT.cskh.template
+                    , "testmnp123"
+                    , "561418"
                     , `mnp${cfg.count + 1}.xlsx`
                     , `mnp${cfg.count + 1}.xlsx`
                     , 0
@@ -229,7 +231,13 @@ describe("Flow agent gửi tin", () => {
                     , cfg.sentTime.toCreateDate
                     , cfg.sentTime.fromScheduleDate
                     , cfg.sentTime.toScheduleDate
-                    ,"Đặt lệnh không thành công");
+                    ,"Đặt lệnh không thành công").then((text) => {
+                        prefix.pop();
+                        prefix.push(text);
+                    }).then((prefix) => {
+                        cy.log(prefix);
+                        agent.downloadErrorfile();
+                    });
         }
         else if (cfg.ENV == "STAGING") {
             agent
@@ -249,6 +257,9 @@ describe("Flow agent gửi tin", () => {
                     , cfg.sentTime.toScheduleDate
                     ,"Đặt lệnh không thành công");
         }
+    })
+    specify("Kiểm tra file lỗi",()=>{
+        agent.readErrorfileAsync(prefix[0], "Không thuộc mạng");
     })
 
 })
@@ -340,7 +351,7 @@ describe.skip("Check trạng thái gửi tin từ SMSMKT -> SMS Brandname", () =
                 , "VNP"
                 , cfg.sentTime.fromCreateDate);
     })
-    specify("Check trạng thái gửi tin từ SMSMKT -> SMSBrandname trường hợp không thành công", () => {
+    specify.skip("Check trạng thái gửi tin từ SMSMKT -> SMSBrandname trường hợp không thành công", () => {
 
     })
 

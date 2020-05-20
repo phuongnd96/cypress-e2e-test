@@ -45,8 +45,8 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , cfg.portalArgs.VTT.cskh.mạng
                     , cfg.portalArgs.VTT.cskh.brn
                     , cfg.portalArgs.VTT.cskh.template
-                    , "vinakeyword.xlsx"
-                    , "vinakeyword.xlsx"
+                    , `vinakeyword${cfg.count}.xlsx`
+                    , `vinakeyword${cfg.count}.xlsx`
                     , 0
                     , cfg.sentTime.fromCreateDate
                     , cfg.sentTime.toCreateDate
@@ -62,7 +62,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     })
         })
         it("Kiểm tra file lỗi",()=>{
-            agent.readErrorfile(prefix[0],"Vi phạm chính sách từ khóa");
+            agent.readErrorfileAsync(prefix[0],"Vi phạm chính sách từ khóa");
         })
         it("Gửi tin với từ khóa chặn ngoại mạng", () => {
             agent
@@ -73,8 +73,8 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , "Viettel"
                     , cfg.portalArgs.VTT.cskh.brn
                     , cfg.portalArgs.VTT.cskh.template
-                    , "viettelkeyword.xlsx"
-                    , "viettelkeyword.xlsx"
+                    , `viettelkeyword${cfg.count}.xlsx`
+                    , `viettelkeyword${cfg.count}.xlsx`
                     , 0
                     , cfg.sentTime.fromCreateDate
                     , cfg.sentTime.toCreateDate
@@ -90,7 +90,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     })
         })
         it("Kiểm tra file lỗi",()=>{
-            agent.readErrorfile(prefix[0],"Vi phạm chính sách từ khóa");
+            agent.readErrorfileAsync(prefix[0],"Vi phạm chính sách từ khóa");
         })
         })
     })

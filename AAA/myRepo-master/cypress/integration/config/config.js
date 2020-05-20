@@ -1,14 +1,14 @@
-let ENV = "STAGING";
+let ENV = "PRODUCT";
 let now = new Date();
 let rnd = Math.floor(Math.random() * 10000000);
 //count là số round test (vd: 0, 1, 2, 3....);
 let count=1;
 // thời giạn đặt lịch và gửi tin trên portal 
 let sentTime={
-    fromCreateDate:"17/05/2020",
-    toCreateDate:"17/05/2020",
-    fromScheduleDate:"17/05/2020",
-    toScheduleDate:"17/05/2020"
+    fromCreateDate:"20/05/2020",
+    toCreateDate:"20/05/2020",
+    fromScheduleDate:"20/05/2020",
+    toScheduleDate:"21/05/2020"
 }
 function makeTimeDayLessThan9(hour) {
     return `0${now.getDate() + 1}-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}:${Math.floor(Math.random() * 50 + 10)}`;

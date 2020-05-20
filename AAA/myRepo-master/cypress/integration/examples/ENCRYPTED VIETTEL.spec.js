@@ -1,7 +1,10 @@
 import AGENT from '../PageObjects/Agent';
 const agent = new AGENT();
 import * as db from '../config/config';
-//lên product chỉ cần thay template và nhãn
+/*
+test api nonbank link mới + link cũ
+(gửi tin sau đó check log xem có bốc tin từ bảng pending_vtt đi k, check response trả về) -> gửi được sang ST là ok
+*/ 
 context("ENCRYPTED VIETTEL", () => {
     describe("ENCRYPTED VIETTEL", () => {
         specify("Gửi tin CSKH Viettel Bank không truyền encrypted =1",()=>{
