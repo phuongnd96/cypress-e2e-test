@@ -30,7 +30,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
             admin.delete_foreign_keyword("phuongtestkeywordngoaimang")
         })
     })
-    context.only("Agent", () => {
+    context("Agent", () => {
         beforeEach(() => {
             agent.
                 visitAgentPortal(cfg.url.portal.agent)
@@ -44,7 +44,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , cfg.portalArgs.VTT.cskh.contractName
                     , cfg.portalArgs.VTT.cskh.mạng
                     , cfg.portalArgs.VTT.cskh.brn
-                    , cfg.portalArgs.VTT.cskh.template
+                    , "{P1} QA test"
                     , `vinakeyword${cfg.count}.xlsx`
                     , `vinakeyword${cfg.count}.xlsx`
                     , 0
@@ -64,7 +64,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
         it("Kiểm tra file lỗi",()=>{
             agent.readErrorfileAsync(prefix[0],"Vi phạm chính sách từ khóa");
         })
-        it.only("Gửi tin với từ khóa chặn ngoại mạng", () => {
+        it("Gửi tin với từ khóa chặn ngoại mạng", () => {
             agent
                 .send_sms_temp_old(
                     " "
@@ -72,7 +72,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     , cfg.portalArgs.VTT.cskh.contractName
                     , "Viettel"
                     , cfg.portalArgs.VTT.cskh.brn
-                    , cfg.portalArgs.VTT.cskh.template
+                    , "	{P1} QA test"
                     , `viettelkeyword${cfg.count}.xlsx`
                     , `viettelkeyword${cfg.count}.xlsx`
                     , 0

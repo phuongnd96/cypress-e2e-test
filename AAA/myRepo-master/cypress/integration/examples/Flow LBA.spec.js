@@ -4,7 +4,7 @@ import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
 
-let localCount="41112";
+let localCount="1902";
 context("Agent tạo chiến dịch", () => {
     beforeEach(() => {
         agent
@@ -18,7 +18,8 @@ context("Agent tạo chiến dịch", () => {
         agent
             .createLBA(
                 `qatestlba11${localCount}`
-                , "21/05/2020 15:34"
+                // , "21/05/2020 15:34"
+                , cfg.scheduleTime("/")
                 , cfg.portalArgs.VTT.qc.adserName
                 , 1
                 , cfg.portalArgs.VTT.qc.contractName
@@ -35,7 +36,7 @@ context("Agent tạo chiến dịch", () => {
     })
 })
 
-context.only("Admin resolve chiến dịch", () => {
+context("Admin resolve chiến dịch", () => {
     beforeEach(() => {
         admin
             .visitAdminPortal(

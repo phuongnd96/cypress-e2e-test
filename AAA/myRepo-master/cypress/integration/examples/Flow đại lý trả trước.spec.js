@@ -91,7 +91,7 @@ context("Flow đại lý trả trước", () => {
             expect(before.customer.remain).to.equal(after.customer.remain + 1);
         })
     })
-    describe.skip("Gửi tin hết quota adser", () => {
+    describe("Gửi tin hết quota adser", () => {
         it("Gửi tin hết quota adser", () => {
             agent.request_send_sms_nonbank_bank(
                 "http://192.168.38.134:8888/smsmarketing/api"
@@ -115,7 +115,7 @@ context("Flow đại lý trả trước", () => {
             })
         })
     })
-    describe.skip("Gửi tin hết gói tin đại lý", () => {
+    describe("Gửi tin hết gói tin đại lý", () => {
         it("Gửi tin hết quota agent", () => {
             agent.request_send_sms_nonbank_bank(
                 "http://192.168.38.134:8888/smsmarketing/api"

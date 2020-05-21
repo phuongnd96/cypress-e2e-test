@@ -14,44 +14,45 @@ let sentTime={
     fromScheduleDate:makeDate(),
     toScheduleDate:makeDate()
 }
-function makeDate(){
+
+function makeDate(sym){
     if (now.getMonth()<9){
         if (now.getDate()<10){
-            return `0${now.getDate()}-0${now.getMonth() + 1}-${now.getFullYear()}}`;
+            return `0${now.getDate()}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()}}`;
         }
-        return `${now.getDate()}-0${now.getMonth() + 1}-${now.getFullYear()}}`
+        return `${now.getDate()}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()}}`
     }
     else{
         if (now.getDate()<10){
-            return `0${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}}`;
+            return `0${now.getDate()}${sym}${now.getMonth() + 1}${sym}${now.getFullYear()}}`;
         }
-        return `${now.getDate()}-1${now.getMonth() + 1}-${now.getFullYear()}}`
+        return `${now.getDate()}${sym}1${now.getMonth() + 1}${sym}${now.getFullYear()}}`
     }
 
 }
-function makeTimeDayLessThan9(hour) {
-    return `0${now.getDate() + 1}-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}}`;
+function makeTimeDayLessThan9(hour,sym) {
+    return `0${now.getDate() + 1}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()} ${hour}}`;
 }
-function makeTimeDayMoreThan9(hour) {
-    return `${now.getDate() + 1}-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}`;
+function makeTimeDayMoreThan9(hour,sym) {
+    return `${now.getDate() + 1}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()} ${hour}`;
 }
-function makeTimeSpecial(hour) {
-    return `01-0${now.getMonth() + 1}-${now.getFullYear()} ${hour}`;
+function makeTimeSpecial(hour,sym) {
+    return `01${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()} ${hour}`;
 }
-function scheduleTime() {
+function scheduleTime(sym) {
     switch (now.getMonth()) {
         case 1:
         case 3:
         case 5:
         case 7:
             if (now.getDate() < 9) {
-                return makeTimeDayLessThan9("08:01");
+                return makeTimeDayLessThan9("08:01",sym);
             }
             else if (now.getDate() < 30) {
-                return makeTimeDayMoreThan9("08:01");
+                return makeTimeDayMoreThan9("08:01",sym);
             }
             else if (now.getDate() == 31) {
-                return makeTimeSpecial("08:01");
+                return makeTimeSpecial("08:01",sym);
             }
             break;
         case 4:
@@ -59,13 +60,13 @@ function scheduleTime() {
         case 9:
         case 11:
             if (now.getDate() < 9) {
-                return makeTimeDayLessThan9("08:01");
+                return makeTimeDayLessThan9("08:01",sym);
             }
             else if (now.getDate() < 29) {
-                return makeTimeDayMoreThan9("08:01");
+                return makeTimeDayMoreThan9("08:01",sym);
             }
             else if (now.getDate() == 30) {
-                return makeTimeSpecial("08:01");
+                return makeTimeSpecial("08:01",sym);
             }
             //code here
             break;
@@ -73,39 +74,39 @@ function scheduleTime() {
 
             if (now.getFullYear() % 100 && now.getFullYear() % 400) {
                 if (now.getDate() < 9) {
-                    return makeTimeDayLessThan9("08:01");
+                    return makeTimeDayLessThan9("08:01",sym);
                 }
                 else if (now.getDate() < 28) {
-                    return makeTimeDayMoreThan9("08:01");
+                    return makeTimeDayMoreThan9("08:01",sym);
                 }
                 makeTimeSpecial("08:01");
             }
             else {
                 if (now.getDate() < 9) {
-                    return makeTimeDayLessThan9("08:01");
+                    return makeTimeDayLessThan9("08:01",sym);
                 }
                 else if (now.getDate() < 27) {
-                    return makeTimeDayMoreThan9("08:01");
+                    return makeTimeDayMoreThan9("08:01",sym);
                 }
-                return makeTimeSpecial("08:01");
+                return makeTimeSpecial("08:01",sym);
             }
             break;
     }
 }
-function invalidTime(){
+function invalidTime(sym){
     switch (now.getMonth()) {
         case 1:
         case 3:
         case 5:
         case 7:
             if (now.getDate() < 9) {
-                return makeTimeDayLessThan9("07:00");
+                return makeTimeDayLessThan9("07:00",sym);
             }
             else if (now.getDate() < 30) {
-                return makeTimeDayMoreThan9("07:00");
+                return makeTimeDayMoreThan9("07:00",sym);
             }
             else if (now.getDate() == 31) {
-                return makeTimeSpecial("07:00");
+                return makeTimeSpecial("07:00",sym);
             }
             break;
         case 4:
@@ -113,13 +114,13 @@ function invalidTime(){
         case 9:
         case 11:
             if (now.getDate() < 9) {
-                return makeTimeDayLessThan9("07:00");
+                return makeTimeDayLessThan9("07:00",sym);
             }
             else if (now.getDate() < 29) {
-                return makeTimeDayMoreThan9("07:00");
+                return makeTimeDayMoreThan9("07:00",sym);
             }
             else if (now.getDate() == 30) {
-                return makeTimeSpecial("07:00");
+                return makeTimeSpecial("07:00",sym);
             }
             //code here
             break;
@@ -127,21 +128,21 @@ function invalidTime(){
 
             if (now.getFullYear() % 100 && now.getFullYear() % 400) {
                 if (now.getDate() < 9) {
-                    return makeTimeDayLessThan9("07:00");
+                    return makeTimeDayLessThan9("07:00",sym);
                 }
                 else if (now.getDate() < 28) {
-                    return makeTimeDayMoreThan9("07:00");
+                    return makeTimeDayMoreThan9("07:00",sym);
                 }
-                makeTimeSpecial("07:00");
+                makeTimeSpecial("07:00",sym);
             }
             else {
                 if (now.getDate() < 9) {
-                    return makeTimeDayLessThan9("07:00");
+                    return makeTimeDayLessThan9("07:00",sym);
                 }
                 else if (now.getDate() < 27) {
-                    return makeTimeDayMoreThan9("07:00");
+                    return makeTimeDayMoreThan9("07:00",sym);
                 }
-                return makeTimeSpecial("07:00");
+                return makeTimeSpecial("07:00",sym);
             }
             break;
     }
@@ -333,6 +334,7 @@ if (ENV == "STAGING") {
     exports.sentTime=sentTime;
     exports.ENV=ENV;
     exports.invalidTime=invalidTime;
+    exports.makeDate=makeDate;
 }
 else if (ENV = "PRODUCT") {
     let url = {
@@ -514,13 +516,14 @@ else if (ENV = "PRODUCT") {
     exports.url = url;
     exports.account = account;
     exports.rnd = rnd;
-    exports.scheduleTime = scheduleTime();
+    exports.scheduleTime = scheduleTime;
     exports.apiArgs = apiArgs;
     exports.portalArgs = portalArgs;
     exports.count=count;
     exports.sentTime=sentTime;
     exports.ENV=ENV;
-    exports.invalidTime=invalidTime();
+    exports.invalidTime=invalidTime;
+    exports.makeDate=makeDate;
 }
 
 

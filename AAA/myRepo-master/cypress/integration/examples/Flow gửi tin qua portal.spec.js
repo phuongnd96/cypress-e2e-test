@@ -7,7 +7,7 @@ const agent = new AGENT();
 let prefix=[];
 
 
-describe.only("Flow agent gửi tin", () => {
+describe("Flow agent gửi tin", () => {
     beforeEach(() => {
         agent
             .visitAgentPortal(cfg.url.portal.agent)
@@ -31,7 +31,7 @@ describe.only("Flow agent gửi tin", () => {
                 , cfg.sentTime.toScheduleDate
                 , "Đặt lệnh thành công");
     })
-    specify.only("Gửi tin nội mạng đặt lịch", () => {
+    specify("Gửi tin nội mạng đặt lịch", () => {
         agent
             .send_sms_temp_old(
                 cfg.scheduleTime
@@ -125,58 +125,64 @@ describe.only("Flow agent gửi tin", () => {
         }
     })
     specify("Gửi tin mạng Itel", () => {
-        agent
-            .send_sms_temp_old(
-                " "
-                , cfg.portalArgs.VTT.cskh.adserName
-                , cfg.portalArgs.VTT.cskh.contractName
-                , "ITel"
-                , cfg.portalArgs.VTT.cskh.brn
-                , cfg.portalArgs.VTT.cskh.template
-                , `itel${cfg.count}.xlsx`
-                , `itel${cfg.count}.xlsx`
-                , 0
-                , cfg.sentTime.fromCreateDate
-                , cfg.sentTime.toCreateDate
-                , cfg.sentTime.fromScheduleDate
-                , cfg.sentTime.toScheduleDate
-                ,"Đặt lệnh thành công");
+        if(cfg.ENV=="PRODUCT"){
+            agent
+                .send_sms_temp_old(
+                    " "
+                    , cfg.portalArgs.VTT.cskh.adserName
+                    , cfg.portalArgs.VTT.cskh.contractName
+                    , "ITel"
+                    , cfg.portalArgs.VTT.cskh.brn
+                    , cfg.portalArgs.VTT.cskh.template
+                    , `itel${cfg.count}.xlsx`
+                    , `itel${cfg.count}.xlsx`
+                    , 0
+                    , cfg.sentTime.fromCreateDate
+                    , cfg.sentTime.toCreateDate
+                    , cfg.sentTime.fromScheduleDate
+                    , cfg.sentTime.toScheduleDate
+                    ,"Đặt lệnh thành công");
+        }
     })
     specify("Gửi tin có dấu", () => {
-        agent
-            .send_sms_temp_old(
-                " "
-                , cfg.portalArgs.VTT.cskh.adserName
-                , cfg.portalArgs.VTT.cskh.contractName
-                , "ITel"
-                , cfg.portalArgs.VTT.cskh.brn
-                , cfg.portalArgs.VTT.cskh.template
-                , `itel${cfg.count}.xlsx`
-                , `itel${cfg.count}.xlsx`
-                , 8
-                , cfg.sentTime.fromCreateDate
-                , cfg.sentTime.toCreateDate
-                , cfg.sentTime.fromScheduleDate
-                , cfg.sentTime.toScheduleDate
-                ,"Đặt lệnh thành công");
+        if(cfg.ENV=="PRODUCT"){
+            agent
+                .send_sms_temp_old(
+                    " "
+                    , cfg.portalArgs.VTT.cskh.adserName
+                    , cfg.portalArgs.VTT.cskh.contractName
+                    , "ITel"
+                    , cfg.portalArgs.VTT.cskh.brn
+                    , cfg.portalArgs.VTT.cskh.template
+                    , `itel${cfg.count}.xlsx`
+                    , `itel${cfg.count}.xlsx`
+                    , 8
+                    , cfg.sentTime.fromCreateDate
+                    , cfg.sentTime.toCreateDate
+                    , cfg.sentTime.fromScheduleDate
+                    , cfg.sentTime.toScheduleDate
+                    ,"Đặt lệnh thành công");
+        }
     })
     specify("Gửi tin theo hướng ưu tiên", () => {
-        agent
-            .send_sms_temp_old(
-                " "
-                , cfg.portalArgs.VTT.cskh.adserName
-                , cfg.portalArgs.VTT.cskh.contractName
-                , "Vinaphone"
-                , cfg.portalArgs.VTT.cskh.brn
-                , cfg.portalArgs.VTT.cskh.template
-                , `vinauutien${cfg.count}.xlsx`
-                , `vinauutien${cfg.count}.xlsx`
-                , 0
-                , cfg.sentTime.fromCreateDate
-                , cfg.sentTime.toCreateDate
-                , cfg.sentTime.fromScheduleDate
-                , cfg.sentTime.toScheduleDate
-                ,"Đặt lệnh thành công");
+        if (cfg.ENV=="PRODUCT"){
+            agent
+                .send_sms_temp_old(
+                    " "
+                    , cfg.portalArgs.VTT.cskh.adserName
+                    , cfg.portalArgs.VTT.cskh.contractName
+                    , "Vinaphone"
+                    , cfg.portalArgs.VTT.cskh.brn
+                    , cfg.portalArgs.VTT.cskh.template
+                    , `vinauutien${cfg.count}.xlsx`
+                    , `vinauutien${cfg.count}.xlsx`
+                    , 0
+                    , cfg.sentTime.fromCreateDate
+                    , cfg.sentTime.toCreateDate
+                    , cfg.sentTime.fromScheduleDate
+                    , cfg.sentTime.toScheduleDate
+                    ,"Đặt lệnh thành công");
+        }
     })
     specify("Gửi tin mnp port-in mạng Vinaphone", () => {
         if (cfg.ENV == "PRODUCT") {

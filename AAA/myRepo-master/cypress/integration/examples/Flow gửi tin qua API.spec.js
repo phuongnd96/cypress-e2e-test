@@ -29,7 +29,7 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify("Gửi tin qua API nội mạng đặt lịch site nonbank", () => {
+    specify.only("Gửi tin qua API nội mạng đặt lịch site nonbank", () => {
         agent
             .request_send_sms_nonbank_bank(
                 cfg.url.api.nonbank
@@ -39,7 +39,7 @@ context("Gửi tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.templateID
                 , cfg.apiArgs.numberOfParams
                 , cfg.apiArgs.content
-                , cfg.scheduleTime
+                , cfg.scheduleTime("-")
                 , cfg.apiArgs.mobilelist.vina
                 , cfg.apiArgs.istelcosub
                 , cfg.apiArgs.nonbank.cskh.agentID
@@ -83,7 +83,7 @@ context("Gửi tin qua API", () => {
                 , cfg.apiArgs.nonbank.qc.templateID
                 , cfg.apiArgs.numberOfParams
                 , cfg.apiArgs.content
-                , cfg.scheduleTime
+                , cfg.scheduleTime("-")
                 , cfg.apiArgs.mobilelist.vina
                 , cfg.apiArgs.istelcosub
                 , cfg.apiArgs.nonbank.qc.agentID

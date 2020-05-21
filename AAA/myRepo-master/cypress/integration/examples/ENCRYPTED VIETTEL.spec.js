@@ -1,5 +1,6 @@
 import AGENT from '../PageObjects/Agent';
 const agent = new AGENT();
+
 /*
 test api nonbank link mới + link cũ
 (gửi tin sau đó check log xem có bốc tin từ bảng pending_vtt đi k, check response trả về) -> gửi được sang ST là ok
@@ -50,7 +51,7 @@ context("ENCRYPTED VIETTEL", () => {
                 agent.assertRespone(res,34)
             })
         })
-        specify("Gửi tin CSKH nhà mạng Viettel nhóm tin Bank encrypted=1",()=>{
+        specify.only("Gửi tin CSKH nhà mạng Viettel nhóm tin Bank encrypted=1",()=>{
             agent.request_send_sms_list_ENCRYPTED(
                 url
                 ,"132278"
@@ -59,7 +60,7 @@ context("ENCRYPTED VIETTEL", () => {
                 ,"564160"
                 ,"1"
                 ,"test"
-                ,""
+                ,"22-05-2020 15:00"
                 ,"84396342533"
                 ,"0"
                 ,"164"
