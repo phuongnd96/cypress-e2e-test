@@ -1,4 +1,4 @@
-let ENV = "PRODUCT";
+let ENV = "STAGING";
 let now = new Date();
 let rnd = Math.floor(Math.random() * 10000000);
 //count là số round test (vd: 0, 1, 2, 3....);

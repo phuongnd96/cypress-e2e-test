@@ -822,6 +822,37 @@ class Agent {
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
             .click();
     };
+    importTemplate(contractName, filename, filepath) {
+        cy.contains("SỬA HỢP ĐỒNG")
+            .click({ force: true })
+        cy.contains(contractName).parent().parent().within(() => {
+            cy.contains("Template").click({ force: true })
+        })
+        cy.contains("Import file").click();
+        let fileName = filename;
+        cy.fixture(filepath, 'binary')
+            .then(Cypress.Blob.binaryStringToBlob)
+            .then(fileContent => {
+                cy
+                    .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_fileUpload')
+                    .attachFile({
+                        fileContent,
+                        fileName: fileName,
+                        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                        encoding: 'utf8'
+                    });
+                cy.contains("UPLOAD").click();
+                cy.contains("File kết quả").should('be.visible')
+                    .click()
+                cy.wait(2000);
+            })
+    };
+    findResultFile(dir) {
+        return cy.task('findResultFile', dir);
+    }
+    checkUploadResult(filename) {
+        cy.task('readFile', filename);
+    };
     checkPackageAgent(mạng, brnGroup) {
         cy.contains("GÓI TIN ĐẠI LÝ").click({ force: true })
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator").select(mạng)
@@ -897,7 +928,7 @@ class Agent {
 
     };
 
-    request_create_template_CSKH(url,agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username) {
+    request_create_template_CSKH(url, agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username) {
         return cy.request("POST", url, __.create_template_CSKH(agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username))
 
     };
@@ -961,9 +992,9 @@ class Agent {
         , apiPassword
         , username
         , dataCoding
-        ,encrypted
-    ){
-        return cy.request("POST",url,__.send_sms_list_ENCRYPTED(
+        , encrypted
+    ) {
+        return cy.request("POST", url, __.send_sms_list_ENCRYPTED(
             brnID
             , contracTypeID
             , contractID
@@ -978,7 +1009,7 @@ class Agent {
             , apiPassword
             , username
             , dataCoding
-            ,encrypted
+            , encrypted
         ))
     }
 
