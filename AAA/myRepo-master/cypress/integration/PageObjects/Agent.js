@@ -408,7 +408,7 @@ class Agent {
         return this;
 
     };
-    addTemplate(template, sampleMessage) {
+    addTemplate(template, sampleMessage,expectedResult) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditTemplate")
@@ -421,11 +421,11 @@ class Agent {
             .type(template, { parseSpecialCharSequences: false })
             //Chọn nhãn đầu tiên
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl08_ddlLabel_ddlLabel_Button")
-            .type('{downarrow}{downarrow}{enter}')
+            .type('{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}')
             //Tin nhắn mẫu
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl08_txtFooterTemplateContentMessage")
             .type(sampleMessage)
-            //Chọn loãi template
+            //Chọn loại template
 
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl08_btnFooterOK")
             .click({ force: true })
@@ -433,10 +433,10 @@ class Agent {
             .wait(2000)
             .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo')
             .then(($element) => {
-                expect($element).to.have.text("Thêm mới template thành công.");
+                expect($element).to.have.text(expectedResult);
             });
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl02_lblTemplateId").invoke('text').then((text) => {
-            templateId = text;
+            let templateId = text;
             //trả ra template Id
             return templateId;
         })
@@ -822,14 +822,14 @@ class Agent {
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
             .click();
     };
-    importTemplate(contractName, filename, filepath) {
+    importTemplate(contractName, fileName, filepath) {
         cy.contains("SỬA HỢP ĐỒNG")
             .click({ force: true })
         cy.contains(contractName).parent().parent().within(() => {
             cy.contains("Template").click({ force: true })
         })
         cy.contains("Import file").click();
-        let fileName = filename;
+
         cy.fixture(filepath, 'binary')
             .then(Cypress.Blob.binaryStringToBlob)
             .then(fileContent => {
@@ -844,14 +844,14 @@ class Agent {
                 cy.contains("UPLOAD").click();
                 cy.contains("File kết quả").should('be.visible')
                     .click()
-                cy.wait(2000);
+                cy.wait(3000);
             })
     };
     findResultFile(dir) {
         return cy.task('findResultFile', dir);
     }
     checkUploadResult(filename) {
-        cy.task('readFile', filename);
+        return cy.task('readFile', filename);
     };
     checkPackageAgent(mạng, brnGroup) {
         cy.contains("GÓI TIN ĐẠI LÝ").click({ force: true })

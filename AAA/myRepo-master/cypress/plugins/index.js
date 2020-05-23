@@ -26,6 +26,7 @@ module.exports = (on, config) => {
           }
         })
     },
+//hàm này thỉnh thoảng bị lỗi typeerror filename is not defined 
     findResultFile(dir) {
       function createdDate(file) {
         const { birthtime } = fs.statSync(file)
@@ -45,11 +46,25 @@ module.exports = (on, config) => {
               });
             }
           });
-          const sortedbyDate = dirList.slice(0);
-          sortedbyDate.sort(function (a, b) {
-            return b.createdDate.localeCompare(a.createdDate);
+          let sortedbyDate = dirList.slice(0);
+          sortedbyDate.sort(function (elem1, elem2) {
+            return elem1.createdDate.localeCompare(elem2.createdDate);
           });
-          resolve(sortedbyDate[0].fileName);
+          resolve(sortedbyDate[sortedbyDate.length-1].fileName);
+        })
+      })
+    },
+
+
+    deleteFile(path) {
+      return new Promise((resolve, reject) => {
+        fs.unlink(path, (err) => {
+          if (err) {
+            reject(err)
+            return
+          }
+          console.log('success');
+          resolve(path);
         })
       })
     }
