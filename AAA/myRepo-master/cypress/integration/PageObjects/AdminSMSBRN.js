@@ -21,7 +21,7 @@ class AdminSMSBRN {
         //assert login success
         cy.contains(`Xin chào, ${username.toLowerCase()}`).should('be.visible');
     }
-    viewReport(mobileNumber,profileID,sentTime) {
+    viewReport(mobileNumber,profileID,mạng,sentTime) {
         cy
             .get("#report").as('viewReportBtn')
         cy
@@ -31,7 +31,7 @@ class AdminSMSBRN {
             .get("select#profileID")
             .select(profileID)
             .get("select#operatorId")
-            .select("MOBIFONE")
+            .select(mạng)
             .get("#datepicker[name='startDate' ]")
             .type(sentTime) //ngày gửi tin
             .get("#datepicker1[name='endDate']")

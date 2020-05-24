@@ -18,7 +18,7 @@ describe("Thêm template mới trên portal", () => {
             user.addTemplate('{A,30} test123', 'p1!@#$%^&*( ),/`" test123','Thêm mới template thành công.');
         })
         it("Thêm mới template loại B thành công", () => {
-            user.addTemplate('{B,30} test123', '1.2 test123');
+            user.addTemplate('{B,30} test123', '1.2 test123',"Thêm mới template thành công.");
         })
         it("Thêm mới template loại C thành công", () => {
             user.addTemplate('{C,30} test123', 'p1!@#$%^&*(.),/`" test123','Thêm mới template thành công.');

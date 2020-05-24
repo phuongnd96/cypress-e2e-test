@@ -9,24 +9,24 @@ let sentTime={
     // toCreateDate:"21/05/2020",
     // fromScheduleDate:"21/05/2020",
     // toScheduleDate:"21/05/2020",
-    fromCreateDate:makeDate(),
-    toCreateDate:makeDate(),
-    fromScheduleDate:makeDate(),
-    toScheduleDate:makeDate()
+    fromCreateDate:makeDate("/"),
+    toCreateDate:makeDate("/"),
+    fromScheduleDate:makeDate("/"),
+    toScheduleDate:makeDate("/")
 }
 
 function makeDate(sym){
     if (now.getMonth()<9){
         if (now.getDate()<10){
-            return `0${now.getDate()}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()}}`;
+            return `0${now.getDate()}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()}`;
         }
-        return `${now.getDate()}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()}}`
+        return `${now.getDate()}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()}`
     }
     else{
         if (now.getDate()<10){
-            return `0${now.getDate()}${sym}${now.getMonth() + 1}${sym}${now.getFullYear()}}`;
+            return `0${now.getDate()}${sym}${now.getMonth() + 1}${sym}${now.getFullYear()}`;
         }
-        return `${now.getDate()}${sym}1${now.getMonth() + 1}${sym}${now.getFullYear()}}`
+        return `${now.getDate()}${sym}1${now.getMonth() + 1}${sym}${now.getFullYear()}`
     }
 
 }

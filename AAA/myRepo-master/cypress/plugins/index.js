@@ -26,7 +26,7 @@ module.exports = (on, config) => {
           }
         })
     },
-//hàm này thỉnh thoảng bị lỗi typeerror filename is not defined 
+    //hàm này thỉnh thoảng bị lỗi typeerror filename is not defined 
     findResultFile(dir) {
       function createdDate(file) {
         const { birthtime } = fs.statSync(file)
@@ -50,12 +50,10 @@ module.exports = (on, config) => {
           sortedbyDate.sort(function (elem1, elem2) {
             return elem1.createdDate.localeCompare(elem2.createdDate);
           });
-          resolve(sortedbyDate[sortedbyDate.length-1].fileName);
+          resolve(sortedbyDate[sortedbyDate.length - 1].fileName);
         })
       })
     },
-
-
     deleteFile(path) {
       return new Promise((resolve, reject) => {
         fs.unlink(path, (err) => {
@@ -67,6 +65,31 @@ module.exports = (on, config) => {
           resolve(path);
         })
       })
+    }
+    , findFile(fileName1) {
+      return new Promise((resolve, reject) => {
+        fs.readdir('C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures', (e, files) => {
+          if (e) {
+            reject(e);
+          }
+          files.forEach((file) => {
+            if (file.includes(fileName1) == true) {
+              console.log(file);
+              resolve(`${file}`);
+            }
+          })
+        })
+      })
+    }
+    ,
+    renameFile(path) {
+      if(fs.existsSync(path[0])){
+          fs.renameSync(path[0], path[1]);
+          return null;
+      }
+      else{
+        return 'fail';
+      }
     }
   })
 };
