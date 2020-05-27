@@ -179,6 +179,7 @@ class Agent {
     };
 
     doLogin(userame, password) {
+        cy.wait(1000)
         cy
             .get("#ctl00_ContentPlaceHolder2_usrname")
             .type(userame)
@@ -186,6 +187,7 @@ class Agent {
             .type(password)
             .get("#ctl00_ContentPlaceHolder2_submit")
             .click();
+        cy.wait(1000);
         return this;
     };
 
@@ -408,7 +410,7 @@ class Agent {
         return this;
 
     };
-    addTemplate(template, sampleMessage,expectedResult) {
+    addTemplate(template, sampleMessage, expectedResult) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditTemplate")
@@ -492,6 +494,7 @@ class Agent {
     };
 
     createLBA(lbaname, scheduleTime, adsername, countNumberMobile, contractName, brn, templateContent, gender, activeTime, isHave3G, blackListFileName, blackListFilePath, whiteListFileName, whiteListFilePath) {
+        cy.wait(1000);
         cy
             .contains("TẠO MỚI CD")
             .click({ force: true })
@@ -727,7 +730,7 @@ class Agent {
             .wait(1000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlTemplate")
             .wait(1000)
-            .select(template)
+            .select(template, { force: true })
             .wait(500)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_tbTemplateContent").then((templateContent) => {
                 expect(templateContent).to.have.prop('disabled', true)
@@ -805,6 +808,20 @@ class Agent {
                     })
             })
     };
+    tra_cứu_lịch_sử_lệnh_gửi(predictedStatus) {
+        if (predictedStatus == "Đặt lệnh không thành công") {
+            cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
+                .as("file_loi");
+            return cy.get(":nth-child(2) > :nth-child(2) > a").invoke('text').then((text) => {
+                return parseInt(text);
+            })
+        } else if (predictedStatus == "Đặt lệnh thành công") {
+            cy.wait(3000);
+            return cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(12)").invoke('text').then((text) => {
+                return parseInt(text);
+            })
+        }
+    }
     readErrorfile(prefix, error) {
         cy.task('readFile', `C:\\Users\\LapTop\\Downloads\\${prefix}_thue_bao_loi.xlsx`).then((res) => {
             return res.Strings["3"].h;

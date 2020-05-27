@@ -98,6 +98,7 @@ let send_sms_list = (brnID, contracTypeID, contractID, templateID, numberOfParam
         "RQST": {
             "name": "send_sms_list",
             "REQID": `${rnd}`,
+            // "REQID": "1",
             "LABELID": `${brnID}`,
             "CONTRACTTYPEID": `${contracTypeID}`,
             "CONTRACTID": `${contractID}`,
@@ -115,7 +116,9 @@ let send_sms_list = (brnID, contracTypeID, contractID, templateID, numberOfParam
             "APIUSER": `${apiUsername}`,
             "APIPASS": `${apiPassword}`,
             "USERNAME": `${username}`,
-            "DATACODING": `${dataCoding}`
+            "DATACODING": `${dataCoding}`,
+            // "SCHEDULETIME": `${scheduletime}`
+            // "SCHEDULETIME": ``
         }
     }
     return req;

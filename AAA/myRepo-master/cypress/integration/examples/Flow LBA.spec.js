@@ -4,7 +4,7 @@ import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
 
-let localCount="1902";
+let rnd=Math.floor(Math.random()*1000);
 context("Agent tạo chiến dịch", () => {
     beforeEach(() => {
         agent
@@ -17,7 +17,7 @@ context("Agent tạo chiến dịch", () => {
     it("Agent tạo chiến dịch LBA", () => {
         agent
             .createLBA(
-                `qatestlba11${localCount}`
+                `qatestlba${rnd}`
                 // , "21/05/2020 15:34"
                 , cfg.scheduleTime("/")
                 , cfg.portalArgs.VTT.qc.adserName
@@ -51,7 +51,7 @@ context("Admin resolve chiến dịch", () => {
         admin
             .resolveLBA(
                 
-                [`qatestlba11${localCount}`]
+                [`qatestlba`]
                 , "06/05/2020"
                 , "30/05/2020"
                 , "Tất cả"

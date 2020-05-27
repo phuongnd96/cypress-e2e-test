@@ -50,7 +50,7 @@ async function createTemplateQC(content, totalParams) {
 context("Tạo template qua API", () => {
     context("Đại lý VTTP gửi tin CSKH", () => {
         describe("nonbank", () => {
-            context.skip("Các mã lỗi cũ", () => {
+            context("Các mã lỗi cũ", () => {
                 //hàm dùng được cho cả staging và product
                 it("API user không hợp lệ", () => {
                     agent.request_create_template_CSKH(
@@ -187,16 +187,16 @@ context("Tạo template qua API", () => {
                     createTemplateCSKH("{D} test", "1.2.3áó**!!!&*#^*!&$%$!)$!)*!$$)*! () test", 0);
                 })
             })
-            context.only("Các mã lỗi mới", () => {
-                it.only("{A.10} -> mã lỗi 55", () => {
+            context("Các mã lỗi mới", () => {
+                it("{A.10} -> mã lỗi 55", () => {
                     createTemplateCSKH("{A.10} test", "á!_*bc test", 55);
                 }
                 );
-                it.only("{(A,10)} -> mã lỗi 55", () => {
+                it("{(A,10)} -> mã lỗi 55", () => {
                     createTemplateCSKH("{(A,10)} test", "á!_*bc test", 55);
                 }
                 );
-                it.only("{A,*} -> mã lỗi 55", () => {
+                it("{A,*} -> mã lỗi 55", () => {
                     createTemplateCSKH("{A,*} test", "á!_*bc test", 55);
                 }
                 );

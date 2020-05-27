@@ -29,7 +29,7 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify.only("Gửi tin qua API nội mạng đặt lịch site nonbank", () => {
+    specify("Gửi tin qua API nội mạng đặt lịch site nonbank", () => {
         agent
             .request_send_sms_nonbank_bank(
                 cfg.url.api.nonbank

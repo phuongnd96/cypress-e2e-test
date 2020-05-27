@@ -26,7 +26,6 @@ module.exports = (on, config) => {
           }
         })
     },
-    //hàm này thỉnh thoảng bị lỗi typeerror filename is not defined 
     findResultFile(dir) {
       function createdDate(file) {
         const { birthtime } = fs.statSync(file)
