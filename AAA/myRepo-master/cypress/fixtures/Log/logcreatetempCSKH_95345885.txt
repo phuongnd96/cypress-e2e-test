@@ -1,4 +1,0 @@
-28-4-2020 0:11:6 
-        request: {"RQST":{"name":"create_template","REQID":"test 5815","AGENTID":"437","CONTRACTID":"8522","LABEL":"BRN cypresstest123","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"PHUONGQA","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: 14
-        errordesc: label khong hop le hoac ko ton tai

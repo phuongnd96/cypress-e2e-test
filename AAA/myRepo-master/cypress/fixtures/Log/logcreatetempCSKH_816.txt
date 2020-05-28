@@ -1,4 +1,0 @@
-27-4-2020 16:7:12 
-        request: {"RQST":{"name":"create_template","REQID":"test 2091","AGENTID":"437","CONTRACTID":"8522","LABEL":"BRN cypress","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"PHUONGQAtest","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: -1
-        errordesc: exception

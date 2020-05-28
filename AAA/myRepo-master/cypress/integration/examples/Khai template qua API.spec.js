@@ -32,21 +32,7 @@ async function createTemplateCSKH(content, sampleMsg, errCode) {
     await logCSKH(res);
     agent.assertRespone(res, errCode);
 }
-async function createTemplateQC(content, totalParams, errCode) {
-    let res = await agent.request_create_template_QC(
-        db.url_api.nonbank
-        , db.agent_VTT_QC_TRASAU.agentID
-        , db.agent_VTT_QC_TRASAU.contractID
-        , db.agent_VTT_QC_TRASAU.brandName
-        , content
-        , totalParams
-        , db.agent_VTT_QC_TRASAU.apiUsernameCreateTemplate
-        , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
-        , db.agent_VTT_QC_TRASAU.userName
-    );
-    await logQC(res);
-    agent.assertRespone(res, errCode);
-}
+
 context("Tạo template qua API", () => {
     context("Đại lý VTTP gửi tin CSKH", () => {
         describe("nonbank", () => {
@@ -184,7 +170,7 @@ context("Tạo template qua API", () => {
                     createTemplateCSKH("{C,30} test", "1.2.3áó**!() test", 0);
                 })
                 it("Tạo thành công template loại D", () => {
-                    createTemplateCSKH("{D} test", "1.2.3áó**!!!&*#^*!&$%$!)$!)*!$$)*! () test", 0);
+                    createTemplateCSKH("{D,40} test", "1.2.3áó**!!!&*#^*!&$%$!)$!)*!$$)*! () test", 0);
                 })
             })
             context("Các mã lỗi mới", () => {
@@ -227,23 +213,27 @@ context("Tạo template qua API", () => {
                 }
                 );
                 //----------------------------//
-                it("{D,10} -> mã lỗi 55", () => {
-                    createTemplateCSKH("{D,10} test", "1.2.3 test", 55);
+                it("{D,-10} -> mã lỗi 55", () => {
+                    createTemplateCSKH("{D,10} test", "1.2.3 test", 0);
                 }
                 );
                 it("{D.10} -> mã lỗi 55", () => {
                     createTemplateCSKH("{D.10} test", "1.2.3 test", 55);
                 }
                 );
+                it("{D} -> mã lỗi 55", () => {
+                    createTemplateCSKH("{D} test", "1.2.3 test", 55);
+                }
+                );
                 //------------------------------//
                 it("6 tham biến 1 loại -> 56", () => {
-                    createTemplateCSKH("{D} test{D} test{D} test{D} test{D} test{D} test", "1.2.3 test1.2.3 test1.2.3 test1.2.3 test1.2.3 test1.2.3 test", 56);
+                    createTemplateCSKH("{D,10} test{D,10} test{D,10} test{D,10} test{D,10} test{D,10} test", "1.2.3 test1.2.3 test1.2.3 test1.2.3 test1.2.3 test1.2.3 test", 56);
                 });
                 it("5 tham biến mỗi loại -> 0", () => {
-                    createTemplateCSKH("{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test {B,10}test{B,10}test{B,10}test{B,10}test{B,10}test {C,10}test{C,10}test{C,10}test{C,10}test{C,10}test {D}test{D}test{D}test{D}test{D}test{D}test", "a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!testa. 12testa. 12testa. 12testa. 12testa. 12test", 0);
+                    createTemplateCSKH("{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test {B,10}test{B,10}test{B,10}test{B,10}test{B,10}test {C,10}test{C,10}test{C,10}test{C,10}test{C,10}test {D,10}test{D,10}test{D,10}test{D,10}test{D,10}test", "a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!testa. 12testa. 12testa. 12testa. 12testa. 12testa.", 0);
                 });
                 it("SAMPLEMESSAGE vượt quá 1000 kí tự -> 57", () => {
-                    createTemplateCSKH("{D}test", "12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsadaaaaaaaaatest", 57);
+                    createTemplateCSKH("test{D,10}", "test12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsadaaaaaaaaa", 57);
                 });
             });
         })
@@ -262,7 +252,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 1);
                     });
                 })
@@ -279,7 +269,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName.concat("test")
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 10);
                     });
                 })
@@ -296,7 +286,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 13);
                     });
                 })
@@ -313,7 +303,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 14);
                     });
                 })
@@ -330,7 +320,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 15);
                     });
                 })
@@ -348,7 +338,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 51);
                     });
                 })
@@ -365,7 +355,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 55);
                     });
                 })
@@ -382,7 +372,7 @@ context("Tạo template qua API", () => {
                     , db.agent_VTT_QC_TRASAU.apiPasswordCreateTemplate
                     , db.agent_VTT_QC_TRASAU.userName
                 ).then((res) => {
-                    logCSKH(res).then(() => {
+                    logQC(res).then(() => {
                         agent.assertRespone(res, 0);
                     });
                 })

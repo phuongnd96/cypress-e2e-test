@@ -1,4 +1,0 @@
-28-4-2020 0:18:35 
-        request: {"RQST":{"name":"create_template","REQID":"test 8363","AGENTID":"437","CONTRACTID":"8522","LABEL":"BRN cypress","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"PHUONGQA","APIPASS":"Tr1@123test","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: 1
-        errordesc: user, pass, ip, status khong hop le, ip=10.84.10.230

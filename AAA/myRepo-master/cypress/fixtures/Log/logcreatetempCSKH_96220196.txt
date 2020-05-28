@@ -1,4 +1,0 @@
-28-4-2020 0:16:10 
-        request: {"RQST":{"name":"create_template","REQID":"test 5739","AGENTID":"434","CONTRACTID":"8479911","LABEL":"HELLO123","CONTENT":"{P1} test123","TOTALPARAMS":"1","APIUSER":"phuong_taotemp_qc","APIPASS":"Tr1@123","USERNAME":"accDL_testphuongQC"}}
-        errorcode: 13
-        errordesc: hop dong khong dung

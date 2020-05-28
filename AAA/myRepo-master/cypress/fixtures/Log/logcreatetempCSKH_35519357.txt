@@ -1,4 +1,0 @@
-27-4-2020 23:40:1 
-        request: {"RQST":{"name":"create_template","REQID":"test 9426","AGENTID":"437","CONTRACTID":"8522","LABEL":"BRN cypress","CONTENT":"{(B.10)} test","SAMPLEMESSAGE":"1.2.3 test","APIUSER":"PHUONGQA","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: 55
-        errordesc: Danh sach tham so khong hop le

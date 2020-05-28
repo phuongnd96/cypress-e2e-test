@@ -1,4 +1,0 @@
-28-4-2020 0:18:36 
-        request: {"RQST":{"name":"create_template","REQID":"test 8363","AGENTID":"437","CONTRACTID":"85221936","LABEL":"BRN cypress","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"PHUONGQA","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: 13
-        errordesc: hop dong khong dung

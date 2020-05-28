@@ -66,8 +66,8 @@ describe("Thêm template mới trên portal", () => {
             userAddTemplate("{A,10} test", "H1 !_lo test", "");
             userAddTemplate(`\\{qa\\} test {B,10}`, `{qa} test 1.3.5`, "");
             userAddTemplate("{C,10} test", "1.a3!* test ", "");
-            userAddTemplate(`\\\\{qa\\\\} test {D}`, `\\{qa\\} test ur135!*`, "");
-            userAddTemplate("{D} test", "Hello á 1@*! test", "");
+            userAddTemplate(`\\\\{qa\\\\} test {D,10}`, `\\{qa\\} test ár135!*`, "");
+            userAddTemplate("{D,20} test", "Hello á 1@*! test", "");
             cy.contains("Thêm mới hợp đồng").click({force:true});
         })
     });
@@ -85,10 +85,13 @@ describe("Thêm template mới trên portal", () => {
             user.addTemplate('{C,30} test123', 'p1!@#$%^&*(.),/`" test123', 'Thêm mới template thành công.');
         })
         it("Thêm mới template loại D thành công", () => {
-            user.addTemplate('{D} test123', 'p1!@#$%^&*(á),/`" test123', 'Thêm mới template thành công.');
+            user.addTemplate('{D,20} test123', 'p1!@#$%^&*(á),/`" test123', 'Thêm mới template thành công.');
+        })
+        it("5 tham số mỗi loại", () => {
+            user.addTemplate('{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test {B,10}test{B,10}test{B,10}test{B,10}test{B,10}test {C,10}test{C,10}test{C,10}test{C,10}test{C,10}test {D,10}test{D,10}test{D,10}test{D,10}test{D,10}test', 'a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!testa. 12testa. 12testa. 12testa. 12testa. 12testa.', 'Thêm mới template thành công.');
         })
         it("Template chứa từ khóa chặn", () => {
-            user.addTemplate('{D} Acetorphine', 'test123 Acetorphine', 'Từ khóa Etorphine không được sử dụng');
+            user.addTemplate('{D,10} Acetorphine', 'test123 Acetorphine', 'Từ khóa Etorphine không được sử dụng');
         })
     })
 })

@@ -157,6 +157,19 @@ describe("Import template qua file excel", () => {
                 , "Vui lòng nhập đúng định dạng tham biến."
             );
         })
+        it("{D}", () => {
+            userImportFiledNCheckResult(
+                "HĐ TEST 135"
+                , "{D}.xlsx"
+                , "{D}.xlsx"
+                , "100248"
+                , "BRN cypress"
+                , "{D}"
+                , "á 1!(a^{"
+                , "Thất bại"
+                , "Vui lòng nhập đúng định dạng tham biến."
+            );
+        })
         it("{A.10}", () => {
             userImportFiledNCheckResult(
                 "HĐ TEST 135"
@@ -334,7 +347,7 @@ describe("Import template qua file excel", () => {
                 , "autoDsuccess.xlsx"
                 , "100248"
                 , "BRN cypress"
-                , "t {D}"
+                , "t {D,10}"
                 , "t 1!* á"
                 , "Thành công"
                 , ""
