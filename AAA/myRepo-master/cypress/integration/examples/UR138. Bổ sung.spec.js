@@ -1,8 +1,8 @@
 import ADMIN from '../PageObjects/Admin';
 import * as db from '../config/config';
 const admin = new ADMIN();
-let dstkadmin = "phuongnd";
-let dstkpw = "Tr1@123";
+let dstkadmin = "phuongnd1";
+let dstkpw = "Tr1@1231";
 let agentName = "VNPTTEST-DH-qc";
 describe("", () => {
     context("Thêm mới người dùng HT", () => {
@@ -34,11 +34,11 @@ describe("", () => {
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch").as('Tìm kiếm đại lý')
                 cy.get("@Tìm kiếm đại lý").click();
             })
-            it("Tìm kiếm đại lý", () => {
+            it.only("Tìm kiếm đại lý", () => {
                 cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_txtAgentName").invoke('text').then((text) => {
                     expect(text).to.contains(agentName)
                 })
-                cy.contains(agentName).parent().parent().within(() => {
+                cy.contains(agentName).parent().parent().parent().within(() => {
                     cy.contains('Mô tả').should('be.visible');
                 })
             })

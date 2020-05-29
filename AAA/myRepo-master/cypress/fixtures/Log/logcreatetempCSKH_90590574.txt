@@ -1,0 +1,4 @@
+29-4-2020 17:34:42 
+        request: {"RQST":{"name":"create_template","REQID":"test 3278197","AGENTID":"437","CONTRACTID":"8522","LABEL":"BRN cypress","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"PHUONGQA","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTTtest"}}
+        errorcode: 10
+        errordesc: user_name ko ton tai

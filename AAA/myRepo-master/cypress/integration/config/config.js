@@ -157,7 +157,7 @@ if (ENV == "STAGING") {
         },
         "api": {
             "nonbank": "http://10.84.70.148:8085/smsmktur135/api",
-            "bank": "",
+            "bank": "http://10.84.70.148:8096/smsbank12/api",
             "smsorder": ""
         }
     };
@@ -262,14 +262,14 @@ if (ENV == "STAGING") {
         },
         bank: {
             cskh: {
-                "brnID": "131358",
+                "brnID": "100235",
                 "contractTypeID": "1",
-                "contractID": "401",
-                "templateID": "559105",
-                "agentID": "164",
-                "apiUsername": "hoandd",
-                "apiPassword": "hoandd",
-                "username": "DH_CS",
+                "contractID": "8522",
+                "templateID": "386875",
+                "agentID": "437",
+                "apiUsername": "PHUONGQA_SENDSMS",
+                "apiPassword": "Tr1@123",
+                "username": "accVIVASTEST_UR132_VTT",
             },
             qc: {
 

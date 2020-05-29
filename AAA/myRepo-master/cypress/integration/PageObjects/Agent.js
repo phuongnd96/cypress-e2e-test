@@ -993,6 +993,43 @@ class Agent {
             , dataCoding));
 
     };
+    
+    request_send_sms_list_bank(
+        url,
+        reqIDBank
+        ,brnID
+        , contracTypeID
+        , contractID
+        , templateID
+        , numberOfParams
+        , content
+        , scheduletime
+        , mobilelist
+        , istelcosub
+        , agentID
+        , apiUsername
+        , apiPassword
+        , username
+        , dataCoding){
+            return cy.request("POST", url, __.send_sms_list_bank(
+                reqIDBank
+                ,brnID
+                , contracTypeID
+                , contractID
+                , templateID
+                , numberOfParams
+                , content
+                , scheduletime
+                , mobilelist
+                , istelcosub
+                , agentID
+                , apiUsername
+                , apiPassword
+                , username
+                , dataCoding));
+    
+    }
+
     request_send_sms_list_ENCRYPTED(
         url,
         brnID

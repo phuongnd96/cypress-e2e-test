@@ -1,1 +1,0 @@
-28/4/2020 0:28:54 request: {"RQST":{"name":"create_template","REQID":"test 4463","AGENTID":"434","CONTRACTID":"8479","LABEL":"HELLO123","CONTENT":"{A,10} test123","TOTALPARAMS":"1","APIUSER":"phuong_taotemp_qc","APIPASS":"Tr1@123","USERNAME":"accDL_testphuongQC"}} errorcode: 55 errordesc: Danh sach tham so khong hop le

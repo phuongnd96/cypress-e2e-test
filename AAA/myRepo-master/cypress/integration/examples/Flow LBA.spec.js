@@ -18,8 +18,8 @@ context("Agent tạo chiến dịch", () => {
         agent
             .createLBA(
                 `qatestlba${rnd}`
-                // , "21/05/2020 15:34"
-                , cfg.scheduleTime("/")
+                , "30/05/2020 15:34"
+                // , cfg.scheduleTime("/")
                 , cfg.portalArgs.VTT.qc.adserName
                 , 1
                 , cfg.portalArgs.VTT.qc.contractName

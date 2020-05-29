@@ -1,4 +1,0 @@
-28-4-2020 9:59:50 
-        request: {"RQST":{"name":"create_template","REQID":"test 9860","AGENTID":"437","CONTRACTID":"8522","LABEL":"BRN cypress","CONTENT":"{D,40} test","SAMPLEMESSAGE":"1.2.3áó**!!!&*#^*!&$%$!)$!)*!$$)*! () test","APIUSER":"PHUONGQA","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: 0
-        errordesc: Success

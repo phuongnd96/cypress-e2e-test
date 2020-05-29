@@ -230,7 +230,7 @@ context("Tạo template qua API", () => {
                     createTemplateCSKH("{D,10} test{D,10} test{D,10} test{D,10} test{D,10} test{D,10} test", "1.2.3 test1.2.3 test1.2.3 test1.2.3 test1.2.3 test1.2.3 test", 56);
                 });
                 it("5 tham biến mỗi loại -> 0", () => {
-                    createTemplateCSKH("{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test {B,10}test{B,10}test{B,10}test{B,10}test{B,10}test {C,10}test{C,10}test{C,10}test{C,10}test{C,10}test {D,10}test{D,10}test{D,10}test{D,10}test{D,10}test", "a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!testa. 12testa. 12testa. 12testa. 12testa. 12testa.", 0);
+                    createTemplateCSKH("{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test{B,10}test{B,10}test{B,10}test{B,10}test{B,10}test{C,10}test{C,10}test{C,10}test{C,10}test{C,10}test{D,10}test{D,10}test{D,10}test{D,10}test{D,10}test", "a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!test 12test 12test 12test 12test 12test", 0);
                 });
                 it("SAMPLEMESSAGE vượt quá 1000 kí tự -> 57", () => {
                     createTemplateCSKH("test{D,10}", "test12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsad12312312312312322222asdasdasdasdasdsadaaaaaaaaa", 57);
@@ -378,5 +378,10 @@ context("Tạo template qua API", () => {
                 })
             })
         })
+    })
+})
+describe("Gửi mail kết quả",()=>{
+    it("Send email",()=>{
+        cy.exec('node sendmail.js')
     })
 })

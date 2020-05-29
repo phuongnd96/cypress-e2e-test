@@ -1,4 +1,0 @@
-28-4-2020 9:59:57 
-        request: {"RQST":{"name":"create_template","REQID":"test 9860","AGENTID":"437","CONTRACTID":"8522","LABEL":"BRN cypress","CONTENT":"{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test {B,10}test{B,10}test{B,10}test{B,10}test{B,10}test {C,10}test{C,10}test{C,10}test{C,10}test{C,10}test {D}test{D}test{D}test{D}test{D}test{D}test","SAMPLEMESSAGE":"a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!testa. 12testa. 12testa. 12testa. 12testa. 12test","APIUSER":"PHUONGQA","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: 55
-        errordesc: Danh sach tham so khong hop le

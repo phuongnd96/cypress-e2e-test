@@ -16,6 +16,7 @@
     "cypress-file-upload": "^4.0.6",
     "excel4node": "^1.7.2",
     "mocha": "^7.1.2",
+    "nodemailer": "^6.4.8",
     "read-excel-file": "^4.0.6",
     "xlsx": "^0.16.0",
     "xmlhttprequest": "^1.8.0"

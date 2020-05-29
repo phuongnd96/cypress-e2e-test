@@ -87,8 +87,8 @@ describe("Thêm template mới trên portal", () => {
         it("Thêm mới template loại D thành công", () => {
             user.addTemplate('{D,20} test123', 'p1!@#$%^&*(á),/`" test123', 'Thêm mới template thành công.');
         })
-        it("5 tham số mỗi loại", () => {
-            user.addTemplate('{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test {B,10}test{B,10}test{B,10}test{B,10}test{B,10}test {C,10}test{C,10}test{C,10}test{C,10}test{C,10}test {D,10}test{D,10}test{D,10}test{D,10}test{D,10}test', 'a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!testa. 12testa. 12testa. 12testa. 12testa. 12testa.', 'Thêm mới template thành công.');
+        it.only("5 tham số mỗi loại", () => {
+            user.addTemplate('{A,10}test{A,10}test{A,10}test{A,10}test{A,10}test{B,10}test{B,10}test{B,10}test{B,10}test{B,10}test{C,10}test{C,10}test{C,10}test{C,10}test{C,10}test{D,10}test{D,10}test{D,10}test{D,10}test{D,10}test', 'a12!testa12!testa12!testa12!testa12!test1.2.3test1.2.3test1.2.3test1.2.3test1.2.3test1a.2!test1a.2!test1a.2!test1a.2!test1a.2!testa. 12test 12test 12test 12test 12test', 'Thêm mới template thành công.');
         })
         it("Template chứa từ khóa chặn", () => {
             user.addTemplate('{D,10} Acetorphine', 'test123 Acetorphine', 'Từ khóa Etorphine không được sử dụng');

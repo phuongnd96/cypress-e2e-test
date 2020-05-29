@@ -35,40 +35,40 @@ if (env === "STAGING") {
     );
     const agent_VTT_QC_TRASAU = new AGENT(
         "accDL_testphuongQC"
-        ,"Tr1@123345"
-        ,"DL_testphuongQC"
-        ,"434"
-        ,"Duy Phuong"
-        ,"hop dong test"
-        ,"8479"
-        ,"HELLO123"
-        ,"100174"
-        ,"{P1} phuongtest"
-        ,"386671"
-        ,undefined
-        ,undefined
-        ,undefined
-        ,undefined
-        ,"phuongQC"
-        ,"Tr1@123"
-        ,undefined
-        ,undefined
-        ,undefined
-        ,undefined
-        ,undefined
-        ,undefined
-        ,"phuong_taotemp_qc"
-        ,"Tr1@123"
+        , "Tr1@12345"
+        , "DL_testphuongQC"
+        , "434"
+        , "Duy Phuong"
+        , "hop dong test"
+        , "8479"
+        , "HELLO123"
+        , "100174"
+        , "{P1} phuongtest"
+        , "386671"
+        , undefined
+        , undefined
+        , undefined
+        , undefined
+        , "phuongQC"
+        , "Tr1@123"
+        , undefined
+        , undefined
+        , undefined
+        , undefined
+        , undefined
+        , undefined
+        , "phuong_taotemp_qc"
+        , "Tr1@123"
     );
     const url_api = new url_a(
         "http://10.84.70.148:8085/smsmktur135/api"
-        , undefined
+        , "http://10.84.70.148:8096/smsbank12/api"
         , undefined
     )
     const db = {
         agent_VTT_CSKH_TRASAU: agent_VTT_CSKH_TRASAU,
         agent_VTT_QC_TRASAU: agent_VTT_QC_TRASAU,
-        url_api:url_api
+        url_api: url_api
     }
     exports.db = db;
 

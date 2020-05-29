@@ -1,4 +1,5 @@
-let rnd = `test ${Math.floor(Math.random() * 10000)}`;
+let now=new Date();
+let rnd = `test ${Math.floor(Math.random() * 10000)}`.concat(now.getMilliseconds());
 
 let get_adser = (agentID, apiUsername, apiPassword) => {
     let req = {
@@ -124,6 +125,41 @@ let send_sms_list = (brnID, contracTypeID, contractID, templateID, numberOfParam
     return req;
 }
 
+let send_sms_list_bank = (reqIDBank,brnID, contracTypeID, contractID, templateID, numberOfParams, content, scheduletime, mobilelist, istelcosub, agentID, apiUsername, apiPassword, username, dataCoding) => {
+    let req = {
+        "RQST": {
+            "name": "send_sms_list",
+            "REQID": `${reqIDBank}`,
+            // "REQID": "1",
+            "LABELID": `${brnID}`,
+            "CONTRACTTYPEID": `${contracTypeID}`,
+            "CONTRACTID": `${contractID}`,
+            "TEMPLATEID": `${templateID}`,
+            "PARAMS": [
+                {
+                    "NUM": `${numberOfParams}`,
+                    "CONTENT": `${content}`
+                }
+            ],
+            "SCHEDULETIME": `${scheduletime}`,
+            "MOBILELIST": `${mobilelist}`,
+            "ISTELCOSUB": `${istelcosub}`,
+            "AGENTID": `${agentID}`,
+            "APIUSER": `${apiUsername}`,
+            "APIPASS": `${apiPassword}`,
+            "USERNAME": `${username}`,
+            "DATACODING": `${dataCoding}`,
+            // "SCHEDULETIME": `${scheduletime}`
+            // "SCHEDULETIME": ``
+        }
+    }
+    return req;
+}
+
+
+
+
+
 let send_sms_list_SMSORDER = (brnID, contracTypeID, contractID, templateID, numberOfParams, content, scheduletime, mobilelist, istelcosub, agentID, apiUsername, apiPassword, username, dataCoding, saleOrderID, packageID) => {
     let req = {
         "RQST": {
@@ -195,4 +231,5 @@ module.exports = {
     , send_sms_list
     , send_sms_list_SMSORDER
     ,send_sms_list_ENCRYPTED
+    ,send_sms_list_bank
 }

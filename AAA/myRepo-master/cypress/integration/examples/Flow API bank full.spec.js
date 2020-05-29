@@ -3,7 +3,7 @@ import ADMIN from '../PageObjects/Admin';
 import * as cfg from '../config/config';
 
 const agentBank = new AGENT();
-const admin = new ADMIN();
+// const admin = new ADMIN();
 context("API SMSMKT", () => {
     describe("FLOW API BANK", () => {
         it(`get_adser_0
