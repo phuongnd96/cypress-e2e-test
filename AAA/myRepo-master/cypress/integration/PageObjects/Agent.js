@@ -9,12 +9,13 @@ class Agent {
     visitEMS(url) {
         cy
             .visit(url);
+        
         return this;
     };
 
     loginESMSPortal(username, password) {
         cy
-            .contains("Đăng nhập")
+        .contains("Đăng nhập")
             .click({ force: true })
             .get("#ctl00_ContentPlaceHolder2_usrname")
             .type(username)
@@ -26,6 +27,7 @@ class Agent {
             .get(".after-login").invoke('text').then((text) => {
                 expect(text).to.equal("84857760576");
             })
+            cy.wait(1000);
         return this;
     };
 

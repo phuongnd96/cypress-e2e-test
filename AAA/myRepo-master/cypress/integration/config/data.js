@@ -182,8 +182,8 @@ else if (env === "PRODUCT") {
         , "Tr1@123"
         , "product_gettemplate_phuong"
         , "Tr1@123"
-        , undefined
-        , undefined
+        , "product_createtemplate_phuong"
+        , "Tr1@123"
     );
     const agent_VTT_CSKH_TRATRUOC = new AGENT(
         "DL_VV"
@@ -232,8 +232,8 @@ else if (env === "PRODUCT") {
         , undefined
         , undefined
         , undefined
-        , undefined
-        , undefined
+        , "create_temp"
+        , "Tr1@123"
     );
     const agent_VTT_QC_TRATRUOC = new AGENT(
         "DH_QC"
@@ -266,9 +266,9 @@ else if (env === "PRODUCT") {
         , "http://esms.com.vn/default.aspx"
     )
     const url_api = new url_a(
-        "http://192.168.38.134:8888/smsmarketing/api"
-        , "http://192.168.38.163:8888/smsbank/api"
-        , "http://192.168.38.134:8888/smstmdt/api"
+        "http://192.168.38.134:8888/smsmarketing/api"   //nonbank
+        , "http://192.168.38.163:8888/smsbank/api"      //bank
+        , "http://192.168.38.134:8888/smstmdt/api"      //tmdt
     )
     const db = {
         url_portal: url_portal,

@@ -1,4 +1,0 @@
-29-4-2020 19:42:28 
-        request: {"RQST":{"name":"create_template","REQID":"test 515487","AGENTID":"437315728408","CONTRACTID":"8522","LABEL":"BRN cypress","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"PHUONGQA","APIPASS":"Tr1@123","USERNAME":"accVIVASTEST_UR132_VTT"}}
-        errorcode: 15
-        errordesc: trang thai agent ko hop le

@@ -29,10 +29,10 @@ async function findFile() {
     });
     const mail = {
         from: 'p.be0.duyphuong@gmail.com',
-        // to: 'phuongnd@vivas.vn',
-        to:'nguyenduyphuong_t59@hus.edu.vn'
+        to: 'phuongnd@vivas.vn',
+        // to:'nguyenduyphuong_t59@hus.edu.vn',
         subject: "Test Result SMSMKT",
-        html: `<h1><b>Test Result SMSMKT1</b></h1>`
+        html: `<h1><b>Test Result SMSMKT</b></h1>`
         , attachments: list
     };
     transporter.sendMail(mail, function (error, info) {

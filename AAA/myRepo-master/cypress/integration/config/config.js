@@ -1,4 +1,4 @@
-let ENV = "STAGING";
+let ENV = "PRODUCT";
 let now = new Date();
 let rnd = Math.floor(Math.random() * 10000000);
 //count là số round test (vd: 0, 1, 2, 3....);
@@ -346,9 +346,7 @@ else if (ENV = "PRODUCT") {
         "api": {
             "nonbank": "http://192.168.38.134:8888/smsmarketing/api",
             "bank": "http://192.168.38.163:8888/smsbank/api",
-            // "smsorder": "http://192.168.38.134:8888/smstmdt/api"
-            // "smsorder": "http://192.168.38.162:8084/smsmkt/api",
-            "smsorder": "http://192.168.38.134:8888/smsmkt/api"
+            "smsorder": "http://192.168.38.134:8888/smstmdt/api"
         }
     };
     //-------------------------------------//
@@ -379,7 +377,7 @@ else if (ENV = "PRODUCT") {
                 "adserName": "Do Duy Hoan",
                 "contractName": "26082014/VNPT-DH-test",
                 "mạng": "Vinaphone",
-                "brn": "TEST2020",
+                "brn": "TEST2020",  //brnID:131887
                 "template": "{P1}test2020",
                 "templateID": "559103"   //giống với template ID trong apiArgs
             },

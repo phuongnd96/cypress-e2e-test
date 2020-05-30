@@ -22,18 +22,18 @@ class Admin {
         cy
             .contains("DUYỆT NHÃN").click({ force: true })
         cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
+            .select(agentName);
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtKeyword")
             .as("brnTextbox")
         cy
             .get("@brnTextbox")
             .type(brn)
         cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
-            .select(agentName);
-        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlStatus")
             .select(currentStatus)
-        cy.wait(5000);
+        cy.wait(3000);
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch").as("searchBtn")
         cy
@@ -44,11 +44,11 @@ class Admin {
         cy
             .get("@chooseThisBrn")
             .click()
-        cy.wait(5000);
+        cy.wait(3000);
         cy
             .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnApprove')
             .click();
-        cy.wait(5000);
+        cy.wait(3000);
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
         return this;
