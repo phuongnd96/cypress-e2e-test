@@ -3,7 +3,10 @@ import ADMIN from '../PageObjects/Admin';
 import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
-
+//test link API cũ trước sau đó lên portal tạo template loại mới cho brn TEST2020 agent DH_CS 
+//,tạo template loại mới cho brn bank2704 sau đó 
+//vào config chỉnh link api bank và nonbank thành link mới
+//sau đó bỏ skip test link API mới
 //-------------------------------------//
 context("Gửi tin qua API", () => {
 
@@ -29,14 +32,16 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify("Gửi tin qua API tin nội mạng site nonbank - TEMPLATE MỚI", () => {
+    
+    specify.only("Gửi tin qua API tin nội mạng site nonbank - TEMPLATE MỚI", () => {
         agent
             .request_send_sms_nonbank_bank(
                 cfg.url.api.nonbank
                 , cfg.apiArgs.nonbank.cskh.brnID
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
-                ,  //template loại mới cho brn TEST2020 agent DH_CS
+                // ,  //template loại mới cho brn TEST2020 agent DH_CS
+                ,"568970"   //{A,10}
                 , cfg.apiArgs.numberOfParams
                 , cfg.apiArgs.content
                 , ""
@@ -51,6 +56,7 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
+    
     specify("Gửi tin qua API nội mạng đặt lịch site nonbank", () => {
         agent
             .request_send_sms_nonbank_bank(
@@ -83,7 +89,7 @@ context("Gửi tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.templateID
                 , cfg.apiArgs.numberOfParams
                 , cfg.apiArgs.content
-                , cfg.scheduleTime
+                , cfg.scheduleTime("-")
                 , cfg.apiArgs.mobilelist.viettel
                 , cfg.apiArgs.istelcosub
                 , cfg.apiArgs.nonbank.cskh.agentID
@@ -139,16 +145,18 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify("Gửi tin qua API tin nội mạng site bank - TEMPLATE MỚI", () => {
+    
+    specify.only("Gửi tin qua API tin nội mạng site bank - TEMPLATE MỚI", () => {
         agent
             .request_send_sms_nonbank_bank(
                 cfg.url.api.bank
                 , cfg.apiArgs.bank.cskh.brnID
                 , cfg.apiArgs.bank.cskh.contractTypeID
                 , cfg.apiArgs.bank.cskh.contractID
-                ,   //tạo template loại mới cho brn bank2704
+                // ,   //tạo template loại mới cho brn bank2704
+                ,"568974"
                 , cfg.apiArgs.numberOfParams
-                , cfg.apiArgs.content
+                , "1.2.3"
                 , cfg.apiArgs.scheduletime
                 , cfg.apiArgs.mobilelist.vina
                 , cfg.apiArgs.istelcosub
@@ -161,6 +169,7 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
+    
     specify("Gửi tin qua API SMSORDER", () => {
         agent.
             request_send_sms_SMSORDER(

@@ -5,7 +5,7 @@ let userAddTemplate = (templateContent, sampleMessage, expectedError) => {
     cy.contains('Tải tài liệu hướng dẫn khai báo template theo mẫu mới Tại đây')
         .should('be.visible');
     cy.get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_idFileTemplateNew>a')
-        .should('have.attr', 'href', "/AgentUI12/media.ashx?f=/SMS Marketing_Tài liệu HDSD khai báo và quản lý template - Dành cho ĐL.docx");
+        .should('have.attr', 'href', "/Agent/media.ashx?f=/SMS Marketing_Tài liệu HDSD khai báo và quản lý template - Dành cho ĐL.docx");
     cy.contains('Thêm Template').parent().prev().prev().prev().type(templateContent, { parseSpecialCharSequences: false });
     cy.contains('Thêm Template').parent().prev().prev().type(sampleMessage, { parseSpecialCharSequences: false });
     cy.contains('Thêm Template').click();
@@ -63,7 +63,7 @@ describe("Thêm template mới trên portal", () => {
             cy.contains("Thêm mới hợp đồng").click({force:true});
         })
     });
-    context("Khai template khi sửa hợp đồng", () => {
+    context.only("Khai template khi sửa hợp đồng", () => {
         beforeEach(() => {
             user.visitAgentPortal(db.url.portal.agent).doLogin(db.account.agent.username, db.account.agent.pw);
         })

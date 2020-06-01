@@ -23,7 +23,7 @@ class Agent {
             .type(password)
             .get("#ctl00_ContentPlaceHolder2_submit")
             .click()
-            .wait(1000)
+            .wait(3000)
             .get(".after-login").invoke('text').then((text) => {
                 expect(text).to.equal("84857760576");
             })
@@ -563,12 +563,15 @@ class Agent {
                         encoding: 'utf8'
                     });
             })
+            cy.wait(2000);
         cy
             //interact with map
             .get('[title="Zoom in"]')
             .dblclick({ force: true })
             //chọn nút vẽ
-            .get(`[style="margin: 5px; z-index: 10; position: absolute; top: 0px; left: 492px;"] > :nth-child(2) > [role="button"]`)
+            // cy.wait(2000);
+            cy
+            .get(`[style="margin: 5px; z-index: 10; position: absolute; top: 0px; left: 491px;"] > :nth-child(2) > [role="button"]`)
             .click()
             //vẽ
             .get(":nth-child(27) > :nth-child(2)").as("map") //đây là bản đồ
@@ -792,6 +795,7 @@ class Agent {
                     .parent()
                     .parent()
                     .within(() => {
+                        cy.wait(3000)
                         return cy.contains(predictedStatus).should('be.visible')
                     })
                     .then(() => {

@@ -15,11 +15,12 @@ context("Agent tạo chiến dịch", () => {
             )
     })
     it("Agent tạo chiến dịch LBA", () => {
+        //get title = zoom in nên để wait lâu hơn
         agent
             .createLBA(
                 `qatestlba${rnd}`
-                , "01/06/2020 10:30"
-                // , cfg.scheduleTime("/")
+                // , "01/06/2020 10:30"
+                , cfg.scheduleTime("/")
                 , cfg.portalArgs.VTT.qc.adserName
                 , 1
                 , cfg.portalArgs.VTT.qc.contractName

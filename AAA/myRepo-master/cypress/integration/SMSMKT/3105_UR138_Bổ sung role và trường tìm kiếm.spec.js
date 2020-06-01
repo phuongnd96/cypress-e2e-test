@@ -61,6 +61,7 @@ describe("", () => {
 
         })
     })
+    //nhầm data VNPT DH-qc là đại lý trả sau
     context("Màn hình gói tin đại lý", () => {
         beforeEach(() => {
             admin.visitAdminPortal(db.url.portal.admin).doLogin(dstkadmin, dstkpw);

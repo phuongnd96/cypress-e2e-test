@@ -1,0 +1,4 @@
+1-5-2020 1:4:19 
+        request: {"RQST":{"name":"create_template","REQID":"test 5366896","AGENTID":"164","CONTRACTID":"401","LABEL":"TEST2020","CONTENT":"{A,10} test","SAMPLEMESSAGE":"á!_*bc test","APIUSER":"product_createtemplate_phuong","APIPASS":"Tr1@123","USERNAME":"DH_CS"}}
+        errorcode: 0
+        errordesc: Success

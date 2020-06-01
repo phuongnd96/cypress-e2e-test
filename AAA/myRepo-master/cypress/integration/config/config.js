@@ -31,7 +31,7 @@ function makeDate(sym){
 
 }
 function makeTimeDayLessThan9(hour,sym) {
-    return `0${now.getDate() + 1}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()} ${hour}}`;
+    return `0${now.getDate() + 1}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()} ${hour}`;
 }
 function makeTimeDayMoreThan9(hour,sym) {
     return `${now.getDate() + 1}${sym}0${now.getMonth() + 1}${sym}${now.getFullYear()} ${hour}`;
@@ -344,8 +344,10 @@ else if (ENV = "PRODUCT") {
             "esms":"http://esms.com.vn/default.aspx"
         },
         "api": {
-            "nonbank": "http://192.168.38.134:8888/smsmarketing/api",
-            "bank": "http://192.168.38.163:8888/smsbank/api",
+            "nonbank": "http://192.168.38.134:8888/smsbn/api",
+            // "nonbank": "http://192.168.38.134:8888/smsmarketing/api",
+            "bank": "http://192.168.38.163:8888/smsbn/api",
+            // "bank": "http://192.168.38.163:8888/smsbank/api",
             "smsorder": "http://192.168.38.134:8888/smstmdt/api"
         }
     };

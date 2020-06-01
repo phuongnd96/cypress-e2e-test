@@ -37,8 +37,8 @@ context("Flow đại lý trả trước", () => {
                     , "Vinaphone"
                     , "TestTNMXH"
                     , "{P1}"
-                    , `vina${cfg.count}.xlsx`
-                    , `vina${cfg.count}.xlsx`
+                    , `vina3.xlsx`
+                    , `vina3.xlsx`
                     , 0
                     , cfg.sentTime.fromCreateDate
                     , cfg.sentTime.toCreateDate

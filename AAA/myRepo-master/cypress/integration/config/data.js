@@ -232,6 +232,8 @@ else if (env === "PRODUCT") {
         , undefined
         , undefined
         , undefined
+        ,undefined
+        ,undefined
         , "create_temp"
         , "Tr1@123"
     );
@@ -266,7 +268,9 @@ else if (env === "PRODUCT") {
         , "http://esms.com.vn/default.aspx"
     )
     const url_api = new url_a(
-        "http://192.168.38.134:8888/smsmarketing/api"   //nonbank
+        "http://192.168.38.134:8888/smsmarketing/api",   //nonbank
+        // "http://192.168.38.134:8888/smsbn/api"   //nonbank
+        // , "http://192.168.38.163:8888/smsbn/api"   //bank
         , "http://192.168.38.163:8888/smsbank/api"      //bank
         , "http://192.168.38.134:8888/smstmdt/api"      //tmdt
     )

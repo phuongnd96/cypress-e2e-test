@@ -1,0 +1,1 @@
+1/5/2020 1:4:30 request: {"RQST":{"name":"create_template","REQID":"test 5366896","AGENTID":"381","CONTRACTID":"10748","LABEL":"brnqc101test","CONTENT":"{P1} test123","TOTALPARAMS":"1","APIUSER":"create_temp","APIPASS":"Tr1@123","USERNAME":"VVtest"}} errorcode: 14 errordesc: label khong hop le hoac ko ton tai

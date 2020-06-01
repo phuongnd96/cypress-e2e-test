@@ -12,6 +12,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID    Template loại A
+                ,"568975"
                 , cfg.apiArgs.numberOfParams
                 , "a1!#*("
                 , ""
@@ -34,6 +35,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID Template loại D
+                ,"568978"
                 , cfg.apiArgs.numberOfParams
                 , "1.2 a@!#!_~"
                 , ""
@@ -56,6 +58,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID  template loại B
+                ,"568976"
                 , cfg.apiArgs.numberOfParams
                 , "1.2"
                 , ""
@@ -78,6 +81,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID template loại C
+                ,"568977"
                 , cfg.apiArgs.numberOfParams
                 , "1@!#$%^()_=`a"
                 , ""
@@ -87,7 +91,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.apiUsername
                 , cfg.apiArgs.nonbank.cskh.apiPassword
                 , cfg.apiArgs.nonbank.cskh.username
-                , 0).then((res) => {
+                , 8).then((res) => {
                     console.log(res);
                     agent.assertRespone(res, 0);
                 })
@@ -100,6 +104,7 @@ describe("Gui tin qua API", () => {
             , cfg.apiArgs.bank.cskh.contractTypeID
             , cfg.apiArgs.bank.cskh.contractID
             // , "386872"                      //template ID loại A
+            ,"568982"
             , cfg.apiArgs.numberOfParams
             , "a1!#*("
             , ""
@@ -123,6 +128,7 @@ describe("Gui tin qua API", () => {
             , cfg.apiArgs.bank.cskh.contractTypeID
             , cfg.apiArgs.bank.cskh.contractID
             // , "386872"                      //template ID loại B
+            ,"568983"
             , cfg.apiArgs.numberOfParams
             , "1.2"
             , ""
@@ -146,8 +152,9 @@ describe("Gui tin qua API", () => {
             , cfg.apiArgs.bank.cskh.contractTypeID
             , cfg.apiArgs.bank.cskh.contractID
             // , "386872"                      //template ID loại C
+            ,"568984"
             , cfg.apiArgs.numberOfParams
-            , "1@!#$%^()_=`a"
+            , "1@!()_=`a"
             , ""
             , cfg.apiArgs.mobilelist.vina
             , cfg.apiArgs.istelcosub
@@ -169,6 +176,7 @@ describe("Gui tin qua API", () => {
             , cfg.apiArgs.bank.cskh.contractTypeID
             , cfg.apiArgs.bank.cskh.contractID
             // , "386872"                      //template ID loại D
+            ,"568985"
             , cfg.apiArgs.numberOfParams
             , "1.2 a@!#!_~"
             , ""

@@ -50,7 +50,8 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.mạng
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
-                        ,//Điền vào đây template loại A
+                        //Điền vào đây template loại A
+                        ,"{A,20} test8888"
                         , file
                         , file
                     );
@@ -64,7 +65,7 @@ describe("Flow agent gửi tin", () => {
         })
     })
     specify("Gửi tin qua portal với template mới loại B", () => {
-        cy.task('findFile', 'auto_vina')
+        cy.task('findFile', 'auto_vina_temp_B')
             .then((file) => {
                 agent
                     .send_sms_temp_new_không_dấu(
@@ -74,17 +75,18 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.mạng
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
-                        ,//Điền vào đây template loại B
+                        //Điền vào đây template loại B
+                        ,"{B,20} test8888"
                         , file
                         , file
                     );
             })
     })
     specify("Đổi tên file", () => {
-        cy.task('findFile', 'auto_vina').then((file) => {
+        cy.task('findFile', 'auto_vina_temp_B').then((file) => {
             cy.task('renameFile',
                 [`C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\${file}`,
-                `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_vina${Math.floor(Math.random() * 1000000)}test.xlsx`])
+                `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_vina_temp_B${Math.floor(Math.random() * 1000000)}test.xlsx`])
         })
     })
     specify("Gửi tin qua portal với template mới loại C", () => {
@@ -98,7 +100,8 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.mạng
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
-                        ,//Điền vào đây template loại C
+                        ,"{C,20} test8888"
+                        //Điền vào đây template loại C
                         , file
                         , file
                     );
@@ -122,7 +125,8 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.mạng
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
-                        ,//Điền vào đây template loại D
+                        ,"{D,20} test8888"
+                        //Điền vào đây template loại D
                         , file
                         , file
                     );
@@ -163,6 +167,7 @@ describe("Flow agent gửi tin", () => {
                 `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_vina_schedule${Math.floor(Math.random() * 1000000)}test.xlsx`])
         })
     })
+    //Đang sai vì có 3 nhãn VNPT.Tech
     specify("Gửi tin mạng Mobifone CSKH qua BRN", () => {
         cy.task('findFile', 'auto_mobi').then((file) => {
             if (cfg.ENV == "PRODUCT") {
@@ -181,7 +186,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh thành công");
+                        , undefined);
             }
             else if (cfg.ENV == "STAGING") {
                 agent
@@ -199,7 +204,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh thành công");
+                        ,"Đặt lệnh thành công");
             }
         })
     })
@@ -228,7 +233,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh thành công");
+                        ,undefined);
             } else if (cfg.ENV == "STAGING") {
                 agent
                     .send_sms_temp_old(

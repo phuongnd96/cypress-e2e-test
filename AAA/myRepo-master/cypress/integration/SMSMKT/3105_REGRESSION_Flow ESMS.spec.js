@@ -3,7 +3,7 @@ import ADMIN from '../PageObjects/Admin';
 import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
-let count="1yztab"
+let count="1yztab1"
 
 describe("ESMS flow", () => {
     describe("Khách hàng lẻ gửi tin", () => {

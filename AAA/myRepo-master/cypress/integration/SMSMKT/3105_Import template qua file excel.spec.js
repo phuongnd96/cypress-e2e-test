@@ -91,19 +91,20 @@ describe("Import template qua file excel", () => {
         beforeEach(() => {
             user.visitAgentPortal(db.url.portal.agent).doLogin(db.account.agent.username, db.account.agent.pw);
         })
-        it("sai BRN", () => {
-            userImportFiledNCheckResult(
-                "26082014/VNPT-DH-test"
-                , "invalidBRN.xlsx"
-                , "invalidBRN.xlsx"
-                , "131887"
-                , "TEST2020"
-                , "{A,-10}"
-                , "testA1"
-                , "Thất bại"
-                , "ID Nhãn không hợp lệ"
-            );
-        });
+
+        // it("sai BRN", () => {
+        //     userImportFiledNCheckResult(
+        //         "26082014/VNPT-DH-test"
+        //         , "invalidBRN.xlsx"
+        //         , "invalidBRN.xlsx"
+        //         , "131887"
+        //         , "TEST2020"
+        //         , "{A,-10}"
+        //         , "testA1"
+        //         , "Thất bại"
+        //         , "ID Nhãn không hợp lệ"
+        //     );
+            
         it("{A,-10}", () => {
             userImportFiledNCheckResult(
                 "26082014/VNPT-DH-test"
@@ -346,7 +347,7 @@ describe("Import template qua file excel", () => {
                 , "autoDsuccess.xlsx"
                 , "131887"
                 , "TEST2020"
-                , "t {D,10}"
+                , "t {D,40}"
                 , "t 1!* á"
                 , "Thành công"
                 , ""
