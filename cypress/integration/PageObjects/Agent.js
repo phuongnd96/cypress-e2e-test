@@ -1,5 +1,5 @@
-import { get_adser, get_template, get_contract, create_template_CSKH, create_template_QC, get_label, send_sms_list } from '../PageObjects/ApiRequests';
-
+import * as __ from '../PageObjects/ApiRequests';
+const fs = require('fs');
 class Agent {
     visitAgentPortal(url) {
         cy
@@ -11,7 +11,7 @@ class Agent {
         cy
             .visit(url);
         return this;
-    }
+    };
 
     loginESMSPortal(username, password) {
         cy
@@ -23,8 +23,12 @@ class Agent {
             .type(password)
             .get("#ctl00_ContentPlaceHolder2_submit")
             .click()
+            .wait(1000)
+            .get(".after-login").invoke('text').then((text) => {
+                expect(text).to.equal("84857760576");
+            })
         return this;
-    }
+    };
 
     createESMSBrn(brn, GPKDfileName, GPKDfilePath, giayUyQuyenFileName, giayUyQuyenFilePath, CMNDfileName, CMDNfilePath, confirmGPKDfileName, confirmGPKDfilePath, mobileList, customerName, content, contentAlias) {
         cy
@@ -99,9 +103,10 @@ class Agent {
         return this
 
 
-    }
+    };
+
     sendESMS(brn, moblieListFilePath, mobileListFileName, customerName, templateContent, contentAlias, scheduleTime) {
-        return cy
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel_chosen > .chosen-drop > .chosen-search > input")
             .type(brn, { force: true })
             .type("{downarrow}{enter}")
@@ -131,6 +136,7 @@ class Agent {
                     //click nút thiết lập thời gian và gửi tin (chọn brn và template xong)
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_imgBtnSend")
                     .click();
+                cy.wait(5000);
                 //chọn thời gian gửi 
                 cy
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtScheduleTime")
@@ -146,7 +152,7 @@ class Agent {
                 //confirm gửi tin
                 cy
                     .get(`[href="javascript:execEnoughOk()"] > .button-blue`)
-                    .click();
+                    .click({ force: true });
                 //lấy báo cáo gửi tin
                 cy
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel")
@@ -155,11 +161,11 @@ class Agent {
                     .click()
                     .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_repeatSummary_ctl01_hplDetail")
                     .invoke("text").then((text) => {
-                        return text;
+                        expect(text).to.equal(brn)
                     })
             })
-
-    }
+        return this;
+    };
 
     doLogin(userame, password) {
         cy
@@ -172,21 +178,23 @@ class Agent {
         return this;
     };
 
-    addBrandName(brn, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
+    addBrandName_staging(brn, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditLabel")
             .click();
         //thêm mới nhãn
         cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_btnFooterAddLabel > img")
+            .get(".tbl>tbody>tr:last-child>td:last-child>a")
+            .as("addLabelBtn")
+        cy.get("@addLabelBtn")
             .click();
         //điền thông tin nhãn
         //Tên nhãn
         cy.
             get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterLabel")
             .type(brn)
-            //Số hiển thị
+            //Số hiển thị chưa bỏ trên product
             //Chọn Loại Vina
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelType")
             .select(VinaType)
@@ -240,7 +248,155 @@ class Agent {
         return this;
 
     };
+    //product vẫn còn trường số hiển thị của nhãn
+    //6 bản ghi 
+    addBrandName_product1(brn, displayNumber, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
+        cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditLabel")
+            .click();
+        //thêm mới nhãn    
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_btnFooterAddLabel > img")
+            .scrollIntoView()
+            .click();
+        //điền thông tin nhãn
+        //Tên nhãn
+        cy.
+            get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterLabel")
+            .type(brn)
+            //Số hiển thị chưa bỏ trên product
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterDisplayNumber")
+            .type(displayNumber)
+            //Chọn Loại Vina
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelType")
+            .select(VinaType)
+            //Chọn Loại Mobifone
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelTypeMobifone")
+            .select(MobifoneType)
+            //Chọn Loại Viettel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelTypeViettel")
+            .select(ViettelType)
+            //Chọn loại Gtel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelTypeGTEL")
+            .select(GtelType)
+            //Chọn loại Vietnammobile
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelTypeVNM")
+            .select(VietnammobileType)
+            //Chọn loại Itel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelTypeITel")
+            .select(ItelType);
+        cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterCustomer")
+            .type(customerName)
+            //Điền mã số thuế
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterTaxCode")
+            .type(Math.floor(Math.random() * 100000));
+        //Upload file hồ sơ
+        let fileName = filename;
+        cy.fixture(filepath).then((fileContent) => {
+            cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_fileUploadFooterHoSo")
+                .attachFile({
+                    fileContent,
+                    fileName: fileName
+                })
+        });
+        //Chọn ngày hết hạn
+        cy
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterExpiredDate')
+            .type(expiredDate)
+            //ghi chú
 
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterNote')
+            .type("Auto created by cypress")
+            //Chọn OK
+
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_btnFooterOK > img')
+            .click();
+        //Verify
+        cy
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo')
+            .then(($element) => {
+                expect($element).to.have.text("Thêm mới nhãn thành công.");
+            })
+        return this;
+
+    };
+    //16 bản ghi
+    addBrandName_product(brn, displayNumber, VinaType, MobifoneType, ViettelType, GtelType, VietnammobileType, ItelType, customerName, filename, filepath, expiredDate) {
+        cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditLabel")
+            .click();
+        //thêm mới nhãn
+        cy
+        cy
+            .get(".tbl>tbody>tr:last-child>td:last-child>a")
+            .as("addLabelBtn")
+        cy.get("@addLabelBtn")
+            .click();
+        //điền thông tin nhãn
+        //Tên nhãn
+        cy.
+            get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterLabel")
+            .as("brnTxtBox")
+        cy.get("@brnTxtBox")
+            .type(brn)
+            //Số hiển thị chưa bỏ trên product
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterDisplayNumber")
+            .type(displayNumber)
+            //Chọn Loại Vina
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelType")
+            .select(VinaType)
+            //Chọn Loại Mobifone
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeMobifone")
+            .select(MobifoneType)
+            //Chọn Loại Viettel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeViettel")
+            .select(ViettelType)
+            //Chọn loại Gtel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeGTEL")
+            .select(GtelType)
+            //Chọn loại Vietnammobile
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeVNM")
+            .select(VietnammobileType)
+            //Chọn loại Itel
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_ddlFooterLabelTypeITel")
+            .select(ItelType);
+        cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterCustomer")
+            .type(customerName)
+            //Điền mã số thuế
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterTaxCode")
+            .type(Math.floor(Math.random() * 100000));
+        //Upload file hồ sơ
+        let fileName = filename;
+        cy.fixture(filepath).then((fileContent) => {
+            cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_fileUploadFooterHoSo")
+                .attachFile({
+                    fileContent,
+                    fileName: fileName
+                })
+        });
+        //Chọn ngày hết hạn
+        cy
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterExpiredDate')
+            .type(expiredDate)
+            //ghi chú
+
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_txtFooterNote')
+            .type("Auto created by cypress")
+            //Chọn OK
+
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl17_btnFooterOK > img')
+            .click();
+        //Verify
+        cy
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo')
+            .then(($element) => {
+                expect($element).to.have.text("Thêm mới nhãn thành công.");
+            })
+        return this;
+
+    };
     addTemplate(template, sampleMessage) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
@@ -272,19 +428,66 @@ class Agent {
             templateId = text;
             //trả ra template Id
             return templateId;
-            //cy.log(templateId);
         })
+    };
+    //product chỉ đang tạo template 1 loại cũ
+    //thêm template cho nhãn bất kì
+    addTemplate_product(template, brn) {
+        cy.contains("SỬA HỢP ĐỒNG")
+            .click({ force: true });
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditTemplate")
+            .as("templateBtn");
+        cy
+            .get("@templateBtn")
+            .click();
+        //thêm template
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate>tbody>tr:last-child>td:last-child>[title='Thêm mới template']")
+            .as('addTemplateBtn')
+            .get('@addTemplateBtn').click({ force: true });
+        //điền template
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate>tbody>tr:last-child>td>textarea")
+            .as("templateTextBox")
+        cy
+            .get("@templateTextBox")
+            .type(template, { parseSpecialCharSequences: false })
+        //Chọn nhãn đầu tiên
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate>tbody>tr:last-child>td>div>table>tbody>tr>td>[type='button']")
+            .as("selectBrnBtn")
+        cy
+            .get("@selectBrnBtn")
+            .type('{downarrow}{downarrow}{enter}')
+        //OK
+        cy.wait(500)
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate>tbody>tr:last-child>td>a[title='OK']")
+            .as("okBtn")
+        cy
+            .get("@okBtn")
+            .click({ force: true })
 
+            .wait(2000)
+            .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo')
+            .then(($element) => {
+                expect($element).to.have.text("Thêm mới template thành công.");
+            });
+        // cy
+        // .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl02_lblTemplateId").as("templateId")
+        // return cy
+        // .get("@templateId").invoke('text').then(text=>text);
     };
 
-    createLBA(lbaname, adsername, countNumberMobile, contractName, brn, templateContent, gender, activeTime, isHave3G, blackListFileName, blackListFilePath, whiteListFileName, whiteListFilePath) {
+    createLBA(lbaname, scheduleTime, adsername, countNumberMobile, contractName, brn, templateContent, gender, activeTime, isHave3G, blackListFileName, blackListFilePath, whiteListFileName, whiteListFilePath) {
         cy
             .contains("TẠO MỚI CD")
             .click({ force: true })
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtCampaignName")
             .type(lbaname)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtScheduleTime")
-            .type("30/04/2020 15:34")
+            .type(scheduleTime)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAdser")
             .select(adsername)
             .wait(2000)
@@ -352,13 +555,18 @@ class Agent {
             .get(`[style="margin: 5px; z-index: 10; position: absolute; top: 0px; left: 492px;"] > :nth-child(2) > [role="button"]`)
             .click()
             //vẽ
-            .get(":nth-child(27) > :nth-child(2)") //đây là bản đồ
+            .get(":nth-child(27) > :nth-child(2)").as("map") //đây là bản đồ
+        cy.get("@map")
             .click(50, 60)
-            .click(123, 80);
-        //Gửi phê duyệt
-        cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSendAprove")
-            .click();
+            .wait(2000)
+            .click(123, 80).then(() => {
+                //Gửi phê duyệt
+                cy.wait(1000);
+                cy
+                    .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSendAprove")
+                    .click();
+
+            })
     };
 
     send_sms_temp_new_không_dấu(scheduleTime, adserName, contractName, mạng, brn, template, filename, filepath) {
@@ -465,26 +673,43 @@ class Agent {
 
     };
 
-    send_sms_temp_old_không_dấu(scheduleTime, adserName, contractName, mạng, brn, template, filename, filepath) {
+    send_sms_temp_old(scheduleTime, adserName, contractName, mạng, brn, template, filename, filepath, encoding, fromCreateDate, toCreateDate, fromScheduleDate, toScheduleDate, predictedStatus) {
+        if (encoding == 8) {
+            cy
+                .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_rblCharacterType_1")
+                .check()
+        }
+        cy
+            .wait(1000)
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_txtScheduleTime")
             .type(scheduleTime)
             //chọn khách hàng
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlAdser")
             .select(adserName)
-            .wait(1000)
+            .wait(3000)
             //chọn loại hợp đồng
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlContract")
             .select(contractName)
+            .wait(1000)
+        cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlOperator")
+            .select(mạng)
             .wait(1000)
             //chọn nhãn
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlLabel")
             .select(brn)
             .wait(1000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlTemplate")
+            .wait(1000)
             .select(template)
+            .wait(500)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_tbTemplateContent").then((templateContent) => {
+                expect(templateContent).to.have.prop('disabled', true)
+                //verify không sửa được template
+            })
         let fileName = filename;
-        cy.fixture(filepath, 'binary')
+        return cy.fixture(filepath, 'binary')
             .then(Cypress.Blob.binaryStringToBlob)
             .then(fileContent => {
                 cy
@@ -506,42 +731,231 @@ class Agent {
                     .reload()
                     .get("#idNotiLink1")
                     .click({ force: true });
-
+                cy.get("#idContentNoti > a")
+                    .click({ force: true })
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromCreateDate")
+                    .as("fromCreateDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToCreateDate")
+                    .as("toCreateDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromScheduleDate")
+                    .as("fromScheduleDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToScheduleDate")
+                    .as("toScheduleDate")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLabel_ddlLabel_TextBox")
+                    .as("brnTextBox")
+                cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_Button1")
+                    .as("searchBtn")
+                    .then(() => {
+                        if (scheduleTime =! " ")
+                            cy.get("@fromCreateDate").clear().type(fromCreateDate)
+                        cy.get("@toCreateDate").clear().type(toCreateDate)
+                        cy.get("@fromScheduleDate").clear().type(fromScheduleDate)
+                        cy.get("@toScheduleDate").clear().type(toScheduleDate)
+                    })
+                cy.get("@brnTextBox").type(brn)
+                cy.wait(5000);
+                cy.get("@searchBtn").click();
+                cy.wait(500);
+                cy.get(":nth-child(2) > :nth-child(2) > a").as("orderId");
+                cy.get("@orderId").invoke('text').as('prefix');
+                return cy.get("@orderId")
+                    .parent()
+                    .parent()
+                    .within(() => {
+                        return cy.contains(predictedStatus).should('be.visible')
+                    })
+                    .then(() => {
+                        if (predictedStatus == "Đặt lệnh không thành công") {
+                            cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
+                                .as("file_loi");
+                            cy.get("@file_loi")
+                                .click();
+                        } else if (predictedStatus == "Đặt lệnh thành công") {
+                            cy.wait(3000);
+                            return cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(12)").invoke('text').then((text) => {
+                                return parseInt(text);
+                            })
+                        }
+                    })
+                //phải config lại thư mục donwload file về thư mục root của project (thư mục chứa file cypress.json
             })
+    };
+    //working on read error file
+    checkPackageAgent(mạng, brnGroup) {
+        cy.contains("GÓI TIN ĐẠI LÝ").click({ force: true })
+        cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator").select(mạng)
+            .wait(300)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLableType")
+            .select(brnGroup);
+        return cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
+            .click().then(() => {
+                let packageInfo={
+                    total:"",
+                    used:"",
+                    remain:""
+                }
+                cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(8)").invoke('text').then((text) => {
+                    // cy.log(parseInt(text));
+                    packageInfo.total=parseInt(text);
+                })
+                cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(15)").invoke('text').then((text) => {
+                    packageInfo.used= parseInt(text);
+                })
+                cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(16)").invoke('text').then((text) => {
+                    packageInfo.remain= parseInt(text);
+                })
+              .then(()=>{
+                  return packageInfo;
+              })
+            })
+    }
+    checkPackageCustomer(adserName, mạng, brnGroup, packageName) {
+        cy.contains("GÓI TIN KH THƯỜNG").click({force:true});
+        cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAdser")
+        .select(adserName)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator")
+        .select(mạng)
+        .wait(500)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLableType")
+        .select(brnGroup)
+        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtPackageName")
+        .type(packageName)
+        return cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
+        .click().then(()=>{
+            let packageInfo={
+                total:"",
+                used:"",
+                remain:""
+            }
+            cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(9)").invoke('text').then((text)=>{
+                packageInfo.total=parseInt(text);
+            })
+            cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(16)").invoke('text').then((text)=>{
+                packageInfo.used=parseInt(text);
+            })
+            cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(17)").invoke('text').then((text)=>{
+                packageInfo.remain=parseInt(text);
+            }).then(()=>{
+                return packageInfo;
+            })
+        })
+
+    }
+    readErrorFile(text) {
+        cy.get(`@${text}`)
+        return cy.readFile(`Downloads\\${text.concat("_thue_bao_loi")}`);
     };
 
     request_get_adser(url, agentID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_adser(agentID, apiUsername, apiPassword));
+        return cy.request("POST", url, __.get_adser(agentID, apiUsername, apiPassword));
     };
 
     request_get_template(url, agentID, labelID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_template(agentID, labelID, apiUsername, apiPassword))
+        return cy.request("POST", url, __.get_template(agentID, labelID, apiUsername, apiPassword))
     };
 
     request_get_contract(url, agentID, adserID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_contract(agentID, adserID, apiUsername, apiPassword))
+        return cy.request("POST", url, __.get_contract(agentID, adserID, apiUsername, apiPassword))
 
     };
 
     request_create_template_CSKH(url, agentID, labelID, content, samplemessage, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, create_template_CSKH(agentID, labelID, content, samplemessage, apiUsername, apiPassword, username))
+        return cy.request("POST", url, __.create_template_CSKH(agentID, labelID, content, samplemessage, apiUsername, apiPassword, username))
 
     };
 
     request_create_template_QC(url, agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, create_template_QC(agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username))
+        return cy.request("POST", url, __.create_template_QC(agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username))
 
     };
 
     request_get_label(url, agentID, adserID, contractID, apiUsername, apiPassword) {
-        return cy.request("POST", url, get_label(agentID, adserID, contractID, apiUsername, apiPassword))
+        return cy.request("POST", url, __.get_label(agentID, adserID, contractID, apiUsername, apiPassword))
 
     };
 
-    request_send_sms_nonbank_bank(url, brnID, contracTypeID, contractID, templateID, numberOfParams, content, scheduletime, mobilelist, istelcosub, agentID, apiUsername, apiPassword, username, dataCoding) {
-        return cy.request("POST", url, send_sms_list(brnID, contracTypeID, contractID, templateID, numberOfParams, content, scheduletime, mobilelist, istelcosub, agentID, apiUsername, apiPassword, username, dataCoding));
-    }
+    request_send_sms_nonbank_bank(
+        url
+        , brnID
+        , contracTypeID
+        , contractID
+        , templateID
+        , numberOfParams
+        , content
+        , scheduletime
+        , mobilelist
+        , istelcosub
+        , agentID
+        , apiUsername
+        , apiPassword
+        , username
+        , dataCoding) {
+        return cy.request("POST", url, __.send_sms_list(
+            brnID
+            , contracTypeID
+            , contractID
+            , templateID
+            , numberOfParams
+            , content
+            , scheduletime
+            , mobilelist
+            , istelcosub
+            , agentID
+            , apiUsername
+            , apiPassword
+            , username
+            , dataCoding));
 
+    };
+
+    request_send_sms_SMSORDER(
+        url
+        , brnID
+        , contracTypeID
+        , contractID
+        , templateID
+        , numberOfParams
+        , content
+        , scheduletime
+        , mobilelist
+        , istelcosub
+        , agentID
+        , apiUsername
+        , apiPassword
+        , username
+        , dataCoding
+        , saleOrderID
+        , packageID
+    ) {
+        return cy.request("POST", url, __.send_sms_list_SMSORDER(brnID
+            , contracTypeID
+            , contractID
+            , templateID
+            , numberOfParams
+            , content
+            , scheduletime
+            , mobilelist
+            , istelcosub
+            , agentID
+            , apiUsername
+            , apiPassword
+            , username
+            , dataCoding
+            , saleOrderID
+            , packageID))
+    }
+    assertRespone(res, errCode) {
+        if (errCode == 0) {
+            expect(res.status).to.equal(200);
+            expect(res.body["RPLY"]["ERROR"]).to.equal('0');
+            expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success");
+        }
+        else {
+            expect(res.body["RPLY"]["ERROR"]).to.equal(`${errCode}`);
+        }
+    };
+    //-----------------------------------------------------------------------------------------------------//
+    //----------------------------------In Progress--------------------------------------------------------//
     addCustomer(adserName, adserPaper, address, adserMobile, adserEmail, status, adserType, isLimitedMT, limitMT) {
         cy
             .contains("QL KHÁCH HÀNG")
@@ -708,8 +1122,6 @@ class Agent {
                 return text
             })
     };
-
-
     viewESMSCustomerInfo(brn) {
         cy
             .contains("QL GIẤY TỜ KH")
@@ -773,15 +1185,12 @@ class Agent {
                 }
             })
     };
-
     approveTemplate() {
 
     };
-
     rejectTemplate() {
 
     };
-
     searchAgentAPI(adserName, numberOfAPIAccount) {
         cy
             .contains("QL API KH")
@@ -794,7 +1203,6 @@ class Agent {
             .get("table.tbl>tbody>tr")
             .should('have.length', parseInt(numberOfAPIAccount + 2));
     }
-
     addAgentAPI(adserName, typeOfAPI, userName, password, IPList, status) {
         cy
             .contains("QL API KH")
@@ -826,7 +1234,6 @@ class Agent {
             })
 
     };
-
     editAgentAPI(adserName, typeOfAPI, agentAPINew, agentAPIPasswordNew, IPListNew) {
         cy
             .contains("QL API KH")
@@ -861,15 +1268,14 @@ class Agent {
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btUpdate1")
             .click()
-        return cy
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
             .invoke('text').then((text) => {
-                return text;
+                expect(text).to.contains("Cập nhật thành công")
             })
 
 
     };
-
     deleteAgentAPI(adserName, typeOfAPI) {
         cy
             .contains("QL API KH")
@@ -900,103 +1306,97 @@ class Agent {
                 return text;
             })
     };
-
-    findAgentOrder(serviceProvider,brnType,orderName) {
+    findAgentOrder(serviceProvider, brnType, orderName) {
         cy
-        .contains("GÓI TIN ĐẠI LÝ")
-        .click({force:true})
+            .contains("GÓI TIN ĐẠI LÝ")
+            .click({ force: true })
         cy
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlContractType")
-        .should('be.disabled');
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlContractType")
+            .should('be.disabled');
         cy
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator")
-        .select(serviceProvider)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator")
+            .select(serviceProvider)
         cy.wait(500);
         cy
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLableType")
-        .select(brnType)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
-        .click();
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLableType")
+            .select(brnType)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
+            .click();
         cy
-        .contains(orderName)
-        .parent()
-        .parent()
-        .within(()=>{
-            cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lblSend_number")
-            .as('sendNumber');
-            cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lbSmsRemain")
-            .as('smsRemain');
-        })
+            .contains(orderName)
+            .parent()
+            .parent()
+            .within(() => {
+                cy
+                    .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lblSend_number")
+                    .as('sendNumber');
+                cy
+                    .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lbSmsRemain")
+                    .as('smsRemain');
+            })
 
     };
     //làm nốt case này
     findCustomerOrder() {
         cy
-        .contains("GÓI TIN KH LẺ")
-        .click({force:true})
+            .contains("GÓI TIN KH LẺ")
+            .click({ force: true })
     };
-
-    searchSendingHistory(fromCreateDate,toCreateDate,fromScheduleDate,toScheduleDate,brn) {
+    searchSendingHistory(fromCreateDate, toCreateDate, fromScheduleDate, toScheduleDate, brn) {
         cy
-        .contains("LS GỬI TIN")
-        .click({force:true})
+            .contains("LS GỬI TIN")
+            .click({ force: true })
         //ngay dat lich
         cy
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromCreateDate")
-        .clear()
-        .type(fromCreateDate)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToCreateDate")
-        .clear()
-        .type(toCreateDate);
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromCreateDate")
+            .clear()
+            .type(fromCreateDate)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToCreateDate")
+            .clear()
+            .type(toCreateDate);
         //ngay gui tin
         cy
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromScheduleDate")
-        .clear()
-        .type(fromScheduleDate)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToScheduleDate")
-        .clear()
-        .type(toScheduleDate)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtFromScheduleDate")
+            .clear()
+            .type(fromScheduleDate)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtToScheduleDate")
+            .clear()
+            .type(toScheduleDate)
         //chon brandname
         cy
-        .contains(brn)
-        .click({force:true})
+            .contains(brn)
+            .click({ force: true })
         cy
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_Button1")
-        .click()
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_Button1")
+            .click()
         cy
-        .contains("Đặt lệnh")
-        .should('be.visible');
+            .contains("Đặt lệnh")
+            .should('be.visible');
     };
-
     searchOrderHistory() {
 
     };
-
-    addContact(contactName,address,phoneNumber,email){
+    addContact(contactName, address, phoneNumber, email) {
         cy
-        .contains("LIÊN HỆ")
-        .click({force:true})
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtName")
-        .type(contactName)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtAddress")
-        .type(address)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtPhoneNumber")
-        .type(phoneNumber)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtEmail")
-        .type(email)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnAdd")
-        .click()
+            .contains("LIÊN HỆ")
+            .click({ force: true })
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtName")
+            .type(contactName)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtAddress")
+            .type(address)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtPhoneNumber")
+            .type(phoneNumber)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtEmail")
+            .type(email)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnAdd")
+            .click()
         cy
-        .contains("Thêm mới thành công")
-        .should('be.visible');
+            .contains("Thêm mới thành công")
+            .should('be.visible');
 
     }
-
     changePassword() {
 
     };
-
 }
-module.exports = Agent;
+export default Agent;

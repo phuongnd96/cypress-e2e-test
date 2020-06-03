@@ -26,9 +26,16 @@
 
 import 'cypress-file-upload';
 
-Cypress.Commands.add("assertIsSuccessfullyRequested",(res)=>{
-    expect(res.status).to.equal(200);
-        expect(res.body["RPLY"]["ERROR"]).to.equal('0');
-        expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success");
-})
+// Cypress.Commands.add("assertIsSuccessfullyRequested",(res)=>{
+//     expect(res.status).to.equal(200);
+//         expect(res.body["RPLY"]["ERROR"]).to.equal('0');
+//         expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success");
+// })
 
+
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+})
