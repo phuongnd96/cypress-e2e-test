@@ -232,10 +232,9 @@ document.getElementById('background-music').addEventListener('change', (e) => {
 
 async function backGroundMusic(e){
   let sound=new Audio("sounds/bgm/rain.mp3");
-console.log(e.target.value)
+console.log(`playing ${e.target.value}`)
 if (e.target.value=='rain'){
-  await setInterval(function(){
-    sound.play()
-  },sound.duration)  
+  sound.play();
 }
 }
+
