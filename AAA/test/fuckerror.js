@@ -19,21 +19,19 @@ async function findFile() {
     })
 };
 
- findFile().then((list) => {
+return findFile().then((list) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'p.be0.duyphuong@gmail.com',
-            pass: 'gicungduoc'
+            user: 'nguyenduyphuong_t59@hus.edu.vn',
+            pass: 'phuOng1996'
         }
     });
     const mail = {
-        from: 'p.be0.duyphuong@gmail.com',
-        // to: 'phuongnd@vivas.vn',
-        to: 'haitva@vivas.vn',
-        // to:'nguyenduyphuong_t59@hus.edu.vn',
-        subject: "Test Result SMSMKT",
-        html: `<h1><b>Test Result SMSMKT</b></h1>`
+        from: 'nguyenduyphuong_t59@hus.edu.vn',
+        to: 'p.be0.duyphuong@gmail.com',
+        subject: "Test Result SMSMKT1",
+        html: `<h1><b>Test Result SMSMKT1</b></h1>`
         , attachments: list
     };
     transporter.sendMail(mail, function (error, info) {
@@ -43,4 +41,5 @@ async function findFile() {
             console.log('Email sent: ' + info.response);
         }
     });
+    return list;
 })

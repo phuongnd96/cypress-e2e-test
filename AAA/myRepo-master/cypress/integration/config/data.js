@@ -1,7 +1,7 @@
 import * as helpfunc from './helpfunc';
 import * as cs from './constructor';
 // let env = "PRODUCT";
-let env = "STAGING";
+let env = "PRODUCT";
 const AGENT = cs.AGENT;
 const url_p = cs.url_portal1;
 const url_a = cs.url_api1;
@@ -61,7 +61,8 @@ if (env === "STAGING") {
         , "Tr1@123"
     );
     const url_api = new url_a(
-        "http://10.84.70.148:8085/smsmktur135/api"
+        // "http://10.84.70.148:8085/smsmktur135/api"
+        "http://10.84.70.148:8085/smsmarketing/api"
         , "http://10.84.70.148:8096/smsbank12/api"
         , undefined
     )
@@ -232,8 +233,9 @@ else if (env === "PRODUCT") {
         , undefined
         , undefined
         , undefined
-        ,undefined
-        ,undefined
+        , undefined
+        , undefined
+        //đang sửa hàm này trên portal
         , "create_temp"
         , "Tr1@123"
     );
@@ -268,10 +270,16 @@ else if (env === "PRODUCT") {
         , "http://esms.com.vn/default.aspx"
     )
     const url_api = new url_a(
-        "http://192.168.38.134:8888/smsmarketing/api",   //nonbank
-        // "http://192.168.38.134:8888/smsbn/api"   //nonbank
-        // , "http://192.168.38.163:8888/smsbn/api"   //bank
-        , "http://192.168.38.163:8888/smsbank/api"      //bank
+        // "http://192.168.38.134:8888/smsmarketing/api",
+        // "http://192.168.38.161:8084/smsmarketing/api",
+        "http://192.168.38.134:8888/smsbn/api",
+        //nonbank  cũ
+        // "http://192.168.38.134:8888/smsbn/api"   
+        //nonbank mới 
+        // , "http://192.168.38.163:8888/smsbn/api" 
+        //bank mới
+        "http://192.168.38.163:8888/smsbank/api"
+        //bank cũ
         , "http://192.168.38.134:8888/smstmdt/api"      //tmdt
     )
     const db = {

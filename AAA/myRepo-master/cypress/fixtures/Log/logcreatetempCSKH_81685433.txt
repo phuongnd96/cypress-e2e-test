@@ -1,0 +1,4 @@
+4-5-2020 8:35:2 
+        request: {"RQST":{"name":"create_template","REQID":"test 9524129","AGENTID":"164","CONTRACTID":"401","LABEL":"TEST2020","CONTENT":"(Thong bao) Pizza 4Ps tran trong {A,30}. Ban vui long co mat vao luc {A,160}. Chi tiet vui long xem thong tin tai email ca nhan cua ban hoac lien he Hotline 0783884977","SAMPLEMESSAGE":"(Thong bao) Pizza 4Ps tran trong moi ban quay tro lai lam viec. Ban vui long co mat vao luc 10h00 01/01 tai 151B Hai Ba Trung gap Phong Nhan Su de hoan tat thu tuc nhan viec truoc khi bat dau lam viec lai tai nha hang. Chi tiet vui long xem thong tin tai email ca nhan cua ban hoac lien he Hotline 0783884977","APIUSER":"product_createtemplate_phuong","APIPASS":"Tr1@123","USERNAME":"DH_CS"}}
+        errorcode: 0
+        errordesc: Success

@@ -31,12 +31,36 @@ describe("Flow agent tạo nhãn và template", () => {
                     , "14/12/2020"
                 );
         })
-        it("Thêm template thành công ", () => {
+        it("Thêm template thành công temp A", () => {
             agent
-                .addTemplate_product(
-                    "{P1}"
-                    , "BRNTEST"
-                    , "Hello"
+                .addTemplate(
+                    "{A,50}"
+                    , "test"
+                    ,"Thêm mới template thành công."
+                );
+        })
+        it("Thêm template thành công temp B", () => {
+            agent
+                .addTemplate(
+                    "{B,50}"
+                    , "1.2.3"
+                    ,"Thêm mới template thành công."
+                );
+        })
+        it("Thêm template thành công temp C", () => {
+            agent
+                .addTemplate(
+                    "{C,50}"
+                    , "t!@#$%^&*()_+-=~`:;'<>?{}[]\\"
+                    ,"Thêm mới template thành công."
+                );
+        })
+        it("Thêm template thành công temp D", () => {
+            agent
+                .addTemplate(
+                    "{D,50}"
+                    , "t!@#$%^&*()_+-=~`:;'<>?{}[]\ \   "
+                    ,"Thêm mới template thành công."
                 );
         })
     });

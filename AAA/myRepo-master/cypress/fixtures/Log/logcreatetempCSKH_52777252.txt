@@ -1,0 +1,4 @@
+4-5-2020 8:39:38 
+        request: {"RQST":{"name":"create_template","REQID":"test 4723652","AGENTID":"164","CONTRACTID":"401","LABEL":"TEST2020","CONTENT":"Petrolimex Ninh Binh ap dung muc thu lao tai Kho K135/Nam Dinh tu {A,10} ngay {A,20}:\n                    - RON95-IV: {B,10} d/l\n                    - E5: {B,10} d/l\n                    - DO 0,05-II: {B,10} d/l\n                    Tran trong ! (1)","SAMPLEMESSAGE":"Petrolimex Ninh Binh ap dung muc thu lao tai Kho K135/Nam Dinh tu 15h00 ngay 28/5/2020:\n                    - RON95-IV: 786 d/l\n                    - E5: 760 d/l\n                    - DO 0,05-II: 742 d/l\n                    Tran trong ! (1)","APIUSER":"product_createtemplate_phuong","APIPASS":"Tr1@123","USERNAME":"DH_CS"}}
+        errorcode: 0
+        errordesc: Success

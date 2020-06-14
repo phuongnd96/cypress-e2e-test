@@ -1,4 +1,0 @@
-1-5-2020 1:4:18 
-        request: {"RQST":{"name":"create_template","REQID":"test 5366896","AGENTID":"1641366344608","CONTRACTID":"401","LABEL":"TEST2020","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"product_createtemplate_phuong","APIPASS":"Tr1@123","USERNAME":"DH_CS"}}
-        errorcode: 15
-        errordesc: trang thai agent ko hop le

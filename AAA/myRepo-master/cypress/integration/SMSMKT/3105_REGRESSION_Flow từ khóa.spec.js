@@ -30,7 +30,7 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
             admin.delete_foreign_keyword("phuongtestkeywordngoaimang")
         })
     })
-    context.only("Agent", () => {
+    context("Agent", () => {
         beforeEach(() => {
             agent.
                 visitAgentPortal(cfg.url.portal.agent)
@@ -38,33 +38,56 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
         })
         it("Gửi tin với từ khóa chặn nội mạng", () => {
             cy.task('findFile', 'auto_vina_keyword').then((file) => {
-                agent
-                    .send_sms_temp_old(
-                        " "
-                        , cfg.portalArgs.VTT.cskh.adserName
-                        , cfg.portalArgs.VTT.cskh.contractName
-                        , cfg.portalArgs.VTT.cskh.mạng
-                        , cfg.portalArgs.VTT.cskh.brn
-                        , "{P1} PhuongQA test"
-                        , file
-                        , file
-                        , 0
-                        , cfg.sentTime.fromCreateDate
-                        , cfg.sentTime.toCreateDate
-                        , cfg.sentTime.fromScheduleDate
-                        , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh không thành công").then((text) => {
-                            prefix.pop();
-                            prefix.push(text);
+                if (cfg.ENV == "PRODUCT") {
+                    agent
+                        .send_sms_temp_old(
+                            " "
+                            , cfg.portalArgs.VTT.cskh.adserName
+                            , cfg.portalArgs.VTT.cskh.contractName
+                            , cfg.portalArgs.VTT.cskh.mạng
+                            , cfg.portalArgs.VTT.cskh.brn
+                            , "{P1} PhuongQA test"
+                            , file
+                            , file
+                            , 0
+                            , cfg.sentTime.fromCreateDate
+                            , cfg.sentTime.toCreateDate
+                            , cfg.sentTime.fromScheduleDate
+                            , cfg.sentTime.toScheduleDate
+                            , "Đặt lệnh không thành công").then((text) => {
+                                prefix.pop();
+                                prefix.push(text);
+                            })
+                        .then((prefix) => {
+                            cy.log(prefix);
+                            agent.downloadErrorfile();
                         })
-                    .then((prefix) => {
-                        cy.log(prefix);
-                        agent.downloadErrorfile();
-                    })
+                }
+                else if (cfg.ENV == "STAGING") {
+                    agent
+                        .send_sms_temp_old(
+                            " "
+                            , cfg.portalArgs.VTT.cskh.adserName
+                            , cfg.portalArgs.VTT.cskh.contractName
+                            , cfg.portalArgs.VTT.cskh.mạng
+                            , cfg.portalArgs.VTT.cskh.brn
+                            , "{P1} PhuongQA test"
+                            , file
+                            , file
+                            , 0
+                            , cfg.sentTime.fromCreateDate
+                            , cfg.sentTime.toCreateDate
+                            , cfg.sentTime.fromScheduleDate
+                            , cfg.sentTime.toScheduleDate
+                            , undefined)
+                }
+
             })
         })
         it("Kiểm tra file lỗi", () => {
-            agent.readErrorfileAsync(prefix[0], "Vi phạm từ khóa");
+            if (cfg.ENV == "PRODUCT") {
+                agent.readErrorfileAsync(prefix[0], "Vi phạm từ khóa");
+            }
         })
         it("Đổi tên file", () => {
             cy.task('findFile', 'auto_vina_keyword').then((file) => {
@@ -73,9 +96,35 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                     `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_vina_keyword${Math.floor(Math.random() * 1000000)}test.xlsx`])
             })
         })
-        it("Gửi tin với từ khóa chặn ngoại mạng", () => {
-            cy.task('findFile','auto_viettel_keyword').then((file)=>{
-                agent
+        it("Gửi tin với từ khóa chặn ngoại mạng (mạng Viettel)", () => {
+            cy.task('findFile', 'auto_viettel_keyword').then((file) => {
+                if (cfg.ENV == "PRODUCT") {
+                    agent
+                        .send_sms_temp_old(
+                            " "
+                            , cfg.portalArgs.VTT.cskh.adserName
+                            , cfg.portalArgs.VTT.cskh.contractName
+                            , "Viettel"
+                            , cfg.portalArgs.VTT.cskh.brn
+                            , "{P1} PhuongQA test"
+                            , file
+                            , file
+                            , 0
+                            , cfg.sentTime.fromCreateDate
+                            , cfg.sentTime.toCreateDate
+                            , cfg.sentTime.fromScheduleDate
+                            , cfg.sentTime.toScheduleDate
+                            , "Đặt lệnh không thành công").then((text) => {
+                                prefix.pop();
+                                prefix.push(text);
+                            })
+                        .then((prefix) => {
+                            cy.log(prefix);
+                            agent.downloadErrorfile();
+                        })
+                }
+                else if (cfg.ENV=="STAGING"){
+                    agent
                     .send_sms_temp_old(
                         " "
                         , cfg.portalArgs.VTT.cskh.adserName
@@ -90,24 +139,20 @@ context("Flow từ khóa nội mạng ngoại mạng", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh không thành công").then((text) => {
-                            prefix.pop();
-                            prefix.push(text);
-                        })
-                    .then((prefix) => {
-                        cy.log(prefix);
-                        agent.downloadErrorfile();
-                    })
+                        , undefined)
+                }
             })
         })
         it("Kiểm tra file lỗi", () => {
-            agent.readErrorfileAsync(prefix[0], "Vi phạm từ khóa");
+            if(cfg.ENV=="PRODUCT"){
+                agent.readErrorfileAsync(prefix[0], "Vi phạm từ khóa");
+            }
         })
-        it("Đổi tên file",()=>{
-            cy.task('findFile','auto_viettel_keyword').then((file)=>{
+        it("Đổi tên file", () => {
+            cy.task('findFile', 'auto_viettel_keyword').then((file) => {
                 cy.task('renameFile',
-                [`C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\${file}`,
-                `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_viettel_keyword${Math.floor(Math.random()*1000000)}test.xlsx`])
+                    [`C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\${file}`,
+                    `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_viettel_keyword${Math.floor(Math.random() * 1000000)}test.xlsx`])
             })
         })
     })

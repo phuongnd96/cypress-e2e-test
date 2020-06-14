@@ -1,0 +1,4 @@
+3-5-2020 16:25:49 
+        request: {"RQST":{"name":"create_template","REQID":"test 5959540","AGENTID":"164","CONTRACTID":"401","LABEL":"TEST2020","CONTENT":"LUONG {A,8} {D,500}","SAMPLEMESSAGE":"\n                    LUONG 5/2020 11400 QC MSCV:9 LCB:6,275,530 NLV:22 100%L:4 TL:6,275,530\n                    HTDL:153,000 CCT:200,000 BU:9,900 (A)TTH:6,638,430 TBH:658,930 CDP:30,000\n                    (B)TKT:688,930 (A)-(B)TL:5,949,500 TPN:11 HD:KXDTH","APIUSER":"product_createtemplate_phuong","APIPASS":"Tr1@123","USERNAME":"DH_CS"}}
+        errorcode: 57
+        errordesc: Tin nhan mau khong hop le

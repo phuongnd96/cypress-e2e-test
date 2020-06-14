@@ -205,7 +205,7 @@ class Admin {
         cy
             .get("@keywordFound")
             .invoke('text').then((text) => {
-                if (text === vinaphoneKeyword) {
+                if (text.includes(vinaphoneKeyword)) {
                     cy
                         .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnDeleteKeyword")
                         .click()

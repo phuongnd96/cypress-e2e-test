@@ -1,0 +1,15 @@
+{
+  "name": "testoraclenode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemailer": "^6.4.8",
+    "oracledb": "github:oracle/node-oracledb#v4.2.0"
+  }
+}

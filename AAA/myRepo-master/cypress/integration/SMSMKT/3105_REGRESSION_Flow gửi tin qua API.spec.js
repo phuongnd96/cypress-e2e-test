@@ -9,7 +9,6 @@ const admin = new ADMIN();
 //sau đó bỏ skip test link API mới
 //-------------------------------------//
 context("Gửi tin qua API", () => {
-
     specify("Gửi tin qua API tin nội mạng site nonbank", () => {
         agent
             .request_send_sms_nonbank_bank(
@@ -32,7 +31,6 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    
     specify.only("Gửi tin qua API tin nội mạng site nonbank - TEMPLATE MỚI", () => {
         agent
             .request_send_sms_nonbank_bank(
@@ -41,11 +39,12 @@ context("Gửi tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // ,  //template loại mới cho brn TEST2020 agent DH_CS
-                ,"568970"   //{A,10}
+                // ,"568970"   //{A,10}
+                ,"576165"
                 , cfg.apiArgs.numberOfParams
                 , cfg.apiArgs.content
                 , ""
-                , cfg.apiArgs.mobilelist.vina
+                , "84852384510"
                 , cfg.apiArgs.istelcosub
                 , cfg.apiArgs.nonbank.cskh.agentID
                 , cfg.apiArgs.nonbank.cskh.apiUsername
@@ -56,7 +55,6 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    
     specify("Gửi tin qua API nội mạng đặt lịch site nonbank", () => {
         agent
             .request_send_sms_nonbank_bank(
@@ -145,8 +143,7 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    
-    specify.only("Gửi tin qua API tin nội mạng site bank - TEMPLATE MỚI", () => {
+    specify("Gửi tin qua API tin nội mạng site bank - TEMPLATE MỚI", () => {
         agent
             .request_send_sms_nonbank_bank(
                 cfg.url.api.bank
@@ -169,8 +166,7 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    
-    specify("Gửi tin qua API SMSORDER", () => {
+    specify.skip("Gửi tin qua API SMSORDER", () => {
         agent.
             request_send_sms_SMSORDER(
                 cfg.url.api.smsorder
@@ -217,7 +213,6 @@ context("Gửi tin qua API", () => {
                     agent.assertRespone(res, 1);
                 })
     })
-
     context.skip("Redis API nonbank", () => {
         describe("Đại lý gửi tin qua API với account có trang thái inactive", () => {
             beforeEach(() => {

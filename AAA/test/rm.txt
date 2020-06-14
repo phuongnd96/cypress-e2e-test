@@ -1,0 +1,2 @@
+set OCI_LIB_DIR=C:\oracle\instantclient\sdk\lib\msvc
+set OCI_INC_DIR=C:\oracle\instantclient\sdk\include

@@ -1,0 +1,4 @@
+4-5-2020 8:34:58 
+        request: {"RQST":{"name":"create_template","REQID":"test 9524129","AGENTID":"164","CONTRACTID":"401","LABEL":"TEST2020","CONTENT":"{A,10}test","SAMPLEMESSAGE":"phuongtest","APIUSER":"product_createtemplate_phuongtest","APIPASS":"Tr1@123","USERNAME":"DH_CS"}}
+        errorcode: 1
+        errordesc: user, pass, ip, status khong hop le, ip=10.149.58.238

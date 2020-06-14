@@ -167,6 +167,58 @@ context("Tạo template qua API", () => {
                 it("Tạo thành công template loại C", () => {
                     createTemplateCSKH("{C,30} test", "1.2.3áó**!() test", 0);
                 })
+                it("Test kí tự đặc biệt ()", () => {
+                    createTemplateCSKH("(Thong bao) Pizza 4Ps tran trong {A,30}. Ban vui long co mat vao luc {A,160}. Chi tiet vui long xem thong tin tai email ca nhan cua ban hoac lien he Hotline 0783884977"
+                        , "(Thong bao) Pizza 4Ps tran trong moi ban quay tro lai lam viec. Ban vui long co mat vao luc 10h00 01/01 tai 151B Hai Ba Trung gap Phong Nhan Su de hoan tat thu tuc nhan viec truoc khi bat dau lam viec lai tai nha hang. Chi tiet vui long xem thong tin tai email ca nhan cua ban hoac lien he Hotline 0783884977"
+                        , 0);
+                })
+                it("Test kí tự đặc biệt \\\\", () => {
+                    createTemplateCSKH("\\test\\ abc {A,10}", "\\test\\ abc test", 0);
+                })
+                it("Test kí tự đặc biệt .", () => {
+                    createTemplateCSKH(".test. abc {A,10}", ".test. abc test", 0);
+                })
+                it("Test kí tự đặc biệt []", () => {
+                    createTemplateCSKH("[test] abc {A,10}", "[test] abc test", 0);
+                })
+                it("Test kí tự đặc biệt ()", () => {
+                    createTemplateCSKH("(Thong bao) abc {A,10}", "(Thong bao) abc test", 0);
+                })
+                it("Test kí tự đặc biệt **", () => {
+                    createTemplateCSKH("*test* abc {A,10}", "*test* abc test", 0);
+                })
+                it("Test kí tự đặc biệt ??", () => {
+                    createTemplateCSKH("?test? abc {A,10}", "?test? abc test", 0);
+                })
+                it("Test kí tự đặc biệt +", () => {
+                    createTemplateCSKH("+test+ abc {A,10}", "+test+ abc test", 0);
+                })
+                it("Test kí tự đặc biệt ^^", () => {
+                    createTemplateCSKH("^test^ abc {A,10}", "^test^ abc test", 0);
+                })
+                it("Test kí tự đặc biệt $$", () => {
+                    createTemplateCSKH("$test$ abc {A,10}", "$test$ abc test", 0);
+                })
+                it("Test kí tự đặc biệt ||", () => {
+                    createTemplateCSKH("|test| abc {A,10}", "|test| abc test", 0);
+                })
+                it("Test lỗi",()=>{
+                    createTemplateCSKH("LUONG {A,8} {D,500}", `
+                    LUONG 05/2020 11400 QC MSCV:9 LCB:6,275,530 NLV:22 100%L:4 TL:6,275,530
+                    HTDL:153,000 CCT:200,000 BU:9,900 (A)TTH:6,638,430 TBH:658,930 CDP:30,000
+                    (B)TKT:688,930 (A)-(B)TL:5,949,500 TPN:11 HD:KXDTH`, 0);
+                })
+                it.only("TEST",()=>{
+                    createTemplateCSKH(`Petrolimex Ninh Binh ap dung muc thu lao tai Kho K135/Nam Dinh tu {A,10} ngay {A,20}:
+                    - RON95-IV: {B,10} d/l
+                    - E5: {B,10} d/l
+                    - DO 0,05-II: {B,10} d/l
+                    Tran trong ! (1)`,`Petrolimex Ninh Binh ap dung muc thu lao tai Kho K135/Nam Dinh tu 15h00 ngay 28/5/2020:
+                    - RON95-IV: 786 d/l
+                    - E5: 760 d/l
+                    - DO 0,05-II: 742 d/l
+                    Tran trong ! (1)`,0);
+                })
                 it("Tạo thành công template loại D", () => {
                     createTemplateCSKH("{D,40} test", "1.2.3áó**!!!&*#^*!&$%$!)$!)*!$$)*! () test", 0);
                 })
@@ -236,7 +288,8 @@ context("Tạo template qua API", () => {
             });
         })
     })
-    context("Regression test với API tạo template QC đã có", () => {
+    //Hàm này APIUSERNAME VÀ API PASSWORD tạo temp Khách hàng phải để là chọn Khách hàng (tức là không chọn khách hàng -> tạo temp cho mọi khách hàng)
+    context.skip("Regression test với API tạo template QC đã có", () => {
         context("Đại lý VTTP gửi tin QC", () => {
             it("APIUSER không hợp lệ", () => {
                 agent.request_create_template_QC(
@@ -276,7 +329,7 @@ context("Tạo template qua API", () => {
                 agent.request_create_template_QC(
                     db.url_api.nonbank
                     , db.agent_VTT_QC_TRASAU.agentID
-                    , db.agent_VTT_QC_TRASAU.contractID.concat(`${Math.floor(Math.random()*1000)}`)
+                    , db.agent_VTT_QC_TRASAU.contractID.concat(`${Math.floor(Math.random() * 1000)}`)
                     , db.agent_VTT_QC_TRASAU.brandName
                     , "{P1} test123"
                     , "1"
@@ -309,7 +362,7 @@ context("Tạo template qua API", () => {
             it("AGENTID không hợp lệ", () => {
                 agent.request_create_template_QC(
                     db.url_api.nonbank
-                    , db.agent_VTT_QC_TRASAU.agentID.concat(`${Math.floor(Math.random()*10000)}`)
+                    , db.agent_VTT_QC_TRASAU.agentID.concat(`${Math.floor(Math.random() * 10000)}`)
                     , db.agent_VTT_QC_TRASAU.contractID
                     , db.agent_VTT_QC_TRASAU.brandName
                     , "{P1} test123"
@@ -378,8 +431,9 @@ context("Tạo template qua API", () => {
         })
     })
 })
-describe("Gửi mail kết quả",()=>{
-    it("Send email",()=>{
+describe.skip("Gửi mail kết quả", () => {
+    it("Send email", () => {
         cy.exec('node sendmail.js')
     })
 })
+

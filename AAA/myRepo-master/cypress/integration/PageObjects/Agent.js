@@ -281,8 +281,8 @@ class Agent {
             get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterLabel")
             .type(brn)
             //Số hiển thị chưa bỏ trên product
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterDisplayNumber")
-            .type(displayNumber)
+            // .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterDisplayNumber")
+            // .type(displayNumber)
             //Chọn Loại Vina
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelType")
             .select(VinaType)
@@ -447,7 +447,7 @@ class Agent {
     };
     //product chỉ đang tạo template 1 loại cũ
     //thêm template cho nhãn bất kì
-    addTemplate_product(template, brn) {
+    addTemplate_product(template) {
         cy.contains("SỬA HỢP ĐỒNG")
             .click({ force: true });
         cy
@@ -734,7 +734,7 @@ class Agent {
             .select(brn)
             .wait(1000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlTemplate")
-            .wait(1000)
+            .wait(2000)
             .select(template, { force: true })
             .wait(500)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_tbTemplateContent").then((templateContent) => {

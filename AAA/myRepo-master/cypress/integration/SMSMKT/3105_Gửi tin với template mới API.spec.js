@@ -12,7 +12,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID    Template loại A
-                ,"568975"
+                ,"570794"
                 , cfg.apiArgs.numberOfParams
                 , "a1!#*("
                 , ""
@@ -35,7 +35,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID Template loại D
-                ,"568978"
+                ,"570797"
                 , cfg.apiArgs.numberOfParams
                 , "1.2 a@!#!_~"
                 , ""
@@ -58,7 +58,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID  template loại B
-                ,"568976"
+                ,"570795"
                 , cfg.apiArgs.numberOfParams
                 , "1.2"
                 , ""
@@ -81,7 +81,7 @@ describe("Gui tin qua API", () => {
                 , cfg.apiArgs.nonbank.cskh.contractTypeID
                 , cfg.apiArgs.nonbank.cskh.contractID
                 // , cfg.apiArgs.nonbank.cskh.templateID template loại C
-                ,"568977"
+                ,"570796"
                 , cfg.apiArgs.numberOfParams
                 , "1@!#$%^()_=`a"
                 , ""
@@ -96,7 +96,7 @@ describe("Gui tin qua API", () => {
                     agent.assertRespone(res, 0);
                 })
     })
-    specify("Gửi tin qua API tin nội mạng site bank temp A", () => {
+    specify.skip("Gửi tin qua API tin nội mạng site bank temp A", () => {
         agent.request_send_sms_list_bank(
             cfg.url.api.bank
             , "121a13242421233"     //request iD
@@ -120,7 +120,7 @@ describe("Gui tin qua API", () => {
             agent.assertRespone(res, 0);
         })
     })
-    specify("Gửi tin qua API tin nội mạng site bank temp B", () => {
+    specify.skip("Gửi tin qua API tin nội mạng site bank temp B", () => {
         agent.request_send_sms_list_bank(
             cfg.url.api.bank
             , "121a13242421888233"     //request iD
@@ -144,7 +144,7 @@ describe("Gui tin qua API", () => {
             agent.assertRespone(res, 0);
         })
     })
-    specify("Gửi tin qua API tin nội mạng site bank temp C", () => {
+    specify.skip("Gửi tin qua API tin nội mạng site bank temp C", () => {
         agent.request_send_sms_list_bank(
             cfg.url.api.bank
             , "121a132424212399993"     //request iD
@@ -168,7 +168,7 @@ describe("Gui tin qua API", () => {
             agent.assertRespone(res, 0);
         })
     })
-    specify("Gửi tin qua API tin nội mạng site bank temp D", () => {
+    specify.skip("Gửi tin qua API tin nội mạng site bank temp D", () => {
         agent.request_send_sms_list_bank(
             cfg.url.api.bank
             , "121a132424212311193"     //request iD

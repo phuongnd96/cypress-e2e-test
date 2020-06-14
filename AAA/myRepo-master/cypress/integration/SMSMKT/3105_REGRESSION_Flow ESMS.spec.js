@@ -3,7 +3,7 @@ import ADMIN from '../PageObjects/Admin';
 import * as cfg from '../config/config';
 const agent = new AGENT();
 const admin = new ADMIN();
-let count="1yztab1"
+let count=Math.floor(Math.random()*1000).toString().concat("test");
 
 describe("ESMS flow", () => {
     describe("Khách hàng lẻ gửi tin", () => {
@@ -42,7 +42,7 @@ describe("ESMS flow", () => {
                 , `aph1phrn phuong test ${count}`
                 , "Hello"
                 , "content alias"
-                , "010620201430")
+                , "030620201430")
         })
     })
 })

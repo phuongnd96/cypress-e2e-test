@@ -1,3 +1,4 @@
+// let ENV = "PRODUCT";
 let ENV = "PRODUCT";
 let now = new Date();
 let rnd = Math.floor(Math.random() * 10000000);
@@ -14,7 +15,6 @@ let sentTime={
     fromScheduleDate:makeDate("/"),
     toScheduleDate:makeDate("/")
 }
-
 function makeDate(sym){
     if (now.getMonth()<9){
         if (now.getDate()<10){
@@ -147,7 +147,6 @@ function invalidTime(sym){
             break;
     }
 }
-
 if (ENV == "STAGING") {
     let url = {
         "portal": {
@@ -156,7 +155,9 @@ if (ENV == "STAGING") {
             "esms":"http://10.84.70.164:8099/Login.aspx"
         },
         "api": {
-            "nonbank": "http://10.84.70.148:8085/smsmktur135/api",
+            // "nonbank": "http://10.84.70.148:8085/smsmktur135/api",
+            "nonbank": "http://10.84.70.148:8085/smsmarketing/api",
+
             "bank": "http://10.84.70.148:8096/smsbank12/api",
             "smsorder": ""
         }
@@ -344,8 +345,9 @@ else if (ENV = "PRODUCT") {
             "esms":"http://esms.com.vn/default.aspx"
         },
         "api": {
-            "nonbank": "http://192.168.38.134:8888/smsbn/api",
+            // "nonbank": "http://192.168.38.134:8888/smsbn/api",
             // "nonbank": "http://192.168.38.134:8888/smsmarketing/api",
+            "nonbank":"http://192.168.38.134:8888/smsbn/api",
             "bank": "http://192.168.38.163:8888/smsbn/api",
             // "bank": "http://192.168.38.163:8888/smsbank/api",
             "smsorder": "http://192.168.38.134:8888/smstmdt/api"

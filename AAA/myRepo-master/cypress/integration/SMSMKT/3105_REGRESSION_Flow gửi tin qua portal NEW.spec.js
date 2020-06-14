@@ -12,25 +12,48 @@ describe("Flow agent gửi tin", () => {
             .doLogin(cfg.account.agent.username, cfg.account.agent.pw);
     })
     specify("Gửi tin nội mạng gửi ngay", () => {
-        cy.task('findFile', 'auto_vina')
-            .then((file) => {
-                agent
-                    .send_sms_temp_old(
-                        " "
-                        , cfg.portalArgs.VTT.cskh.adserName
-                        , cfg.portalArgs.VTT.cskh.contractName
-                        , cfg.portalArgs.VTT.cskh.mạng
-                        , cfg.portalArgs.VTT.cskh.brn
-                        , cfg.portalArgs.VTT.cskh.template
-                        , file
-                        , file
-                        , 0
-                        , cfg.sentTime.fromCreateDate
-                        , cfg.sentTime.toCreateDate
-                        , cfg.sentTime.fromScheduleDate
-                        , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh thành công");
-            })
+        if (cfg.ENV == "PRODUCT") {
+            cy.task('findFile', 'auto_vina')
+                .then((file) => {
+                    agent
+                        .send_sms_temp_old(
+                            " "
+                            , cfg.portalArgs.VTT.cskh.adserName
+                            , cfg.portalArgs.VTT.cskh.contractName
+                            , cfg.portalArgs.VTT.cskh.mạng
+                            , cfg.portalArgs.VTT.cskh.brn
+                            , cfg.portalArgs.VTT.cskh.template
+                            , file
+                            , file
+                            , 0
+                            , cfg.sentTime.fromCreateDate
+                            , cfg.sentTime.toCreateDate
+                            , cfg.sentTime.fromScheduleDate
+                            , cfg.sentTime.toScheduleDate
+                            , "Đặt lệnh thành công");
+                })
+        }
+        else if (cfg.ENV == "STAGING") {
+            cy.task('findFile', 'auto_vina')
+                .then((file) => {
+                    agent
+                        .send_sms_temp_old(
+                            " "
+                            , cfg.portalArgs.VTT.cskh.adserName
+                            , cfg.portalArgs.VTT.cskh.contractName
+                            , cfg.portalArgs.VTT.cskh.mạng
+                            , cfg.portalArgs.VTT.cskh.brn
+                            , cfg.portalArgs.VTT.cskh.template
+                            , file
+                            , file
+                            , 0
+                            , cfg.sentTime.fromCreateDate
+                            , cfg.sentTime.toCreateDate
+                            , cfg.sentTime.fromScheduleDate
+                            , cfg.sentTime.toScheduleDate
+                            , undefined);
+                })
+        }
     })
     specify("Đổi tên file", () => {
         cy.task('findFile', 'auto_vina').then((file) => {
@@ -51,7 +74,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
                         //Điền vào đây template loại A
-                        ,"{A,20} test8888"
+                        , "{A,20} test8888"
                         , file
                         , file
                     );
@@ -76,7 +99,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
                         //Điền vào đây template loại B
-                        ,"{B,20} test8888"
+                        , "{B,20} test8888"
                         , file
                         , file
                     );
@@ -100,7 +123,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.mạng
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
-                        ,"{C,20} test8888"
+                        , "{C,20} test8888"
                         //Điền vào đây template loại C
                         , file
                         , file
@@ -125,7 +148,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.portalArgs.VTT.cskh.mạng
                         , cfg.portalArgs.VTT.cskh.brn
                         // , cfg.portalArgs.VTT.cskh.template
-                        ,"{D,20} test8888"
+                        , "{D,20} test8888"
                         //Điền vào đây template loại D
                         , file
                         , file
@@ -167,7 +190,6 @@ describe("Flow agent gửi tin", () => {
                 `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_vina_schedule${Math.floor(Math.random() * 1000000)}test.xlsx`])
         })
     })
-    //Đang sai vì có 3 nhãn VNPT.Tech
     specify("Gửi tin mạng Mobifone CSKH qua BRN", () => {
         cy.task('findFile', 'auto_mobi').then((file) => {
             if (cfg.ENV == "PRODUCT") {
@@ -204,7 +226,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        ,"Đặt lệnh thành công");
+                        , undefined);
             }
         })
     })
@@ -215,7 +237,7 @@ describe("Flow agent gửi tin", () => {
                 `C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\auto_mobi${Math.floor(Math.random() * 1000000)}test.xlsx`])
         })
     })
-    specify("Gửi tin mạng Viettel", () => {
+    specify("Gửi tin mạng Viettel CSKH qua BRN", () => {
         cy.task('findFile', 'auto_viettel').then((file) => {
             if (cfg.ENV == "PRODUCT") {
                 agent
@@ -233,7 +255,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        ,undefined);
+                        , undefined);
             } else if (cfg.ENV == "STAGING") {
                 agent
                     .send_sms_temp_old(
@@ -250,7 +272,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh thành công");
+                        , undefined);
             }
         })
     })
@@ -263,22 +285,42 @@ describe("Flow agent gửi tin", () => {
     })
     specify("Gửi tin mạng Itel", () => {
         cy.task('findFile', 'auto_itel').then((file) => {
-            agent
-                .send_sms_temp_old(
-                    " "
-                    , cfg.portalArgs.VTT.cskh.adserName
-                    , cfg.portalArgs.VTT.cskh.contractName
-                    , "ITel"
-                    , cfg.portalArgs.VTT.cskh.brn
-                    , cfg.portalArgs.VTT.cskh.template
-                    , file
-                    , file
-                    , 0
-                    , cfg.sentTime.fromCreateDate
-                    , cfg.sentTime.toCreateDate
-                    , cfg.sentTime.fromScheduleDate
-                    , cfg.sentTime.toScheduleDate
-                    , "Đặt lệnh thành công");
+            if (cfg.ENV === "PRODUCT") {
+                agent
+                    .send_sms_temp_old(
+                        " "
+                        , cfg.portalArgs.VTT.cskh.adserName
+                        , cfg.portalArgs.VTT.cskh.contractName
+                        , "ITel"
+                        , cfg.portalArgs.VTT.cskh.brn
+                        , cfg.portalArgs.VTT.cskh.template
+                        , file
+                        , file
+                        , 0
+                        , cfg.sentTime.fromCreateDate
+                        , cfg.sentTime.toCreateDate
+                        , cfg.sentTime.fromScheduleDate
+                        , cfg.sentTime.toScheduleDate
+                        , "Đặt lệnh thành công");
+            }
+            else if (cfg.ENV === "STAGING") {
+                agent
+                    .send_sms_temp_old(
+                        " "
+                        , cfg.portalArgs.VTT.cskh.adserName
+                        , cfg.portalArgs.VTT.cskh.contractName
+                        , "ITel"
+                        , cfg.portalArgs.VTT.cskh.brn
+                        , cfg.portalArgs.VTT.cskh.template
+                        , file
+                        , file
+                        , 0
+                        , cfg.sentTime.fromCreateDate
+                        , cfg.sentTime.toCreateDate
+                        , cfg.sentTime.fromScheduleDate
+                        , cfg.sentTime.toScheduleDate
+                        , undefined);
+            }
         })
     })
     specify("Đổi tên file", () => {
@@ -290,22 +332,42 @@ describe("Flow agent gửi tin", () => {
     })
     specify("Gửi tin có dấu", () => {
         cy.task('findFile', 'auto_vina_co_dau').then((file) => {
-            agent
-                .send_sms_temp_old(
-                    " "
-                    , cfg.portalArgs.VTT.cskh.adserName
-                    , cfg.portalArgs.VTT.cskh.contractName
-                    , "Vinaphone"
-                    , cfg.portalArgs.VTT.cskh.brn
-                    , cfg.portalArgs.VTT.cskh.template
-                    , file
-                    , file
-                    , 8
-                    , cfg.sentTime.fromCreateDate
-                    , cfg.sentTime.toCreateDate
-                    , cfg.sentTime.fromScheduleDate
-                    , cfg.sentTime.toScheduleDate
-                    , "Đặt lệnh thành công");
+            if (cfg.ENV == "PRODUCT") {
+                agent
+                    .send_sms_temp_old(
+                        " "
+                        , cfg.portalArgs.VTT.cskh.adserName
+                        , cfg.portalArgs.VTT.cskh.contractName
+                        , "Vinaphone"
+                        , cfg.portalArgs.VTT.cskh.brn
+                        , cfg.portalArgs.VTT.cskh.template
+                        , file
+                        , file
+                        , 8
+                        , cfg.sentTime.fromCreateDate
+                        , cfg.sentTime.toCreateDate
+                        , cfg.sentTime.fromScheduleDate
+                        , cfg.sentTime.toScheduleDate
+                        , "Đặt lệnh thành công");
+            }
+            else if (cfg.ENV == "STAGING") {
+                agent
+                    .send_sms_temp_old(
+                        " "
+                        , cfg.portalArgs.VTT.cskh.adserName
+                        , cfg.portalArgs.VTT.cskh.contractName
+                        , "Vinaphone"
+                        , cfg.portalArgs.VTT.cskh.brn
+                        , cfg.portalArgs.VTT.cskh.template
+                        , file
+                        , file
+                        , 8
+                        , cfg.sentTime.fromCreateDate
+                        , cfg.sentTime.toCreateDate
+                        , cfg.sentTime.fromScheduleDate
+                        , cfg.sentTime.toScheduleDate
+                        , undefined);
+            }
         })
     })
     specify("Đổi tên file", () => {
@@ -317,22 +379,42 @@ describe("Flow agent gửi tin", () => {
     })
     specify("Gửi tin theo hướng ưu tiên", () => {
         cy.task('findFile', 'auto_vina_uu_tien').then((file) => {
-            agent
-                .send_sms_temp_old(
-                    " "
-                    , cfg.portalArgs.VTT.cskh.adserName
-                    , cfg.portalArgs.VTT.cskh.contractName
-                    , "Vinaphone"
-                    , cfg.portalArgs.VTT.cskh.brn
-                    , cfg.portalArgs.VTT.cskh.template
-                    , file
-                    , file
-                    , 0
-                    , cfg.sentTime.fromCreateDate
-                    , cfg.sentTime.toCreateDate
-                    , cfg.sentTime.fromScheduleDate
-                    , cfg.sentTime.toScheduleDate
-                    , "Đặt lệnh thành công");
+            if (cfg.ENV == "PRODUCT") {
+                agent
+                    .send_sms_temp_old(
+                        " "
+                        , cfg.portalArgs.VTT.cskh.adserName
+                        , cfg.portalArgs.VTT.cskh.contractName
+                        , "Vinaphone"
+                        , cfg.portalArgs.VTT.cskh.brn
+                        , cfg.portalArgs.VTT.cskh.template
+                        , file
+                        , file
+                        , 0
+                        , cfg.sentTime.fromCreateDate
+                        , cfg.sentTime.toCreateDate
+                        , cfg.sentTime.fromScheduleDate
+                        , cfg.sentTime.toScheduleDate
+                        , "Đặt lệnh thành công");
+            }
+            else if (cfg.ENV == "STAGING") {
+                agent
+                    .send_sms_temp_old(
+                        " "
+                        , cfg.portalArgs.VTT.cskh.adserName
+                        , cfg.portalArgs.VTT.cskh.contractName
+                        , "Vinaphone"
+                        , cfg.portalArgs.VTT.cskh.brn
+                        , cfg.portalArgs.VTT.cskh.template
+                        , file
+                        , file
+                        , 0
+                        , cfg.sentTime.fromCreateDate
+                        , cfg.sentTime.toCreateDate
+                        , cfg.sentTime.fromScheduleDate
+                        , cfg.sentTime.toScheduleDate
+                        , undefined);
+            }
         })
     })
     specify("Đổi tên file", () => {
@@ -379,7 +461,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh thành công");
+                        , undefined);
             })
         }
     })
@@ -443,7 +525,7 @@ describe("Flow agent gửi tin", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh không thành công").then((text) => {
+                        , undefined).then((text) => {
                             prefix.pop();
                             prefix.push(text);
                         }).then((prefix) => {
@@ -496,7 +578,7 @@ describe("Đại lý tư nhân gửi tin CSKH", () => {
                         , cfg.sentTime.toCreateDate
                         , cfg.sentTime.fromScheduleDate
                         , cfg.sentTime.toScheduleDate
-                        , "Đặt lệnh thành công");
+                        , undefined);
             })
             //overwrite
         }

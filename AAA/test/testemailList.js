@@ -1,9 +1,24 @@
 const fs = require('fs');
 const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'p.be0.duyphuong@gmail.com',
+        pass: 'gicungduoc'
+    }
+});
 let dir = "C:\\Users\\LapTop\\Desktop\\AAA\\myRepo-master\\cypress\\fixtures\\Log";
 let attachmentsList = [];
-async function findFile() {
-    return new Promise((resolve, reject) => {
+var mail = {
+    from: 'p.be0.duyphuong@gmail.com',
+    to: 'nguyenduyphuong_t59@hus.edu.vn',
+    subject: "Test Result SMSMKT",
+    html: `<h1><b>Test Result SMSMKT</b></h1>`
+    , attachments: attachmentsList
+
+};
+async function findFile(){
+    return new Promise((resolve,reject)=>{
         fs.readdir(dir, (e, files) => {
             if (e) {
                 reject(e);
@@ -16,26 +31,11 @@ async function findFile() {
             })
             resolve(attachmentsList);
         });
-    })
-};
+}) 
+}
 
- findFile().then((list) => {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'p.be0.duyphuong@gmail.com',
-            pass: 'gicungduoc'
-        }
-    });
-    const mail = {
-        from: 'p.be0.duyphuong@gmail.com',
-        // to: 'phuongnd@vivas.vn',
-        to: 'haitva@vivas.vn',
-        // to:'nguyenduyphuong_t59@hus.edu.vn',
-        subject: "Test Result SMSMKT",
-        html: `<h1><b>Test Result SMSMKT</b></h1>`
-        , attachments: list
-    };
+findFile().then((list)=>{
+    console.log(list);
     transporter.sendMail(mail, function (error, info) {
         if (error) {
             console.log(error);
@@ -44,3 +44,5 @@ async function findFile() {
         }
     });
 })
+
+
