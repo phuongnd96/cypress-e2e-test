@@ -1,5 +1,4 @@
 import * as __ from '../PageObjects/ApiRequests';
-const fs = require('fs');
 class Agent {
     visitAgentPortal(url) {
         cy
@@ -10,12 +9,13 @@ class Agent {
     visitEMS(url) {
         cy
             .visit(url);
+        
         return this;
     };
 
     loginESMSPortal(username, password) {
         cy
-            .contains("Đăng nhập")
+        .contains("Đăng nhập")
             .click({ force: true })
             .get("#ctl00_ContentPlaceHolder2_usrname")
             .type(username)
@@ -23,14 +23,27 @@ class Agent {
             .type(password)
             .get("#ctl00_ContentPlaceHolder2_submit")
             .click()
-            .wait(1000)
+            .wait(3000)
             .get(".after-login").invoke('text').then((text) => {
                 expect(text).to.equal("84857760576");
             })
+            cy.wait(1000);
         return this;
     };
 
-    createESMSBrn(brn, GPKDfileName, GPKDfilePath, giayUyQuyenFileName, giayUyQuyenFilePath, CMNDfileName, CMDNfilePath, confirmGPKDfileName, confirmGPKDfilePath, mobileList, customerName, content, contentAlias) {
+    createESMSBrn(brn
+        , GPKDfileName
+        , GPKDfilePath
+        , giayUyQuyenFileName
+        , giayUyQuyenFilePath
+        , CMNDfileName
+        , CMDNfilePath
+        , confirmGPKDfileName
+        , confirmGPKDfilePath
+        , mobileList
+        , customerName
+        , content
+        , contentAlias) {
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtBrandName")
             .type(brn)
@@ -168,6 +181,7 @@ class Agent {
     };
 
     doLogin(userame, password) {
+        cy.wait(1000)
         cy
             .get("#ctl00_ContentPlaceHolder2_usrname")
             .type(userame)
@@ -175,6 +189,7 @@ class Agent {
             .type(password)
             .get("#ctl00_ContentPlaceHolder2_submit")
             .click();
+        cy.wait(1000);
         return this;
     };
 
@@ -266,8 +281,8 @@ class Agent {
             get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterLabel")
             .type(brn)
             //Số hiển thị chưa bỏ trên product
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterDisplayNumber")
-            .type(displayNumber)
+            // .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_txtFooterDisplayNumber")
+            // .type(displayNumber)
             //Chọn Loại Vina
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvLabel_ctl07_ddlFooterLabelType")
             .select(VinaType)
@@ -397,7 +412,7 @@ class Agent {
         return this;
 
     };
-    addTemplate(template, sampleMessage) {
+    addTemplate(template, sampleMessage, expectedResult) {
         cy.contains("SỬA HỢP ĐỒNG").click({ force: true });
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditTemplate")
@@ -410,11 +425,11 @@ class Agent {
             .type(template, { parseSpecialCharSequences: false })
             //Chọn nhãn đầu tiên
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl08_ddlLabel_ddlLabel_Button")
-            .type('{downarrow}{downarrow}{enter}')
+            .type('{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}{enter}')
             //Tin nhắn mẫu
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl08_txtFooterTemplateContentMessage")
             .type(sampleMessage)
-            //Chọn loãi template
+            //Chọn loại template
 
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl08_btnFooterOK")
             .click({ force: true })
@@ -422,17 +437,17 @@ class Agent {
             .wait(2000)
             .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo')
             .then(($element) => {
-                expect($element).to.have.text("Thêm mới template thành công.");
+                expect($element).to.have.text(expectedResult);
             });
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_grvTemplate_ctl02_lblTemplateId").invoke('text').then((text) => {
-            templateId = text;
+            let templateId = text;
             //trả ra template Id
             return templateId;
         })
     };
     //product chỉ đang tạo template 1 loại cũ
     //thêm template cho nhãn bất kì
-    addTemplate_product(template, brn) {
+    addTemplate_product(template) {
         cy.contains("SỬA HỢP ĐỒNG")
             .click({ force: true });
         cy
@@ -481,6 +496,7 @@ class Agent {
     };
 
     createLBA(lbaname, scheduleTime, adsername, countNumberMobile, contractName, brn, templateContent, gender, activeTime, isHave3G, blackListFileName, blackListFilePath, whiteListFileName, whiteListFilePath) {
+        cy.wait(1000);
         cy
             .contains("TẠO MỚI CD")
             .click({ force: true })
@@ -547,12 +563,15 @@ class Agent {
                         encoding: 'utf8'
                     });
             })
+            cy.wait(2000);
         cy
             //interact with map
             .get('[title="Zoom in"]')
             .dblclick({ force: true })
             //chọn nút vẽ
-            .get(`[style="margin: 5px; z-index: 10; position: absolute; top: 0px; left: 492px;"] > :nth-child(2) > [role="button"]`)
+            // cy.wait(2000);
+            cy
+            .get(`[style="margin: 5px; z-index: 10; position: absolute; top: 0px; left: 491px;"] > :nth-child(2) > [role="button"]`)
             .click()
             //vẽ
             .get(":nth-child(27) > :nth-child(2)").as("map") //đây là bản đồ
@@ -673,7 +692,21 @@ class Agent {
 
     };
 
-    send_sms_temp_old(scheduleTime, adserName, contractName, mạng, brn, template, filename, filepath, encoding, fromCreateDate, toCreateDate, fromScheduleDate, toScheduleDate, predictedStatus) {
+    send_sms_temp_old(
+        scheduleTime
+        , adserName
+        , contractName
+        , mạng
+        , brn
+        , template
+        , filename
+        , filepath
+        , encoding
+        , fromCreateDate
+        , toCreateDate
+        , fromScheduleDate
+        , toScheduleDate
+        , predictedStatus) {
         if (encoding == 8) {
             cy
                 .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_rblCharacterType_1")
@@ -701,8 +734,8 @@ class Agent {
             .select(brn)
             .wait(1000)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_ddlTemplate")
-            .wait(1000)
-            .select(template)
+            .wait(2000)
+            .select(template, { force: true })
             .wait(500)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_TabContainer1_TabPanel1_tbTemplateContent").then((templateContent) => {
                 expect(templateContent).to.have.prop('disabled', true)
@@ -746,14 +779,14 @@ class Agent {
                 cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_Button1")
                     .as("searchBtn")
                     .then(() => {
-                        if (scheduleTime =! " ")
+                        if (scheduleTime = ! " ")
                             cy.get("@fromCreateDate").clear().type(fromCreateDate)
                         cy.get("@toCreateDate").clear().type(toCreateDate)
                         cy.get("@fromScheduleDate").clear().type(fromScheduleDate)
                         cy.get("@toScheduleDate").clear().type(toScheduleDate)
                     })
                 cy.get("@brnTextBox").type(brn)
-                cy.wait(5000);
+                cy.wait(500);
                 cy.get("@searchBtn").click();
                 cy.wait(500);
                 cy.get(":nth-child(2) > :nth-child(2) > a").as("orderId");
@@ -762,14 +795,16 @@ class Agent {
                     .parent()
                     .parent()
                     .within(() => {
+                        cy.wait(3000)
                         return cy.contains(predictedStatus).should('be.visible')
                     })
                     .then(() => {
                         if (predictedStatus == "Đặt lệnh không thành công") {
                             cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
                                 .as("file_loi");
-                            cy.get("@file_loi")
-                                .click();
+                            return cy.get(":nth-child(2) > :nth-child(2) > a").invoke('text').then((text) => {
+                                return parseInt(text);
+                            })
                         } else if (predictedStatus == "Đặt lệnh thành công") {
                             cy.wait(3000);
                             return cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(12)").invoke('text').then((text) => {
@@ -777,10 +812,70 @@ class Agent {
                             })
                         }
                     })
-                //phải config lại thư mục donwload file về thư mục root của project (thư mục chứa file cypress.json
             })
     };
-    //working on read error file
+    tra_cứu_lịch_sử_lệnh_gửi(predictedStatus) {
+        if (predictedStatus == "Đặt lệnh không thành công") {
+            cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
+                .as("file_loi");
+            return cy.get(":nth-child(2) > :nth-child(2) > a").invoke('text').then((text) => {
+                return parseInt(text);
+            })
+        } else if (predictedStatus == "Đặt lệnh thành công") {
+            cy.wait(3000);
+            return cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(12)").invoke('text').then((text) => {
+                return parseInt(text);
+            })
+        }
+    }
+    readErrorfile(prefix, error) {
+        cy.task('readFile', `C:\\Users\\LapTop\\Downloads\\${prefix}_thue_bao_loi.xlsx`).then((res) => {
+            return res.Strings["3"].h;
+        }).then((res) => {
+            expect(res.trimLeft().trimRight()).to.equal(error);
+        })
+    };
+    readErrorfileAsync(prefix, error) {
+        return (async function readErrFile() {
+            let res = await cy.task('readFile', `C:\\Users\\LapTop\\Downloads\\${prefix}_thue_bao_loi.xlsx`);
+            expect((res.Strings['3'].h).trimLeft().trimRight()).to.equal(error);
+        })();
+    }
+    downloadErrorfile() {
+        cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_gvQueuingGroup_ctl02_btnDownloadFileFailed")
+            .click();
+    };
+    importTemplate(contractName, fileName, filepath) {
+        cy.contains("SỬA HỢP ĐỒNG")
+            .click({ force: true })
+        cy.contains(contractName).parent().parent().within(() => {
+            cy.contains("Template").click({ force: true })
+        })
+        cy.contains("Import file").click();
+
+        cy.fixture(filepath, 'binary')
+            .then(Cypress.Blob.binaryStringToBlob)
+            .then(fileContent => {
+                cy
+                    .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_fileUpload')
+                    .attachFile({
+                        fileContent,
+                        fileName: fileName,
+                        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                        encoding: 'utf8'
+                    });
+                cy.contains("UPLOAD").click();
+                cy.contains("File kết quả").should('be.visible')
+                    .click()
+                cy.wait(3000);
+            })
+    };
+    findResultFile(dir) {
+        return cy.task('findResultFile', dir);
+    }
+    checkUploadResult(filename) {
+        return cy.task('readFile', filename);
+    };
     checkPackageAgent(mạng, brnGroup) {
         cy.contains("GÓI TIN ĐẠI LÝ").click({ force: true })
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator").select(mạng)
@@ -789,62 +884,59 @@ class Agent {
             .select(brnGroup);
         return cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click().then(() => {
-                let packageInfo={
-                    total:"",
-                    used:"",
-                    remain:""
+                let packageInfo = {
+                    total: "",
+                    used: "",
+                    remain: ""
                 }
                 cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(8)").invoke('text').then((text) => {
                     // cy.log(parseInt(text));
-                    packageInfo.total=parseInt(text);
+                    packageInfo.total = parseInt(text);
                 })
                 cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(15)").invoke('text').then((text) => {
-                    packageInfo.used= parseInt(text);
+                    packageInfo.used = parseInt(text);
                 })
                 cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(16)").invoke('text').then((text) => {
-                    packageInfo.remain= parseInt(text);
+                    packageInfo.remain = parseInt(text);
                 })
-              .then(()=>{
-                  return packageInfo;
-              })
+                    .then(() => {
+                        return packageInfo;
+                    })
             })
     }
     checkPackageCustomer(adserName, mạng, brnGroup, packageName) {
-        cy.contains("GÓI TIN KH THƯỜNG").click({force:true});
+        cy.contains("GÓI TIN KH THƯỜNG").click({ force: true });
         cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAdser")
-        .select(adserName)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator")
-        .select(mạng)
-        .wait(500)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLableType")
-        .select(brnGroup)
-        .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtPackageName")
-        .type(packageName)
+            .select(adserName)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlOperator")
+            .select(mạng)
+            .wait(500)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlLableType")
+            .select(brnGroup)
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtPackageName")
+            .type(packageName)
         return cy.get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
-        .click().then(()=>{
-            let packageInfo={
-                total:"",
-                used:"",
-                remain:""
-            }
-            cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(9)").invoke('text').then((text)=>{
-                packageInfo.total=parseInt(text);
+            .click().then(() => {
+                let packageInfo = {
+                    total: "",
+                    used: "",
+                    remain: ""
+                }
+                cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(9)").invoke('text').then((text) => {
+                    packageInfo.total = parseInt(text);
+                })
+                cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(16)").invoke('text').then((text) => {
+                    packageInfo.used = parseInt(text);
+                })
+                cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(17)").invoke('text').then((text) => {
+                    packageInfo.remain = parseInt(text);
+                }).then(() => {
+                    return packageInfo;
+                })
             })
-            cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(16)").invoke('text').then((text)=>{
-                packageInfo.used=parseInt(text);
-            })
-            cy.get(".tbl>tbody>tr:nth-child(2)>td:nth-child(17)").invoke('text').then((text)=>{
-                packageInfo.remain=parseInt(text);
-            }).then(()=>{
-                return packageInfo;
-            })
-        })
 
     }
-    readErrorFile(text) {
-        cy.get(`@${text}`)
-        return cy.readFile(`Downloads\\${text.concat("_thue_bao_loi")}`);
-    };
+
 
     request_get_adser(url, agentID, apiUsername, apiPassword) {
         return cy.request("POST", url, __.get_adser(agentID, apiUsername, apiPassword));
@@ -859,13 +951,13 @@ class Agent {
 
     };
 
-    request_create_template_CSKH(url, agentID, labelID, content, samplemessage, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, __.create_template_CSKH(agentID, labelID, content, samplemessage, apiUsername, apiPassword, username))
+    request_create_template_CSKH(url, agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username) {
+        return cy.request("POST", url, __.create_template_CSKH(agentID, contractID, label, content, samplemessage, apiUsername, apiPassword, username))
 
     };
 
-    request_create_template_QC(url, agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username) {
-        return cy.request("POST", url, __.create_template_QC(agentID, contractID, brn, templateContent, totalParams, apiUsername, apiPassword, username))
+    request_create_template_QC(url, agentID, contractID, label, content, totalParams, apiUsername, apiPassword, username) {
+        return cy.request("POST", url, __.create_template_QC(agentID, contractID, label, content, totalParams, apiUsername, apiPassword, username))
 
     };
 
@@ -907,6 +999,79 @@ class Agent {
             , dataCoding));
 
     };
+    
+    request_send_sms_list_bank(
+        url,
+        reqIDBank
+        ,brnID
+        , contracTypeID
+        , contractID
+        , templateID
+        , numberOfParams
+        , content
+        , scheduletime
+        , mobilelist
+        , istelcosub
+        , agentID
+        , apiUsername
+        , apiPassword
+        , username
+        , dataCoding){
+            return cy.request("POST", url, __.send_sms_list_bank(
+                reqIDBank
+                ,brnID
+                , contracTypeID
+                , contractID
+                , templateID
+                , numberOfParams
+                , content
+                , scheduletime
+                , mobilelist
+                , istelcosub
+                , agentID
+                , apiUsername
+                , apiPassword
+                , username
+                , dataCoding));
+    
+    }
+
+    request_send_sms_list_ENCRYPTED(
+        url,
+        brnID
+        , contracTypeID
+        , contractID
+        , templateID
+        , numberOfParams
+        , content
+        , scheduletime
+        , mobilelist
+        , istelcosub
+        , agentID
+        , apiUsername
+        , apiPassword
+        , username
+        , dataCoding
+        , encrypted
+    ) {
+        return cy.request("POST", url, __.send_sms_list_ENCRYPTED(
+            brnID
+            , contracTypeID
+            , contractID
+            , templateID
+            , numberOfParams
+            , content
+            , scheduletime
+            , mobilelist
+            , istelcosub
+            , agentID
+            , apiUsername
+            , apiPassword
+            , username
+            , dataCoding
+            , encrypted
+        ))
+    }
 
     request_send_sms_SMSORDER(
         url
@@ -946,13 +1111,16 @@ class Agent {
     }
     assertRespone(res, errCode) {
         if (errCode == 0) {
+            console.log(res)
             expect(res.status).to.equal(200);
             expect(res.body["RPLY"]["ERROR"]).to.equal('0');
-            expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success");
+            res.body["RPLY"]["ERROR_DESC"] == "Success" ? expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("Success") : expect(res.body["RPLY"]["ERROR_DESC"]).to.equal("success")
         }
         else {
+            console.log(res)
             expect(res.body["RPLY"]["ERROR"]).to.equal(`${errCode}`);
         }
+        return res;
     };
     //-----------------------------------------------------------------------------------------------------//
     //----------------------------------In Progress--------------------------------------------------------//

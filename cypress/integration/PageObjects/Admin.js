@@ -22,18 +22,18 @@ class Admin {
         cy
             .contains("DUYỆT NHÃN").click({ force: true })
         cy
+            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
+            .select(agentName);
+        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_txtKeyword")
             .as("brnTextbox")
         cy
             .get("@brnTextbox")
             .type(brn)
         cy
-            .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAgent")
-            .select(agentName);
-        cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlStatus")
             .select(currentStatus)
-        cy.wait(5000);
+        cy.wait(3000);
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch").as("searchBtn")
         cy
@@ -44,11 +44,11 @@ class Admin {
         cy
             .get("@chooseThisBrn")
             .click()
-        cy.wait(5000);
+        cy.wait(3000);
         cy
             .get('#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnApprove')
             .click();
-        cy.wait(5000);
+        cy.wait(3000);
         cy
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
         return this;
@@ -174,14 +174,14 @@ class Admin {
             .type(vinaphoneKeyword)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
-            .wait(1000)
+            .wait(100)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnEditKeyword")
             .click()
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_txtKeyword")
             .type(" auto edited")
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_chkbox")
             .check()
-            .wait(5000)
+            .wait(100)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnOK > img")
             .click({ force: true })
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_lbInfo")
@@ -199,13 +199,13 @@ class Admin {
             .type(vinaphoneKeyword)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_btnSearch")
             .click()
-            .wait(5000)
+            .wait(100)
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_lblKeyword")
             .as("keywordFound")
         cy
             .get("@keywordFound")
             .invoke('text').then((text) => {
-                if (text === vinaphoneKeyword) {
+                if (text.includes(vinaphoneKeyword)) {
                     cy
                         .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_GridView1_ctl02_btnDeleteKeyword")
                         .click()
@@ -578,8 +578,6 @@ class Admin {
             .get("#ctl00_ContentPlaceHolder2_PlaceHolder_ctl00_ddlAG")
             .select(agentName);
         //cần interact với table ở đây. Nếu tên agentuseraccount trùng thì sẽ edit
-
-
     };
 
     changeAgentUserAccountPassword() {

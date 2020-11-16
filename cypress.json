@@ -1,5 +1,7 @@
 {
-  "viewportHeight":1080,
-  "viewportWidth": 1920,
-  "projectId": "rzbkta"
+  "viewportHeight":768,
+  "viewportWidth": 1366,
+  "projectId": "rzbkta",
+  "defaultCommandTimeout":5000,
+  "pageLoadTimeout":15000
 }
